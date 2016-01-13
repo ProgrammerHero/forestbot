@@ -1,7 +1,12 @@
--- begin awesome script
+--------------------------------------------------------------------------------
+-- forestbot.lua
+-- Aegeus, ProgrammerHero
+-- 2016
+--------------------------------------------------------------------------------
 
-echo("init fbot v2")
-
+--------------------------------------------------------------------------------
+-- Central bot state machine
+--------------------------------------------------------------------------------
 bot = { needs={},
         health=0,
         energy=0,
@@ -10,10 +15,20 @@ bot = { needs={},
 
         friends={},
         items={}
- }
+      }
 
+--------------------------------------------------------------------------------
+-- Initializer function.  Will be executed on script load, should be used to
+-- set initial state or reset original state.
+--------------------------------------------------------------------------------
 function bot.init()
+  echo("forestbot main script loaded")
 end
+
+--------------------------------------------------------------------------------
+-- Bot essential needs functions, all the functions required to keep this bot
+-- health while not in combat.
+--------------------------------------------------------------------------------
 
 function bot.needs.eatfood(amount)
   -- find my food stuffs
@@ -39,6 +54,11 @@ function bot.needs.selfheal(amount)
 
 end
 
+--------------------------------------------------------------------------------
+-- Bot inventory functions.  Used to manage the bot's items so it can make more
+-- intelligent decisions
+--------------------------------------------------------------------------------
+
 function bot.items.setCoins(coins, weight)
   bot.items.coins = coins
 end
@@ -53,5 +73,9 @@ end
 function bot.items.addLineItems(items)
   echo table.concat(items, " ")
 end
+
+--------------------------------------------------------------------------------
+-- Script start.
+--------------------------------------------------------------------------------
 
 bot.init()
