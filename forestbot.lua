@@ -1,0 +1,1 @@
+-- begin awesome script
