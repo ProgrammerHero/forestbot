@@ -7,14 +7,18 @@
 --------------------------------------------------------------------------------
 -- Central bot state machine
 --------------------------------------------------------------------------------
-bot = { needs={},
-        health=0,
+bot = { health=0,
         energy=0,
         moves=0,
         stance="",
 
+        -- tables for functions
+        score={},
+        ident={},
+        needs={},
         friends={},
-        items={}
+        items={},
+        map={}
       }
 
 --------------------------------------------------------------------------------
@@ -26,8 +30,27 @@ function bot.init()
 end
 
 --------------------------------------------------------------------------------
+-- Bot identity/score functions.
+--------------------------------------------------------------------------------
+
+-- is this useful at all? - Jason
+function bot.score.updateScore()
+  echo ">score"
+  enableTrigger("score")
+  bot.score = {}
+  send("score")
+end
+
+function bot.ident.updateIdentity()
+  echo ">identity"
+  enableTrigger("identity")
+  bot.ident = {}
+  send("identity")
+end
+
+--------------------------------------------------------------------------------
 -- Bot essential needs functions, all the functions required to keep this bot
--- health while not in combat.
+-- healthy while not in combat.
 --------------------------------------------------------------------------------
 
 function bot.needs.eatfood(amount)
@@ -36,7 +59,7 @@ function bot.needs.eatfood(amount)
 end
 
 function bot.needs.drink(amount)
-
+  -- note: cauldrons, fountains can be drunk
 end
 
 function bot.needs.sleep(seconds)
@@ -59,10 +82,6 @@ end
 -- intelligent decisions
 --------------------------------------------------------------------------------
 
-function bot.items.setCoins(coins, weight)
-  bot.items.coins = coins
-end
-
 function bot.items.updateInventory()
   echo ">inventory"
   enableTrigger("inventory")
@@ -70,8 +89,22 @@ function bot.items.updateInventory()
   send("inventory")
 end
 
+function bot.items.setCoins(coins, weight)
+  echo(">Set items.coins = " .. coins)
+  bot.items.coins = coins
+end
+
 function bot.items.addLineItems(items)
-  echo table.concat(items, " ")
+  --echo table.concat(items, " ")
+end
+
+function bot.items.setCarriedWeight(weight, encumbrance)
+  bot.weight = weight
+  bot.encumbrance = encumbrance
+end
+
+function bot.items.setWornWeight(weight)
+  bot.weight = bot.weight + weight -- should this be separated? - Jason
 end
 
 --------------------------------------------------------------------------------
