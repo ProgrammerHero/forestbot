@@ -225,10 +225,10 @@
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>items</name>
-                <script></script>
+                <script>echo(&quot;yo!&quot;)</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
-                <mStayOpen>0</mStayOpen>
+                <mStayOpen>80</mStayOpen>
                 <mCommand></mCommand>
                 <packageName></packageName>
                 <mFgColor>#ff0000</mFgColor>
@@ -237,14 +237,15 @@
                 <colorTriggerFgColor>#000000</colorTriggerFgColor>
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList>
-                    <string>(?:\-*\s*)+</string>
+                    <string>----                          ---  ---   ----                          ---  ---</string>
                 </regexCodeList>
                 <regexCodePropertyList>
-                    <integer>1</integer>
+                    <integer>3</integer>
                 </regexCodePropertyList>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                    <name>item</name>
-                    <script>bot.items.addLineItems(matches)</script>
+                    <name>one-item line</name>
+                    <script>bot.items.addLineItem(matches[2], tonumber(matches[3]), tonumber(matches[4]))
+</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -256,7 +257,29 @@
                     <colorTriggerFgColor>#000000</colorTriggerFgColor>
                     <colorTriggerBgColor>#000000</colorTriggerBgColor>
                     <regexCodeList>
-                        <string>(?:((?:\S+\s)+)\s*(\d+)\s+([0-9.]+)\s*)</string>
+                        <string>^((?:\s?\S+)+)\s+(\d+)\s+([0-9.]+)$</string>
+                    </regexCodeList>
+                    <regexCodePropertyList>
+                        <integer>1</integer>
+                    </regexCodePropertyList>
+                </Trigger>
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <name>two-item line</name>
+                    <script>bot.items.addLineItem(matches[2], tonumber(matches[3]), tonumber(matches[4]))
+bot.items.addLineItem(matches[5], tonumber(matches[6]), tonumber(matches[7]))
+</script>
+                    <triggerType>0</triggerType>
+                    <conditonLineDelta>0</conditonLineDelta>
+                    <mStayOpen>0</mStayOpen>
+                    <mCommand></mCommand>
+                    <packageName></packageName>
+                    <mFgColor>#ff0000</mFgColor>
+                    <mBgColor>#ffff00</mBgColor>
+                    <mSoundFile></mSoundFile>
+                    <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                    <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                    <regexCodeList>
+                        <string>^((?:\s?\S+)+)\s+(\d+)\s+([0-9.]+)\s+((?:\s?\S+)+)\s+(\d+)\s+([0-9.]+)$</string>
                     </regexCodeList>
                     <regexCodePropertyList>
                         <integer>1</integer>
@@ -277,7 +300,7 @@
                 <colorTriggerFgColor>#000000</colorTriggerFgColor>
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList>
-                    <string>Carried:\s*([0-9\.]+)+ lbs\s*\(([a-zA-Z]*)\)</string>
+                    <string>^\s*Carried:\s*([0-9\.]+)+ lbs\s*\(([a-zA-Z]*)\)</string>
                 </regexCodeList>
                 <regexCodePropertyList>
                     <integer>1</integer>
@@ -297,15 +320,16 @@
                 <colorTriggerFgColor>#000000</colorTriggerFgColor>
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList>
-                    <string>Worn:\s*([0-9\.]+) lbs</string>
+                    <string>^\s*Worn:\s*([0-9\.]+) lbs</string>
                 </regexCodeList>
                 <regexCodePropertyList>
                     <integer>1</integer>
                 </regexCodePropertyList>
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                <name>cleanup</name>
-                <script>disableTrigger(&quot;inventory&quot;)</script>
+                <name>number</name>
+                <script>disableTrigger(&quot;inventory&quot;)
+echo(&quot;\n\n&gt;&gt;Inventory:\n&quot; .. inspect(bot.inventory))</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -317,10 +341,10 @@
                 <colorTriggerFgColor>#000000</colorTriggerFgColor>
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList>
-                    <string>.</string>
+                    <string>^\s+Number:\s+(\d+)\s+\( Max = (\d+) \)</string>
                 </regexCodeList>
                 <regexCodePropertyList>
-                    <integer>0</integer>
+                    <integer>1</integer>
                 </regexCodePropertyList>
             </Trigger>
         </TriggerGroup>
