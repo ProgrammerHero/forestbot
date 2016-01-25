@@ -521,11 +521,38 @@ if r ~= nil then display(r) end</script>
             </Alias>
         </AliasGroup>
         <Alias isActive="yes" isFolder="no">
+            <name>Initialize Paths - Jason</name>
+            <script>-- Alias to initialize Jason's machine-dependant paths
+
+repoPath = &quot;C:\\cygwin64\\home\\Jason\\forestbot&quot;
+dofile(repoPath .. &quot;\\forestbot.lua&quot;)</script>
+            <command></command>
+            <packageName></packageName>
+            <regex>initj</regex>
+        </Alias>
+        <Alias isActive="yes" isFolder="no">
+            <name>Initialize Paths - Owen</name>
+            <script>-- Alias to initialize Owen's machine-dependant paths
+
+repoPath = &quot;C:\\Users\\odavison\\Documents\\forestbot&quot;
+dofile(repoPath .. &quot;\\forestbot.lua&quot;)</script>
+            <command></command>
+            <packageName></packageName>
+            <regex>inito</regex>
+        </Alias>
+        <Alias isActive="yes" isFolder="no">
             <name>reload</name>
-            <script>dofile(&quot;C:\\cygwin64\\home\\Jason\\forestbot\\forestbot.lua&quot;)</script>
+            <script>dofile(repoPath .. &quot;\\forestbot.lua&quot;)</script>
             <command></command>
             <packageName></packageName>
             <regex>reload</regex>
+        </Alias>
+        <Alias isActive="yes" isFolder="no">
+            <name>reset</name>
+            <script>bot.reset()</script>
+            <command></command>
+            <packageName></packageName>
+            <regex>reset</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test inventory</name>

@@ -7,34 +7,62 @@
 --------------------------------------------------------------------------------
 -- Central bot state machine
 --------------------------------------------------------------------------------
-bot = { hits=0,
-        energy=0,
-        moves=0,
+bot = bot or {}
+bot.debug = true
 
-        maxHits=0,
-        maxEnergy=0,
-        maxMoves=0,
+bot.debugMessage = print
+bot.debugMessage = function(s) end
 
-        level=0,
-        xp=0,
+-- tables for functions
+bot.score = {}
+bot.ident = {}
+bot.needs = {}
+bot.friends = {}
+bot.items = {}
+bot.map = {}
 
-        stance="",
-
-        -- tables for functions
-        score={},
-        ident={},
-        needs={},
-        friends={},
-        items={},
-        map={}
-      }
+-- Set variables for running in the console
+echo = echo or print
+repoPath = repoPath or "C:\\Users\\odavison\\Documents\\forestbot"
 
 --------------------------------------------------------------------------------
--- Initializer function.  Will be executed on script load, should be used to
--- set initial state or reset original state.
+-- Initializer function.  Will be executed on first script load _only_.
+-- repoPath is a global that will be set from Mudlet
 --------------------------------------------------------------------------------
 function bot.init()
-  echo("forestbot main script loaded")
+  if bot.debug then
+    bot.debugMessage = print
+  else
+    bot.debugMessage = function(s) end
+  end
+
+  bot.debugMessage("bot.init()")
+
+  package.path = repoPath .. "\\inspect.lua\\?.lua;" .. package.path
+  inspect = require("inspect")
+
+  bot.reset()
+end
+
+--------------------------------------------------------------------------------
+-- Resets all bot state to initial values.
+--------------------------------------------------------------------------------
+function bot.reset()
+  bot.debugMessage("bot.reset()")
+  bot.status = {}
+
+  bot.status.hits = 0
+  bot.status.energy = 0
+  bot.status.moves = 0
+
+  bot.status.maxHits = 0
+  bot.status.maxMoves = 0
+
+  bot.status.level = 0
+  bot.status.xp = 0
+
+  bot.status.stance = ""
+
   -- should probably init inventory here
   -- and stats
 end
@@ -46,14 +74,14 @@ end
 -- is this useful at all? - Jason
 --[[
            Items: 7/75             Weight: 11/436              Age: 20 years
-      Quest Pnts: 0           Gossip Pnts: 73            Hit Regen: 0.0     
-   Practice Pnts: 25             Aptitude: Genius        Ene Regen: 0.0      
+      Quest Pnts: 0           Gossip Pnts: 73            Hit Regen: 0.0
+   Practice Pnts: 25             Aptitude: Genius        Ene Regen: 0.0
          Hitroll: +2.00           Damroll: +1.00          Mv Regen: 0.0
 
       Str: 15(15)   Int:  9( 9)   Wis:  9( 9)   Dex: 15(15)   Con: 19(19)
 
-         Magic: -9%        Fire: -21%       Cold: +4%        Mind: -7%  
-      Electric: +9%        Acid: +17%     Poison: +21% 
+         Magic: -9%        Fire: -21%       Cold: +4%        Mind: -7%
+      Electric: +9%        Acid: +17%     Poison: +21%
 
             Coins: 5 sp.
          Position: [ mortally wounded ]    Condition: [ sober hungry thirsty ]
@@ -65,23 +93,23 @@ function bot.score.updateScore()
 end
 
 function bot.score.setLevelXP(level, xp)
-  bot.level = level
-  bot.xp = xp
+  bot.status.level = level
+  bot.status.xp = xp
 end
 
 function bot.score.setHits(hits, maxHits)
-  bot.hits = hits
-  bots.maxHits = maxHits
+  bot.status.hits = hits
+  bots.status.maxHits = maxHits
 end
 
 function bot.score.setEnergy(energy, maxEnergy)
-  bot.energy = energy
-  bot.maxEnergy = maxEnergy
+  bot.status.energy = energy
+  bot.status.maxEnergy = maxEnergy
 end
 
 function bot.score.setMoves(moves, maxMoves)
-  bot.moves = moves
-  bots.maxMoves = maxMoves
+  bot.status.moves = moves
+  bots.status.maxMoves = maxMoves
 end
 
 function bot.ident.updateIdentity()
