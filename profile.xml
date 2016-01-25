@@ -2,7 +2,7 @@
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.0">
     <HostPackage>
-        <Host autoClearCommandLineAfterSend="no" disableAutoCompletion="no" printCommand="yes" USE_IRE_DRIVER_BUGFIX="yes" mUSE_FORCE_LF_AFTER_PROMPT="no" mUSE_UNIX_EOL="no" mNoAntiAlias="no" mRawStreamDump="no" mAlertOnNewData="yes" mFORCE_NO_COMPRESSION="no" mFORCE_GA_OFF="no" mFORCE_SAVE_ON_EXIT="no" mEnableGMCP="no" mEnableMSDP="no" mMapStrongHighlight="no" mLogStatus="no" mEnableSpellCheck="yes" mShowInfo="yes" mAcceptServerGUI="yes" mMapperUseAntiAlias="yes" mFORCE_MXP_NEGOTIATION_OFF="no" mRoomSize="0.5" mLineSize="5" mBubbleMode="yes" mShowRoomIDs="yes" mShowPanel="yes" mHaveMapperScript="no" mDoubleClickIgnore="&quot;'">
+        <Host autoClearCommandLineAfterSend="no" disableAutoCompletion="no" printCommand="yes" USE_IRE_DRIVER_BUGFIX="yes" mUSE_FORCE_LF_AFTER_PROMPT="no" mUSE_UNIX_EOL="no" mNoAntiAlias="no" mRawStreamDump="no" mAlertOnNewData="yes" mFORCE_NO_COMPRESSION="no" mFORCE_GA_OFF="no" mFORCE_SAVE_ON_EXIT="no" mEnableGMCP="no" mEnableMSDP="no" mMapStrongHighlight="no" mLogStatus="no" mEnableSpellCheck="yes" mShowInfo="yes" mAcceptServerGUI="yes" mMapperUseAntiAlias="yes" mFORCE_MXP_NEGOTIATION_OFF="no" mRoomSize="0.5" mLineSize="5" mBubbleMode="yes" mShowRoomIDs="yes" mShowPanel="yes" mHaveMapperScript="no" mDoubleClickIgnore="'&quot;">
             <name>theforestsedge</name>
             <mInstalledPackages>
                 <string>deleteOldProfiles</string>
@@ -187,7 +187,7 @@
                 </regexCodePropertyList>
             </Trigger>
         </TriggerGroup>
-        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+        <TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>inventory</name>
             <script></script>
             <triggerType>0</triggerType>
@@ -204,7 +204,7 @@
             <regexCodePropertyList/>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>coins</name>
-                <script>--bot.items.setCoins(tonumber(matches[2]), tonumber(matches[3]))
+                <script>bot.items.setCoins(tonumber(matches[2]), tonumber(matches[3]))
 </script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
@@ -285,8 +285,7 @@
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>worn weight</name>
-                <script>bot.items.setWornWeight(matches[2])
-disableTrigger(&quot;inventory&quot;)</script>
+                <script>bot.items.setWornWeight(tonumber(matches[2]))</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -302,6 +301,26 @@ disableTrigger(&quot;inventory&quot;)</script>
                 </regexCodeList>
                 <regexCodePropertyList>
                     <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>cleanup</name>
+                <script>disableTrigger(&quot;inventory&quot;)</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>.</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>0</integer>
                 </regexCodePropertyList>
             </Trigger>
         </TriggerGroup>
@@ -363,6 +382,69 @@ echo(&quot;postinit&quot;)</script>
             <colorTriggerBgColor>#000000</colorTriggerBgColor>
             <regexCodeList/>
             <regexCodePropertyList/>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>level</name>
+                <script>bot.score.setLevelXP(tonumber(matches[2]), tonumber(matches[3]))</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^\s*Level: (\d*)\s*Exp.Lvl: (\d*)</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>hits_energy_moves</name>
+                <script>bot.score.setHits(tonumber(matches[2]), tonumber(matches[3]))
+bot.score.setEnergy(tonumber(matches[4]), tonumber(matches[5]))
+bot.score.setMoves(tonumber(matches[6]), tonumber(matches[7]))
+</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^\s*Hits: (\d*)/(\d*)\s*Energy: (\d*)/(\d*)\s*Moves: (\d*)/(\d*)</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>0</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>cleanup</name>
+                <script>disableTrigger(&quot;score&quot;)</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>.</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
         </TriggerGroup>
         <TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>identity</name>
@@ -451,6 +533,20 @@ if r ~= nil then display(r) end</script>
             <command></command>
             <packageName></packageName>
             <regex>testInv</regex>
+        </Alias>
+        <Alias isActive="yes" isFolder="no">
+            <name>test score</name>
+            <script>bot.items.updateScore()</script>
+            <command></command>
+            <packageName></packageName>
+            <regex>testScore</regex>
+        </Alias>
+        <Alias isActive="yes" isFolder="no">
+            <name>test ident</name>
+            <script>bot.items.updateIdentity()</script>
+            <command></command>
+            <packageName></packageName>
+            <regex>testIdent</regex>
         </Alias>
     </AliasPackage>
     <ActionPackage/>

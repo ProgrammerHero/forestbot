@@ -7,9 +7,17 @@
 --------------------------------------------------------------------------------
 -- Central bot state machine
 --------------------------------------------------------------------------------
-bot = { health=0,
+bot = { hits=0,
         energy=0,
         moves=0,
+
+        maxHits=0,
+        maxEnergy=0,
+        maxMoves=0
+
+        level=0,
+        xp=0,
+
         stance="",
 
         -- tables for functions
@@ -27,6 +35,8 @@ bot = { health=0,
 --------------------------------------------------------------------------------
 function bot.init()
   echo("forestbot main script loaded")
+  -- should probably init inventory here
+  -- and stats
 end
 
 --------------------------------------------------------------------------------
@@ -34,17 +44,48 @@ end
 --------------------------------------------------------------------------------
 
 -- is this useful at all? - Jason
+--[[
+           Items: 7/75             Weight: 11/436              Age: 20 years
+      Quest Pnts: 0           Gossip Pnts: 73            Hit Regen: 0.0     
+   Practice Pnts: 25             Aptitude: Genius        Ene Regen: 0.0      
+         Hitroll: +2.00           Damroll: +1.00          Mv Regen: 0.0
+
+      Str: 15(15)   Int:  9( 9)   Wis:  9( 9)   Dex: 15(15)   Con: 19(19)
+
+         Magic: -9%        Fire: -21%       Cold: +4%        Mind: -7%  
+      Electric: +9%        Acid: +17%     Poison: +21% 
+
+            Coins: 5 sp.
+         Position: [ mortally wounded ]    Condition: [ sober hungry thirsty ]
+
+             [Also try the command identity for more information.]--]]
 function bot.score.updateScore()
-  echo ">score"
   enableTrigger("score")
-  bot.score = {}
   send("score")
 end
 
+function bot.score.setLevelXP(level, xp)
+  bot.level = level
+  bot.xp = xp
+end
+
+function bot.score.setHits(hits, maxHits)
+  bot.hits = hits
+  bots.maxHits = maxHits
+end
+
+function bot.score.setEnergy(energy, maxEnergy)
+  bot.energy = energy
+  bot.maxEnergy = maxEnergy
+end
+
+function bot.score.setMoves(moves, maxMoves)
+  bot.moves = moves
+  bots.maxMoves = maxMoves
+end
+
 function bot.ident.updateIdentity()
-  echo ">identity"
   enableTrigger("identity")
-  bot.ident = {}
   send("identity")
 end
 
@@ -83,9 +124,7 @@ end
 --------------------------------------------------------------------------------
 
 function bot.items.updateInventory()
-  echo ">inventory"
   enableTrigger("inventory")
-  bot.items = {}
   send("inventory")
 end
 
@@ -98,13 +137,13 @@ function bot.items.addLineItems(items)
   --echo table.concat(items, " ")
 end
 
-function bot.items.setCarriedWeight(weight, encumbrance)
-  bot.weight = weight
+function bot.items.setCarriedWeight(carried, encumbrance)
+  bot.weight = carried
   bot.encumbrance = encumbrance
 end
 
-function bot.items.setWornWeight(weight)
-  bot.weight = bot.weight + weight -- should this be separated? - Jason
+function bot.items.setWornWeight(worn)
+  bot.weight = bot.weight + worn -- should this be separated? - Jason
 end
 
 --------------------------------------------------------------------------------
