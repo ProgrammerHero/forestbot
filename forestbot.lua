@@ -13,7 +13,7 @@ bot = { hits=0,
 
         maxHits=0,
         maxEnergy=0,
-        maxMoves=0
+        maxMoves=0,
 
         level=0,
         xp=0,
