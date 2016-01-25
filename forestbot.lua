@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- Central bot state machine
+-- Central bot namespace
 --------------------------------------------------------------------------------
 bot = bot or {}
 bot.debug = true
@@ -20,14 +20,15 @@ bot.needs = {}
 bot.friends = {}
 bot.items = {}
 bot.map = {}
+bot.util = {}
 
 -- Set variables for running in the console
 echo = echo or print
 repoPath = repoPath or "C:\\Users\\odavison\\Documents\\forestbot"
 
 --------------------------------------------------------------------------------
--- Initializer function.  Will be executed on first script load _only_.
--- repoPath is a global that will be set from Mudlet
+-- Initializer function.  Will be executed when this script file is loaded.
+-- repoPath is a global that should be set from Mudlet
 --------------------------------------------------------------------------------
 function bot.init()
   if bot.debug then
@@ -152,6 +153,7 @@ end
 --------------------------------------------------------------------------------
 
 function bot.items.updateInventory()
+  bot.inventory = {}
   enableTrigger("inventory")
   send("inventory")
 end
@@ -161,8 +163,8 @@ function bot.items.setCoins(coins, weight)
   bot.items.coins = coins
 end
 
-function bot.items.addLineItems(items)
-  --echo table.concat(items, " ")
+function bot.items.addLineItem(name, number, weight)
+  bot.inventory[#bot.inventory + 1] = {name, number, weight}
 end
 
 function bot.items.setCarriedWeight(carried, encumbrance)
@@ -174,6 +176,14 @@ function bot.items.setWornWeight(worn)
   bot.weight = bot.weight + worn -- should this be separated? - Jason
 end
 
+
+--------------------------------------------------------------------------------
+-- Remove leading and trailing whitespace from string s.
+-- See http://lua-users.org/wiki/StringTrim  (trim6)
+--------------------------------------------------------------------------------
+function bot.util.trim(s)
+  return s:match'^()%s*$' and '' or s:match'^%s*(.*%S)'
+end
 --------------------------------------------------------------------------------
 -- Script start.
 --------------------------------------------------------------------------------
