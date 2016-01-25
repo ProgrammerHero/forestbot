@@ -24,11 +24,9 @@ bot.util = {}
 
 -- Set variables for running in the console
 echo = echo or print
-repoPath = repoPath or "C:\\Users\\odavison\\Documents\\forestbot"
 
 --------------------------------------------------------------------------------
 -- Initializer function.  Will be executed when this script file is loaded.
--- repoPath is a global that should be set from Mudlet
 --------------------------------------------------------------------------------
 function bot.init()
   if bot.debug then
@@ -39,7 +37,7 @@ function bot.init()
 
   bot.debugMessage("bot.init()")
 
-  package.path = repoPath .. "\\inspect.lua\\?.lua;" .. package.path
+  package.path = os.getenv("forestbot_path") .. "\\inspect.lua\\?.lua;" .. package.path
   inspect = require("inspect")
 
   bot.reset()

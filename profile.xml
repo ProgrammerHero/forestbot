@@ -2,7 +2,7 @@
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.0">
     <HostPackage>
-        <Host autoClearCommandLineAfterSend="no" disableAutoCompletion="no" printCommand="yes" USE_IRE_DRIVER_BUGFIX="yes" mUSE_FORCE_LF_AFTER_PROMPT="no" mUSE_UNIX_EOL="no" mNoAntiAlias="no" mRawStreamDump="no" mAlertOnNewData="yes" mFORCE_NO_COMPRESSION="no" mFORCE_GA_OFF="no" mFORCE_SAVE_ON_EXIT="no" mEnableGMCP="no" mEnableMSDP="no" mMapStrongHighlight="no" mLogStatus="no" mEnableSpellCheck="yes" mShowInfo="yes" mAcceptServerGUI="yes" mMapperUseAntiAlias="yes" mFORCE_MXP_NEGOTIATION_OFF="no" mRoomSize="0.5" mLineSize="5" mBubbleMode="yes" mShowRoomIDs="yes" mShowPanel="yes" mHaveMapperScript="no" mDoubleClickIgnore="'&quot;">
+        <Host autoClearCommandLineAfterSend="no" disableAutoCompletion="no" printCommand="yes" USE_IRE_DRIVER_BUGFIX="yes" mUSE_FORCE_LF_AFTER_PROMPT="no" mUSE_UNIX_EOL="no" mNoAntiAlias="no" mRawStreamDump="no" mAlertOnNewData="yes" mFORCE_NO_COMPRESSION="no" mFORCE_GA_OFF="no" mFORCE_SAVE_ON_EXIT="no" mEnableGMCP="no" mEnableMSDP="no" mMapStrongHighlight="no" mLogStatus="no" mEnableSpellCheck="yes" mShowInfo="yes" mAcceptServerGUI="yes" mMapperUseAntiAlias="yes" mFORCE_MXP_NEGOTIATION_OFF="no" mRoomSize="0.5" mLineSize="5" mBubbleMode="yes" mShowRoomIDs="yes" mShowPanel="yes" mHaveMapperScript="no" mDoubleClickIgnore="&quot;'">
             <name>theforestsedge</name>
             <mInstalledPackages>
                 <string>deleteOldProfiles</string>
@@ -329,7 +329,8 @@ bot.items.addLineItem(matches[5], tonumber(matches[6]), tonumber(matches[7]))
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>number</name>
                 <script>disableTrigger(&quot;inventory&quot;)
-echo(&quot;\n\n&gt;&gt;Inventory:\n&quot; .. inspect(bot.inventory))</script>
+echo(&quot;\n\n&gt;&gt;Inventory:\n&quot;)
+display(bot.inventory)</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -408,7 +409,8 @@ echo(&quot;postinit&quot;)</script>
             <regexCodePropertyList/>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>level</name>
-                <script>bot.score.setLevelXP(tonumber(matches[2]), tonumber(matches[3]))</script>
+                <script>bot.score.setLevel(tonumber(matches[2]))
+bot.score.setXP(tonumber(matches[3]))</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -463,10 +465,10 @@ bot.score.setMoves(tonumber(matches[6]), tonumber(matches[7]))
                 <colorTriggerFgColor>#000000</colorTriggerFgColor>
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList>
-                    <string>.</string>
+                    <string>             [Also try the command identity for more information.]</string>
                 </regexCodeList>
                 <regexCodePropertyList>
-                    <integer>1</integer>
+                    <integer>3</integer>
                 </regexCodePropertyList>
             </Trigger>
         </TriggerGroup>
@@ -486,6 +488,29 @@ bot.score.setMoves(tonumber(matches[6]), tonumber(matches[7]))
             <regexCodeList/>
             <regexCodePropertyList/>
         </TriggerGroup>
+        <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>Prompt</name>
+            <script>bot.score.setHits(tonumber(matches[2]), tonumber(matches[3]))
+bot.score.setEnergy(tonumber(matches[4]), tonumber(matches[5]))
+bot.score.setMoves(tonumber(matches[6]), tonumber(matches[7]))
+bot.score.setLevelXP(0, tonumber(matches[8]))</script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList>
+                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? (\d*)xp(?: (\d*)\/(\d*)hp)?.*&gt;</string>
+            </regexCodeList>
+            <regexCodePropertyList>
+                <integer>1</integer>
+            </regexCodePropertyList>
+        </Trigger>
     </TriggerPackage>
     <TimerPackage/>
     <AliasPackage>
@@ -545,28 +570,8 @@ if r ~= nil then display(r) end</script>
             </Alias>
         </AliasGroup>
         <Alias isActive="yes" isFolder="no">
-            <name>Initialize Paths - Jason</name>
-            <script>-- Alias to initialize Jason's machine-dependant paths
-
-repoPath = &quot;C:\\cygwin64\\home\\Jason\\forestbot&quot;
-dofile(repoPath .. &quot;\\forestbot.lua&quot;)</script>
-            <command></command>
-            <packageName></packageName>
-            <regex>initj</regex>
-        </Alias>
-        <Alias isActive="yes" isFolder="no">
-            <name>Initialize Paths - Owen</name>
-            <script>-- Alias to initialize Owen's machine-dependant paths
-
-repoPath = &quot;C:\\Users\\odavison\\Documents\\forestbot&quot;
-dofile(repoPath .. &quot;\\forestbot.lua&quot;)</script>
-            <command></command>
-            <packageName></packageName>
-            <regex>inito</regex>
-        </Alias>
-        <Alias isActive="yes" isFolder="no">
             <name>reload</name>
-            <script>dofile(repoPath .. &quot;\\forestbot.lua&quot;)</script>
+            <script>dofile(os.getenv(&quot;forestbot_path&quot;) .. &quot;\\forestbot.lua&quot;)</script>
             <command></command>
             <packageName></packageName>
             <regex>reload</regex>
@@ -587,7 +592,7 @@ dofile(repoPath .. &quot;\\forestbot.lua&quot;)</script>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test score</name>
-            <script>bot.items.updateScore()</script>
+            <script>bot.score.updateScore()</script>
             <command></command>
             <packageName></packageName>
             <regex>testScore</regex>
