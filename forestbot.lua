@@ -60,6 +60,10 @@ function bot.reset()
   bot.status.level = 0
   bot.status.xp = 0
 
+  bot.status.weight = 0
+  bot.status.wornWeight = 0
+  bot.status.encumbrance = ""
+
   bot.status.stance = ""
 
   -- should probably init inventory here
@@ -166,12 +170,12 @@ function bot.items.addLineItem(name, number, weight)
 end
 
 function bot.items.setCarriedWeight(carried, encumbrance)
-  bot.weight = carried
-  bot.encumbrance = encumbrance
+  bot.status.weight = carried
+  bot.status.encumbrance = encumbrance
 end
 
 function bot.items.setWornWeight(worn)
-  bot.weight = bot.weight + worn -- should this be separated? - Jason
+  bot.status.wornWeight = worn
 end
 
 
