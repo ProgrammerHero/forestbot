@@ -102,7 +102,7 @@ end
 
 function bot.score.setHits(hits, maxHits)
   bot.status.hits = hits
-  bots.status.maxHits = maxHits
+  bot.status.maxHits = maxHits
 end
 
 function bot.score.setEnergy(energy, maxEnergy)
@@ -112,7 +112,7 @@ end
 
 function bot.score.setMoves(moves, maxMoves)
   bot.status.moves = moves
-  bots.status.maxMoves = maxMoves
+  bot.status.maxMoves = maxMoves
 end
 
 function bot.ident.updateIdentity()
