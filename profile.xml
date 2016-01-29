@@ -2,9 +2,14 @@
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.0">
     <HostPackage>
-        <Host autoClearCommandLineAfterSend="no" disableAutoCompletion="no" printCommand="yes" USE_IRE_DRIVER_BUGFIX="yes" mUSE_FORCE_LF_AFTER_PROMPT="no" mUSE_UNIX_EOL="no" mNoAntiAlias="no" mRawStreamDump="no" mAlertOnNewData="yes" mFORCE_NO_COMPRESSION="no" mFORCE_GA_OFF="no" mFORCE_SAVE_ON_EXIT="no" mEnableGMCP="no" mEnableMSDP="no" mMapStrongHighlight="no" mLogStatus="no" mEnableSpellCheck="yes" mShowInfo="yes" mAcceptServerGUI="yes" mMapperUseAntiAlias="yes" mFORCE_MXP_NEGOTIATION_OFF="no" mRoomSize="0.5" mLineSize="5" mBubbleMode="yes" mShowRoomIDs="yes" mShowPanel="yes" mHaveMapperScript="no" mDoubleClickIgnore="&quot;'">
+        <Host autoClearCommandLineAfterSend="no" disableAutoCompletion="no" printCommand="yes" USE_IRE_DRIVER_BUGFIX="yes" mUSE_FORCE_LF_AFTER_PROMPT="no" mUSE_UNIX_EOL="no" mNoAntiAlias="no" mRawStreamDump="no" mAlertOnNewData="yes" mFORCE_NO_COMPRESSION="no" mFORCE_GA_OFF="no" mFORCE_SAVE_ON_EXIT="no" mEnableGMCP="no" mEnableMSDP="no" mMapStrongHighlight="no" mLogStatus="no" mEnableSpellCheck="yes" mShowInfo="yes" mAcceptServerGUI="yes" mMapperUseAntiAlias="yes" mFORCE_MXP_NEGOTIATION_OFF="no" mRoomSize="0.5" mLineSize="5" mBubbleMode="yes" mShowRoomIDs="yes" mShowPanel="yes" mHaveMapperScript="no" mDoubleClickIgnore="'&quot;">
             <name>theforestsedge</name>
             <mInstalledPackages>
+                <string>deleteOldProfiles</string>
+                <string>echo</string>
+                <string>run-lua-code-v4</string>
+                <string>forestbotlua</string>
+                <string>profile</string>
                 <string>deleteOldProfiles</string>
                 <string>echo</string>
                 <string>run-lua-code-v4</string>
@@ -72,7 +77,7 @@
     </HostPackage>
     <TriggerPackage>
         <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-            <name>food/drink</name>
+            <name>needs</name>
             <script></script>
             <triggerType>0</triggerType>
             <conditonLineDelta>0</conditonLineDelta>
@@ -88,7 +93,8 @@
             <regexCodePropertyList/>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>a little hungry</name>
-                <script>bot.needs.eatfood(1)</script>
+                <script>bot.needs.hunger = 1
+bot.think()</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -108,7 +114,8 @@
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>normal hungry</name>
-                <script>bot.needs.eatfood(2)</script>
+                <script>bot.needs.hunger = 2
+bot.think()</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -128,7 +135,8 @@
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>very hungry</name>
-                <script>bot.needs.eatfood(3)</script>
+                <script>bot.needs.hunger = 3
+bot.think()</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -148,7 +156,8 @@
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>extremely hungry</name>
-                <script>bot.needs.eatfood(4)</script>
+                <script>bot.needs.hunger = 4
+bot.think()</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -168,7 +177,8 @@
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>thirsty</name>
-                <script>bot.needs.drink()</script>
+                <script>bot.needs.thirst = 1
+bot.think()</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -181,6 +191,27 @@
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList>
                     <string>Your throat feels dry.</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>0</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>sleep</name>
+                <script>bot.needs.tired = true
+bot.think()</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>sleep</string>
                 </regexCodeList>
                 <regexCodePropertyList>
                     <integer>0</integer>
@@ -242,7 +273,7 @@
                 <regexCodePropertyList>
                     <integer>3</integer>
                 </regexCodePropertyList>
-                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>one-item line</name>
                     <script>bot.items.addLineItem(matches[2], tonumber(matches[3]), tonumber(matches[4]))
 </script>
@@ -257,7 +288,7 @@
                     <colorTriggerFgColor>#000000</colorTriggerFgColor>
                     <colorTriggerBgColor>#000000</colorTriggerBgColor>
                     <regexCodeList>
-                        <string>^((?:\s?\S+)+)\s+(\d+)\s+([0-9.]+)$</string>
+                        <string>^((?:\s?\S+)+)\s+(\d+)\s+([0-9.]+)</string>
                     </regexCodeList>
                     <regexCodePropertyList>
                         <integer>1</integer>
@@ -330,7 +361,8 @@ bot.items.addLineItem(matches[5], tonumber(matches[6]), tonumber(matches[7]))
                 <name>number</name>
                 <script>disableTrigger(&quot;inventory&quot;)
 echo(&quot;\n\n&gt;&gt;Inventory:\n&quot;)
-display(bot.inventory)</script>
+display(bot.inventory)
+bot.needsThink = true</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -349,26 +381,6 @@ display(bot.inventory)</script>
                 </regexCodePropertyList>
             </Trigger>
         </TriggerGroup>
-        <Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-            <name>sleep</name>
-            <script></script>
-            <triggerType>0</triggerType>
-            <conditonLineDelta>0</conditonLineDelta>
-            <mStayOpen>0</mStayOpen>
-            <mCommand></mCommand>
-            <packageName></packageName>
-            <mFgColor>#ff0000</mFgColor>
-            <mBgColor>#ffff00</mBgColor>
-            <mSoundFile></mSoundFile>
-            <colorTriggerFgColor>#000000</colorTriggerFgColor>
-            <colorTriggerBgColor>#000000</colorTriggerBgColor>
-            <regexCodeList>
-                <string>sleep</string>
-            </regexCodeList>
-            <regexCodePropertyList>
-                <integer>0</integer>
-            </regexCodePropertyList>
-        </Trigger>
         <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>init</name>
             <script>-- will run on first login to &quot;the forests edge&quot;
@@ -606,69 +618,7 @@ if r ~= nil then display(r) end</script>
         </Alias>
     </AliasPackage>
     <ActionPackage/>
-    <ScriptPackage>
-        <ScriptGroup isActive="yes" isFolder="yes">
-            <name>deleteOldProfiles</name>
-            <packageName>deleteOldProfiles</packageName>
-            <script></script>
-            <eventHandlerList/>
-            <Script isActive="yes" isFolder="no">
-                <name>deleteOldProfiles</name>
-                <packageName></packageName>
-                <script>function deleteOldProfiles(keepdays_arg, delete_maps)
-
---[[
-	Deletes old profiles/maps in the &quot;current&quot;/&quot;map&quot; folders of the Mudlet home directory.
-	The following files are NOT deleted:
-	- Files newer than the amount of days specified as an argument to deleteOldProfiles(), or 31 days if not specified.	
-	- One file for every month before that. Specifically: The first available file of every month prior to this.
-	Setting the second argument to true will delete maps instead of profiles. (e.g. deleteOldProfiles(10, true))
---]]
-
-	local keepdays = tonumber(keepdays_arg) or 31
-	local profile_table = {}
-	local used_last_mod_months = {}
-	local slash = (string.char(getMudletHomeDir():byte()) == &quot;/&quot;) and &quot;/&quot; or &quot;\\&quot;
-	local dirpath = getMudletHomeDir()..slash..(delete_maps and &quot;map&quot; or &quot;current&quot;)
-	local delnum = 0
-
-	-- Traverse the profiles folder and create a table of files:
-	for filename in lfs.dir(dirpath) do
-		if filename~=&quot;.&quot; and filename~=&quot;..&quot; then
-			profile_table[#profile_table+1] = {name = filename, last_mod = lfs.attributes(dirpath..slash..filename, &quot;modification&quot;)}
-		end
-	end
-
-	-- Sort the table according to last modification date from old to new:
-	table.sort(profile_table, function (a,b) return a.last_mod &lt; b.last_mod end)
-
-	echo(string.format(&quot;\nDeleting old %s. Files newer than %d days and one profile for every month before that will be kept.&quot;, delete_maps and &quot;maps&quot; or &quot;profiles&quot;, keepdays))
-	for i,v in ipairs(profile_table) do
-		local days = math.floor(os.difftime(os.time(), v.last_mod)/86400)
-		local last_mod_month = os.date(&quot;%Y/%m&quot;, v.last_mod)
-		if days &gt; keepdays then
-			-- For profiles older than X days, check if we already kept a table for this month:
-			if not table.contains(used_last_mod_months, last_mod_month) then
-				-- If not, do nothing and mark this month as &quot;kept&quot;.
-				used_last_mod_months[#used_last_mod_months+1] = last_mod_month
-			else
-				-- Otherwise remove the file:
-				local success, errorstring = os.remove(dirpath..slash..v.name)
-				if success then
-					delnum = delnum + 1
-				else
-					cecho(&quot;\n&lt;red&gt;ERROR: &quot;..errorstring)
-				end
-			end
-		end
-	end
-	echo(string.format(&quot;\nDeletion complete. %d/%d files were removed successfully.&quot;, delnum, #profile_table))
-end
-</script>
-                <eventHandlerList/>
-            </Script>
-        </ScriptGroup>
-    </ScriptPackage>
+    <ScriptPackage/>
     <KeyPackage/>
     <VariablePackage>
         <HiddenVariables/>

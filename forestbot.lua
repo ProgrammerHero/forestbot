@@ -41,11 +41,11 @@ function bot.init()
     savedPackagePath = package.path
     bot.debugMessage("Capturing default package path")
   end
-  package.path = os.getenv("forestbot_path") .. "\\behaviourtree\\?.lua;" .. savedPackagePath
+  package.path = os.getenv("forestbot_path") .. "\\?.lua;" .. savedPackagePath
 
   -- unload+reload modules here
-  package.loaded["behaviourtree"] = nil
-  local bt = require("behaviourtree")
+  package.loaded["behaviourtree.behaviourtree"] = nil
+  local bt = require("behaviourtree.behaviourtree")
 
   bot.reset()
 end
