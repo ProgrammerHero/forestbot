@@ -4,165 +4,155 @@
 --  Created by Tilmann Hars on 2012-07-12.
 --  Copyright (c) 2012 Headchant. All rights reserved.
 --
+-- Useful links:
+-- http://gamedev.stackexchange.com/questions/51693/decision-tree-vs-behavior-tree
+-- http://aigamedev.com/open/article/behavior-trees-part1/
 
 local Class = require 'behaviourtree.class'
 
-READY = "ready"
-RUNNING = "running"
-FAILED = "failed"
-
+--------------------------------------------------------------------------------
+-- ACTION: Perform a single task and return the result.
+--------------------------------------------------------------------------------
 Action = Class({init = function(self, task)
-    self.task = task
-    self.completed = false
+  self.task = task
 end})
 
-function Action:update(creatureAI)
-    if self.completed then return READY end
-    self.completed = self.task(creatureAI)
-    return RUNNING
-    -- this probably needs a FAILED state
+function Action:run(creatureAI)
+  return self.task(creatureAI)
 end
 
-Condition = Class({init = function(self, condition)
-    self.condition = condition
+--------------------------------------------------------------------------------
+-- NEGATOR: Perform a single task and return the negative of the result.
+--------------------------------------------------------------------------------
+Negator = Class({init = function(self, task)
+  self.task = task
 end})
 
-function Condition:update(creatureAI)
-    if self.condition(creatureAI) then
-      return READY
-    end
-    return FAILED
+function Negator:run(creatureAI)
+  return not self.task(creatureAI)
 end
 
+--------------------------------------------------------------------------------
+-- REPEATER: Repeat a single task multiple times.
+-- Return: true if all iterations pass
+--         false if any iteration fails (?)
+--------------------------------------------------------------------------------
+Repeater = Class({init = function(self, task, count)
+  self.task = task
+  self.count = count
+end})
+
+function Repeater:run(creatureAI)
+  for i = 1, self.count do
+    self.task(creatureAI)
+  end
+  return true
+end
+--------------------------------------------------------------------------------
+-- SELECTOR: Execute my children in order and stop executing if one succeeds.
+-- Return: true if any child succeeds
+--         false if every child fails
+--------------------------------------------------------------------------------
 Selector = Class({init = function(self, children)
-    self.children = children
+  self.children = children
 end})
 
-function Selector:update(creatureAI)
-    for i,v in ipairs(self.children) do
-        status = v:update(creatureAI)
-        if status == RUNNING then
-            return RUNNING
-        elseif status == READY then
-            if i == #self.children then
-                self:resetChildren()
-                return READY
-            end
-        end
+function Selector:run(creatureAI)
+  for i,v in ipairs(self.children) do
+    status = v:run(creatureAI)
+    if status then
+      return true
     end
-    return READY
+  end
+  return false
 end
 
-function Selector:resetChildren()
-    for ii,vv in ipairs(self.children) do
-        vv.completed = false
-    end
-end
-
+--------------------------------------------------------------------------------
+-- SEQUENCE: Execute my children in order and stop executing if one fails.
+-- Return: true if every child succeeds
+--         false if any child fails
+--------------------------------------------------------------------------------
 Sequence = Class({init = function(self, children)
-    self.children = children
-    self.last = nil
-    self.completed = false
+  self.children = children
 end})
 
-function Sequence:update(creatureAI)
-echo("sequence update\n")
-    if self.completed then
-    echo ("sequence already complete\n")
-      return READY
+function Sequence:run(creatureAI)
+  for i,v in ipairs(self.children) do
+    success = v:run(creatureAI)
+    if not success then
+      return false
     end
-
-     last = 1
-
-    if self.last and self.last ~= #self.children then
-        last = self.last + 1
-    end
-
-    for i = last, #self.children do
-        v = self.children[i]:update(creatureAI)
-        if v == RUNNING then
-            self.last = i
-            echo("sequence running\n")
-            return RUNNING
-        elseif v == FAILED then
-            self.last = nil
-            self:resetChildren()
-            echo("sequence failed\n")
-            return FAILED
-        elseif v == READY then
-            if i == #self.children then
-                self.last = nil
-                self:resetChildren()
-                self.completed = true
-            echo("sequence restarted\n")
-                return READY
-            end
-        end
-    end
-
+  end
+  return true
 end
 
-function Sequence:resetChildren()
-    for ii,vv in ipairs(self.children) do
-        vv.completed = false
-    end
+--------------------------------------------------------------------------------
+-- RANDOMIZER: Execute one random child and return its result.
+-- Return: true if the randomly selected child succeeds
+--         false if the randomly selected child fails
+-- Note: if no children are present then the return value is 50% true, 50% false
+--------------------------------------------------------------------------------
+Randomizer = Class({init = function(self, children)
+  self.children = children
+end})
+
+function Randomizer:run(creatureAI)
+  if (#self.children == 0) then
+    return math.random(2) == 2
+  end
+  i = math.random(#self.children)
+  success = self.children[i]:run(creatureAI)
 end
 
----------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
 -- Example
-local TRUE = function() return true end
-local FALSE = function() return false end
-
---[[
-local isThiefNearTreasure = Condition(function() print("is thief near treasure? no") return false end)
-local stillStrongEnoughToCarryTreasure = Condition(function() print("still strong enough? yes") return true end)
-local updated = false
-
-
-local makeThiefFlee = Action(function() print("making the thief flee") return false end)
-local chooseCastle = Action(function() print("choosing Castle") return true end)
-local flyToCastle = Action(function() print("fly to Castle") return true end)
-local fightAndEatGuards = Action(function() print("fighting and eating guards") return false end)
-local takeGold = Action(function() print("picking up gold") return true end)
-local flyHome = Action(function() print("flying home") return true end)
-local putTreasureAway = Action(function() print("putting treasure away") return true end)
-local postPicturesOfTreasureOnFacebook = Action(function() print("posting pics on facebook") return true end)
-
--- testing subtree
- packStuffAndGoHome = Selector{
-    Sequence{
-        stillStrongEnoughToCarryTreasure,
-        takeGold,
-
-    },
-    Sequence{
-        flyHome,
-        putTreasureAway,
-    }
-}
-
- simpleBehaviour = --Selector{
-                            Sequence{
-                                isThiefNearTreasure,
-                                makeThiefFlee,
-                            }--,
-                            --Sequence{
-                            --    chooseCastle,
-                            --    flyToCastle,
-                            --    fightAndEatGuards,
-                            --    packStuffAndGoHome
-                            --},
-                            --Sequence{
-                            --    postPicturesOfTreasureOnFacebook
-                            --}
-                        --}
-
+--------------------------------------------------------------------------------
 
 function exampleLoop()
-    for i=1,10 do
-        simpleBehaviour:update()
-    end
+
+  local COND_TRUE = Action(function() return true end)
+  local COND_FALSE = Action(function() return false end)
+
+  -- testing subtree 1
+  local fightAndEatGuards = Sequence {
+    Randomizer {
+      Action(function() print("fighting and eating guards") return true end),
+      Action(function() print("getting killed by guards") return false end)
+    }
+  }
+  -- testing subtree 2
+  local packStuffAndGoHome = Selector {
+    Sequence {
+      Action(function() print("still strong enough? yes") return true end),
+      Action(function() print("picking up gold") return true end),
+    },
+    Sequence {
+      Action(function() print("flying home") return true end),
+      Action(function() print("putting treasure away") return true end),
+    }
+  }
+
+  -- main tree
+  local simpleBehaviour = Selector {
+    Sequence {
+      Action(function() print("is thief near treasure? no") return false end),
+      Action(function() print("making the thief flee") return false end),
+    },
+    Sequence {
+      Action(function() print("choosing Castle") return true end),
+      Action(function() print("fly to Castle") return true end),
+      fightAndEatGuards,
+      packStuffAndGoHome
+    },
+    Sequence {
+      Action(function() print("posting pics on facebook") return true end)
+    }
+  }
+
+  for i = 1, 10 do
+    simpleBehaviour:run()
+  end
 end
 
 exampleLoop()
---]]
