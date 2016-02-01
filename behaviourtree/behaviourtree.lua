@@ -7,57 +7,147 @@
 -- Useful links:
 -- http://gamedev.stackexchange.com/questions/51693/decision-tree-vs-behavior-tree
 -- http://aigamedev.com/open/article/behavior-trees-part1/
+-- https://docs.unrealengine.com/latest/INT/Engine/AI/BehaviorTrees/NodeReference/index.html
 
 local Class = require 'behaviourtree.class'
+debugOutput = true
 
 --------------------------------------------------------------------------------
 -- ACTION: Perform a single task and return the result.
 --------------------------------------------------------------------------------
 Action = Class({init = function(self, task)
+  self.name = "action"
   self.task = task
 end})
 
 function Action:run(creatureAI)
-  return self.task(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
+  if self.task then
+    return self.task(creatureAI)
+  end
+  return false
 end
 
 --------------------------------------------------------------------------------
--- NEGATOR: Perform a single task and return the negative of the result.
+-- Inverter: Perform a single task and return the negative of the result.
 --------------------------------------------------------------------------------
-Negator = Class({init = function(self, task)
-  self.task = task
+Inverter = Class({init = function(self, action)
+  self.name = "inverter"
+  self.action = action
 end})
 
-function Negator:run(creatureAI)
-  return not self.task(creatureAI)
+function Inverter:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
+  return not self.action:run(creatureAI)
+end
+
+--------------------------------------------------------------------------------
+-- Succeeder: Perform a single task and return true.
+-- Return: true, always
+--------------------------------------------------------------------------------
+Succeeder = Class({init = function(self, action)
+  self.name = "succeeder"
+  self.action = action
+end})
+
+function Succeeder:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
+  self.action:run(creatureAI)
+  return true
+end
+
+--------------------------------------------------------------------------------
+-- XOR: Perform a pair of task and return the xor of the results.
+-- Return: true if exactly one task succeeded
+--         false if both tasks succeeded or both tasks failed
+--------------------------------------------------------------------------------
+XOR = Class({init = function(self, children)
+  self.name = "xor"
+  if #children == 2 then
+    self.children = children
+  end
+end})
+
+function XOR:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
+  if #self.children == 2 then
+    return (self.children[1]:run(creatureAI) == not self.children[2]:run(creatureAI))
+  end
+  return false
 end
 
 --------------------------------------------------------------------------------
 -- REPEATER: Repeat a single task multiple times.
--- Return: true if all iterations pass
---         false if any iteration fails (?)
+-- Return: true, always
 --------------------------------------------------------------------------------
-Repeater = Class({init = function(self, task, count)
-  self.task = task
+Repeater = Class({init = function(self, action, count)
+  self.name = "repeater"
+  self.action = action
   self.count = count
 end})
 
 function Repeater:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
   for i = 1, self.count do
-    self.task(creatureAI)
+    self.action:run(creatureAI)
   end
   return true
 end
+
+--------------------------------------------------------------------------------
+-- REPEATER_FAIL: Repeat a single task multiple times or until it fails.
+-- Return: true if all iterations succeed
+--         false if any iteration fails (with early return)
+--------------------------------------------------------------------------------
+Repeater_Fail = Class({init = function(self, action, count)
+  self.name = "repeater_fail"
+  self.action = action
+  self.count = count
+end})
+
+function Repeater_Fail:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
+  for i = 1, self.count do
+    if not self.action:run(creatureAI) then
+      return true
+    end
+  end
+  return false
+end
+
+--------------------------------------------------------------------------------
+-- REPEATER_SUCCEED: Repeat a single task multiple times or until it succeeds.
+-- Return: true if any iteration succeeds (with early return)
+--         false if all iterations fail
+--------------------------------------------------------------------------------
+Repeater_Succeed = Class({init = function(self, action, count)
+  self.name = "repeater_succeed"
+  self.action = action
+  self.count = count
+end})
+
+function Repeater_Succeed:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
+  for i = 1, self.count do
+    if self.action:run(creatureAI) then
+      return true
+    end
+  end
+  return false
+end
+
 --------------------------------------------------------------------------------
 -- SELECTOR: Execute my children in order and stop executing if one succeeds.
 -- Return: true if any child succeeds
 --         false if every child fails
 --------------------------------------------------------------------------------
 Selector = Class({init = function(self, children)
+  self.name = "selector"
   self.children = children
 end})
 
 function Selector:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
   for i,v in ipairs(self.children) do
     status = v:run(creatureAI)
     if status then
@@ -73,10 +163,12 @@ end
 --         false if any child fails
 --------------------------------------------------------------------------------
 Sequence = Class({init = function(self, children)
+  self.name = "sequence"
   self.children = children
 end})
 
 function Sequence:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
   for i,v in ipairs(self.children) do
     success = v:run(creatureAI)
     if not success then
@@ -93,10 +185,12 @@ end
 -- Note: if no children are present then the return value is 50% true, 50% false
 --------------------------------------------------------------------------------
 Randomizer = Class({init = function(self, children)
+  self.name = "randomizer"
   self.children = children
 end})
 
 function Randomizer:run(creatureAI)
+  if (debugOutput) then echo(self.name .. " update\n") end
   if (#self.children == 0) then
     return math.random(2) == 2
   end
@@ -105,14 +199,27 @@ function Randomizer:run(creatureAI)
 end
 
 
+local function _treeToString(tree, indent)
+  local strTree = string.rep(" ", indent) .. tree.name .. "\n"
+  for i,c in ipairs(tree.children) do
+    strTree = strTree .. _treeToString(c, indent+1)
+  end
+  return strTree
+end
+
+function treeToString(tree)
+  return _treeToString(tree, 0)
+end
+
+COND_TRUE = Action(function() return true end)
+COND_FALSE = Action(function() return false end)
+
 --------------------------------------------------------------------------------
 -- Example
 --------------------------------------------------------------------------------
+--[[
 
 function exampleLoop()
-
-  local COND_TRUE = Action(function() return true end)
-  local COND_FALSE = Action(function() return false end)
 
   -- testing subtree 1
   local fightAndEatGuards = Sequence {
@@ -156,3 +263,4 @@ function exampleLoop()
 end
 
 exampleLoop()
+--]]
