@@ -44,10 +44,16 @@ function bot.init()
   package.path = os.getenv("forestbot_path") .. "\\?.lua;" .. savedPackagePath
 
   -- unload+reload modules here
+  package.loaded["forestbtree"] = nil
+  bot.forestbtree = require("forestbtree")
   package.loaded["behaviourtree.behaviourtree"] = nil
-  local bt = require("behaviourtree.behaviourtree")
+  behaviourtree = require("behaviourtree.behaviourtree")
 
   bot.reset()
+end
+
+function bot.think()
+  -- dispatch behaviour tree
 end
 
 --------------------------------------------------------------------------------
@@ -75,13 +81,19 @@ function bot.reset()
 
   -- should probably init inventory here
   -- and stats
+
+  -- reset behaviours
+  bot.btree = bot.forestbtree.loadJSON(os.getenv("forestbot_path") .. "/behaviour.json")
+
+  bot.btree:run(nil)
+
 end
 
 --------------------------------------------------------------------------------
 -- Bot identity/score functions.
 --------------------------------------------------------------------------------
 
--- is this useful at all? - Jason
+-- is this useful at all? - PH
 --[[
            Items: 7/75             Weight: 11/436              Age: 20 years
       Quest Pnts: 0           Gossip Pnts: 73            Hit Regen: 0.0
