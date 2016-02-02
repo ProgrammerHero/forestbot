@@ -640,21 +640,21 @@ bot.status.xp = tonumber(matches[8])
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test inventory</name>
-            <script>bot.items.updateInventory()</script>
+            <script>bot.functions.updateInventory()</script>
             <command></command>
             <packageName></packageName>
             <regex>testInv</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test score</name>
-            <script>bot.score.updateScore()</script>
+            <script>bot.functions.updateScore()</script>
             <command></command>
             <packageName></packageName>
             <regex>testScore</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test ident</name>
-            <script>bot.items.updateIdentity()</script>
+            <script>bot.functions.updateIdentity()</script>
             <command></command>
             <packageName></packageName>
             <regex>testIdent</regex>
