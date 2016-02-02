@@ -77,8 +77,8 @@ function bot.reset()
   bot.status.wornWeight = 0
   bot.status.encumbrance = ""
 
-  bot.hunger = 0
-  bot.thirst = 0
+  bot.needs.hunger = 0
+  bot.needs.thirst = 0
 
   bot.status.stance = ""
 

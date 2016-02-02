@@ -16,19 +16,21 @@ local json = require("json")
 ---------------------------------------
 local function enemyPresent(bot)
   -- check for a bot in the current room
+  --bot.map[]
 end
 
 local function isThirsty(bot)
-  return bot.thirst > 0
+  return bot.needs.thirst > 0
 end
 
 local function isHungry(bot)
-  return bot.hunger > 0
+  return bot.needs.hunger > 0
 end
 
 local function eatFood(bot)
   -- should be smarter and try to find specific food
   send("eat food")
+  -- 
 end
 
 local function drink(bot)
