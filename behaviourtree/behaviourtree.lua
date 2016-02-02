@@ -5,6 +5,7 @@
 --  Copyright (c) 2012 Headchant. All rights reserved.
 --
 -- Useful links:
+-- http://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php
 -- http://gamedev.stackexchange.com/questions/51693/decision-tree-vs-behavior-tree
 -- http://aigamedev.com/open/article/behavior-trees-part1/
 -- https://docs.unrealengine.com/latest/INT/Engine/AI/BehaviorTrees/NodeReference/index.html
@@ -95,28 +96,8 @@ function Repeater:run(creatureAI)
 end
 
 --------------------------------------------------------------------------------
--- REPEATER_FAIL: Repeat a single task multiple times or until it fails.
--- Return: true if all iterations succeed
---         false if any iteration fails (with early return)
---------------------------------------------------------------------------------
-Repeater_Fail = Class({init = function(self, action, count)
-  self.name = "repeater_fail"
-  self.action = action
-  self.count = count
-end})
-
-function Repeater_Fail:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
-  for i = 1, self.count do
-    if not self.action:run(creatureAI) then
-      return true
-    end
-  end
-  return false
-end
-
---------------------------------------------------------------------------------
 -- REPEATER_SUCCEED: Repeat a single task multiple times or until it succeeds.
+-- Note: you can create a REPEATER_FAIL by inverting my child task.
 -- Return: true if any iteration succeeds (with early return)
 --         false if all iterations fail
 --------------------------------------------------------------------------------

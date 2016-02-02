@@ -45,7 +45,7 @@ local function buildBTree(tree, rootID)
   elseif (name == "Repeater") then
     node = Repeater(children[1], maxLoop)
   elseif (name == "RepeatUntilFailure") then
-    node = Repeater_Fail(children[1], maxLoop)
+    node = Repeater_Succeed(Inverter(children[1], maxLoop))
   elseif (name == "RepeatUntilSuccess") then
     node = Repeater_Succeed(children[1], maxLoop)
   elseif (name == "MaxTime") then
