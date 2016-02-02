@@ -494,7 +494,7 @@ bot.think()</script>
             <name>init</name>
             <script>-- will run on first login to &quot;the forests edge&quot;
 echo(&quot;preinit&quot;)
-dofile(os.gentenv(&quot;forestbot_path&quot;)..&quot;/forestbot.lua&quot;)
+dofile(os.getenv(&quot;forestbot_path&quot;)..&quot;/forestbot.lua&quot;)
 echo(&quot;postinit&quot;)</script>
             <triggerType>0</triggerType>
             <conditonLineDelta>0</conditonLineDelta>

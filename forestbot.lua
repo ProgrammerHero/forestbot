@@ -8,6 +8,7 @@
 -- Central bot namespace
 --------------------------------------------------------------------------------
 bot = {}
+bot.functions = {}
 bot.debug = true
 
 if bot.debug then
