@@ -7,23 +7,14 @@
 --------------------------------------------------------------------------------
 -- Central bot namespace
 --------------------------------------------------------------------------------
-bot = bot or {}
+bot = {}
 bot.debug = true
 
-bot.debugMessage = print
-bot.debugMessage = function(s) end
-
--- tables for functions
-bot.score = {}
-bot.ident = {}
-bot.needs = {}
-bot.friends = {}
-bot.items = {}
-bot.map = {}
-bot.util = {}
-
--- Set variables for running in the console
-echo = echo or print
+if bot.debug then
+  bot.debugMessage = print
+else
+  bot.debugMessage = function(s) end
+end
 
 --------------------------------------------------------------------------------
 -- Initializer function.  Will be executed when this script file is loaded.
@@ -40,8 +31,8 @@ function bot.init()
   if not savedPackagePath then
     savedPackagePath = package.path
     bot.debugMessage("Capturing default package path")
+    package.path = os.getenv("forestbot_path") .. "/?.lua;" .. savedPackagePath
   end
-  package.path = os.getenv("forestbot_path") .. "\\?.lua;" .. savedPackagePath
 
   -- unload+reload modules here
   package.loaded["botbtree"] = nil
@@ -52,6 +43,9 @@ function bot.init()
   bot.reset()
 end
 
+--------------------------------------------------------------------------------
+-- Evaluate the behaviour tree based on the current known state of the world.
+--------------------------------------------------------------------------------
 function bot.think()
   -- dispatch behaviour tree
 end
@@ -61,8 +55,8 @@ end
 --------------------------------------------------------------------------------
 function bot.reset()
   bot.debugMessage("bot.reset()")
-  bot.status = {}
 
+  bot.status = {}
   bot.status.hits = 0
   bot.status.energy = 0
   bot.status.moves = 0
@@ -73,15 +67,21 @@ function bot.reset()
   bot.status.level = 0
   bot.status.xp = 0
 
-  bot.status.weight = 0
-  bot.status.wornWeight = 0
-  bot.status.encumbrance = ""
+  bot.status.stance = ""
 
+  bot.needs = {}
   bot.needs.hunger = 0
   bot.needs.thirst = 0
-  bot.needs.tired = false
 
-  bot.status.stance = ""
+  bot.items = {}
+  bot.items.coins = 0
+  bot.items.weight = 0
+  bot.items.wornWeight = 0
+  bot.items.encumbrance = ""
+  bot.items.hasFood = true 
+  bot.items.hasWater = true
+
+  bot.inventory = {}
 
   -- should probably init inventory here
   -- and stats
@@ -97,7 +97,7 @@ end
 -- Bot identity/score functions.
 --------------------------------------------------------------------------------
 
--- is this useful at all? - PH
+-- Request an update of the 'score' information. Its format follows:
 --[[
            Items: 7/75             Weight: 11/436              Age: 20 years
       Quest Pnts: 0           Gossip Pnts: 73            Hit Regen: 0.0
@@ -113,100 +113,19 @@ end
          Position: [ mortally wounded ]    Condition: [ sober hungry thirsty ]
 
              [Also try the command identity for more information.]--]]
-function bot.score.updateScore()
+function bot.functions.updateScore()
   enableTrigger("score")
   send("score")
 end
 
-function bot.score.setLevelXP(level, xp)
-  bot.status.level = level
-  bot.status.xp = xp
-end
-
-function bot.score.setHits(hits, maxHits)
-  bot.status.hits = hits
-  bot.status.maxHits = maxHits
-end
-
-function bot.score.setEnergy(energy, maxEnergy)
-  bot.status.energy = energy
-  bot.status.maxEnergy = maxEnergy
-end
-
-function bot.score.setMoves(moves, maxMoves)
-  bot.status.moves = moves
-  bot.status.maxMoves = maxMoves
-end
-
-function bot.ident.updateIdentity()
-  enableTrigger("identity")
-  send("identity")
-end
-
 --------------------------------------------------------------------------------
--- Bot essential needs functions, all the functions required to keep this bot
--- healthy while not in combat.
+-- Enable inventory parsing triggers and request inventory from the mud.
 --------------------------------------------------------------------------------
-
-function bot.needs.eatfood(amount)
-  bot.hunger = amount
-end
-
-function bot.needs.drink(amount)
-  -- note: cauldrons, fountains can be drunk
-  bot.thirst = amount
-end
-
-function bot.needs.sleep(seconds)
-  bot.needs.tired = true
-end
-
-function bot.needs.wake()
-  --send("wake")
-  send("stand")
-end
-
-function bot.needs.selfheal(amount)
-
-end
-
---------------------------------------------------------------------------------
--- Bot inventory functions.  Used to manage the bot's items so it can make more
--- intelligent decisions
---------------------------------------------------------------------------------
-
-function bot.items.updateInventory()
-  bot.inventory = {}
-  enableTrigger("inventory")
+function bot.functions.updateInventory()
+  enableTrigger("request_inventory")
   send("inventory")
 end
 
-function bot.items.setCoins(coins, weight)
-  echo(">Set items.coins = " .. coins)
-  bot.items.coins = coins
-end
-
-function bot.items.addLineItem(name, number, weight)
-  bot.inventory[#bot.inventory + 1] = {name, number, weight}
-end
-
-function bot.items.setCarriedWeight(carried, encumbrance)
-  bot.status.weight = carried
-  bot.status.encumbrance = encumbrance
-end
-
-function bot.items.setWornWeight(worn)
-  bot.status.wornWeight = worn
-end
-
-
---------------------------------------------------------------------------------
--- Remove leading and trailing whitespace from string s.
--- See http://lua-users.org/wiki/StringTrim  (trim6)
---------------------------------------------------------------------------------
-function bot.util.trim(s)
-  return s:match'^()%s*$' and '' or s:match'^%s*(.*%S)'
-end
 --------------------------------------------------------------------------------
 -- Script start.
 --------------------------------------------------------------------------------
