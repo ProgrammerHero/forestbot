@@ -1,0 +1,140 @@
+{
+    "title": "A Behavior Tree",
+    "description": "",
+    "root": "3648baca-a9b7-48be-81b8-2bedd0eb5d2d",
+    "display": {
+        "camera_x": 546.5,
+        "camera_y": 363,
+        "camera_z": 1,
+        "x": -208,
+        "y": -112
+    },
+    "properties": {},
+    "nodes": {
+        "3648baca-a9b7-48be-81b8-2bedd0eb5d2d": {
+            "id": "3648baca-a9b7-48be-81b8-2bedd0eb5d2d",
+            "name": "Sequence",
+            "title": "Sequence",
+            "description": "",
+            "display": {
+                "x": -144,
+                "y": -112
+            },
+            "parameters": {},
+            "properties": {},
+            "children": [
+                "70ab412d-3302-4072-bd88-bd7f8505313f",
+                "e7a75a4a-4561-44f5-952e-0ff1cc988eca",
+                "8ab28a3d-7d1a-4aed-beb4-3a19ed9066fe",
+                "58b4ab29-9d99-45c0-a977-fb322ad2e20f"
+            ]
+        },
+        "70ab412d-3302-4072-bd88-bd7f8505313f": {
+            "id": "70ab412d-3302-4072-bd88-bd7f8505313f",
+            "name": "Priority",
+            "title": "Priority",
+            "description": "",
+            "display": {
+                "x": -48,
+                "y": -240
+            },
+            "parameters": {},
+            "properties": {},
+            "children": [
+                "5051d906-ea7e-497f-8374-d374da9e973a",
+                "999a9c74-0f08-4c77-8443-45ab11a9719b"
+            ]
+        },
+        "8ab28a3d-7d1a-4aed-beb4-3a19ed9066fe": {
+            "id": "8ab28a3d-7d1a-4aed-beb4-3a19ed9066fe",
+            "name": "Repeater",
+            "title": "Repeater",
+            "description": "",
+            "display": {
+                "x": 0,
+                "y": -96
+            },
+            "parameters": {
+                "maxLoop": 3
+            },
+            "properties": {},
+            "child": "97145485-abff-433c-8d62-ea6318c126e8"
+        },
+        "58b4ab29-9d99-45c0-a977-fb322ad2e20f": {
+            "id": "58b4ab29-9d99-45c0-a977-fb322ad2e20f",
+            "name": "RepeatUntilFailure",
+            "title": "Repeat Until Failure",
+            "description": "",
+            "display": {
+                "x": 16,
+                "y": -16
+            },
+            "parameters": {
+                "maxLoop": 3
+            },
+            "properties": {},
+            "child": "c4ff85de-b7e0-46cd-b264-69622be88c30"
+        },
+        "e7a75a4a-4561-44f5-952e-0ff1cc988eca": {
+            "id": "e7a75a4a-4561-44f5-952e-0ff1cc988eca",
+            "name": "Succeeder",
+            "title": "Succeeder",
+            "description": "",
+            "display": {
+                "x": 0,
+                "y": -160
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "97145485-abff-433c-8d62-ea6318c126e8": {
+            "id": "97145485-abff-433c-8d62-ea6318c126e8",
+            "name": "Failer",
+            "title": "Failer",
+            "description": "",
+            "display": {
+                "x": 160,
+                "y": -80
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "5051d906-ea7e-497f-8374-d374da9e973a": {
+            "id": "5051d906-ea7e-497f-8374-d374da9e973a",
+            "name": "Failer",
+            "title": "Failer",
+            "description": "",
+            "display": {
+                "x": 112,
+                "y": -272
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "999a9c74-0f08-4c77-8443-45ab11a9719b": {
+            "id": "999a9c74-0f08-4c77-8443-45ab11a9719b",
+            "name": "Succeeder",
+            "title": "Succeeder",
+            "description": "",
+            "display": {
+                "x": 112,
+                "y": -224
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "c4ff85de-b7e0-46cd-b264-69622be88c30": {
+            "id": "c4ff85de-b7e0-46cd-b264-69622be88c30",
+            "name": "Failer",
+            "title": "Failer",
+            "description": "",
+            "display": {
+                "x": 240,
+                "y": 48
+            },
+            "parameters": {},
+            "properties": {}
+        }
+    },
+    "custom_nodes": []
+}

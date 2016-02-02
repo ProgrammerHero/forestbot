@@ -44,8 +44,8 @@ function bot.init()
   package.path = os.getenv("forestbot_path") .. "\\?.lua;" .. savedPackagePath
 
   -- unload+reload modules here
-  package.loaded["forestbtree"] = nil
-  bot.forestbtree = require("forestbtree")
+  package.loaded["botbtree"] = nil
+  bot.botbtree = require("botbtree")
   package.loaded["behaviourtree.behaviourtree"] = nil
   behaviourtree = require("behaviourtree.behaviourtree")
 
@@ -83,7 +83,7 @@ function bot.reset()
   -- and stats
 
   -- reset behaviours
-  bot.btree = bot.forestbtree.loadJSON(os.getenv("forestbot_path") .. "/behaviour.json")
+  bot.btree = bot.botbtree.loadJSON("behaviour.json")
 
   bot.btree:run(nil)
 
