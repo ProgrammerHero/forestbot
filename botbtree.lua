@@ -11,6 +11,35 @@
 local botbtree = {}
 local json = require("json")
 
+---------------------------------------
+-- Add custom behaviour tree nodes here
+---------------------------------------
+local function enemyPresent(bot)
+  -- check for a bot in the current room
+end
+
+local function isThirsty(bot)
+  return bot.thirst > 0
+end
+
+local function isHungry(bot)
+  return bot.hunger > 0
+end
+
+local function eatFood(bot)
+  -- should be smarter and try to find specific food
+  send("eat food")
+end
+
+local function drink(bot)
+  -- should be smarter and try to find a specific drink
+  -- also need to make sure we have a drink equipped
+  send("drink") -- this command is probably wrong
+end
+
+-----------------------
+-- behaviourtree parser
+-----------------------
 local function buildBTree(tree, rootID)
   local node = tree[rootID]
   local children = {}
@@ -35,6 +64,9 @@ local function buildBTree(tree, rootID)
   end
 
   -- now figure out what this node is
+  --------------------------
+  -- Behaviour3JS core nodes
+  --------------------------
   local name = tree[rootID]["name"]
   if (name == "Sequence") then
     node = Sequence(children)
@@ -59,6 +91,24 @@ local function buildBTree(tree, rootID)
   elseif (name == "Runner") then
   elseif (name == "Error") then
   elseif (name == "Wait") then
+
+  ---------------
+  -- Custom nodes
+  ---------------
+  elseif (name == "IsHungry") then
+    node = Action(isHungry)
+  elseif (name == "IsThirsty") then
+    node = Action(isThirsty)
+  elseif (name == "HasItem") then
+  elseif (name == "EatFood") then
+    node = Action(eatFood)
+  elseif (name == "Drink") then
+    node = Action(drink)
+  elseif (name == "EnemyPresent") then
+    node = Action(enemyPresent)
+  elseif (name == "ShouldFight") then
+  elseif (name == "Attack") then
+  elseif (name == "MoveTo") then
   else
     echo("Unrecognized btree element '" .. name .. "'")
     node = nil

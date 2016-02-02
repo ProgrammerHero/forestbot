@@ -77,6 +77,9 @@ function bot.reset()
   bot.status.wornWeight = 0
   bot.status.encumbrance = ""
 
+  bot.hunger = 0
+  bot.thirst = 0
+
   bot.status.stance = ""
 
   -- should probably init inventory here
@@ -85,7 +88,7 @@ function bot.reset()
   -- reset behaviours
   bot.btree = bot.botbtree.loadJSON("behaviour.json")
 
-  bot.btree:run(nil)
+  bot.btree:run(bot)
 
 end
 
@@ -145,12 +148,12 @@ end
 --------------------------------------------------------------------------------
 
 function bot.needs.eatfood(amount)
-  -- find my food stuffs
-  send("eat food") -- we can tell it what to eat later
+  bot.hunger = amount
 end
 
 function bot.needs.drink(amount)
   -- note: cauldrons, fountains can be drunk
+  bot.thirst = amount
 end
 
 function bot.needs.sleep(seconds)
