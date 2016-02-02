@@ -79,6 +79,7 @@ function bot.reset()
 
   bot.needs.hunger = 0
   bot.needs.thirst = 0
+  bot.needs.tired = false
 
   bot.status.stance = ""
 
@@ -157,9 +158,7 @@ function bot.needs.drink(amount)
 end
 
 function bot.needs.sleep(seconds)
-  -- should probably check for hostiles
-  send("sleep")
-  --tempTimer(seconds, bot.needs.wake)
+  bot.needs.tired = true
 end
 
 function bot.needs.wake()

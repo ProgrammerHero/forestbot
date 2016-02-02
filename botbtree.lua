@@ -19,24 +19,29 @@ local function enemyPresent(bot)
   --bot.map[]
 end
 
-local function isThirsty(bot)
-  return bot.needs.thirst > 0
-end
-
 local function isHungry(bot)
   return bot.needs.hunger > 0
 end
-
 local function eatFood(bot)
   -- should be smarter and try to find specific food
   send("eat food")
   -- 
 end
 
+local function isThirsty(bot)
+  return bot.needs.thirst > 0
+end
 local function drink(bot)
   -- should be smarter and try to find a specific drink
   -- also need to make sure we have a drink equipped
   send("drink") -- this command is probably wrong
+end
+
+local function isTired(bot)
+  return bot.needs.tired
+end
+local function sleep(bot)
+  send("sleep")
 end
 
 -----------------------
@@ -111,6 +116,10 @@ local function buildBTree(tree, rootID)
   elseif (name == "ShouldFight") then
   elseif (name == "Attack") then
   elseif (name == "MoveTo") then
+  elseif (name == "IsTired") then
+    node = Action(isTired)
+  elseif (name == "Sleep") then
+    node = Action(sleep)
   else
     echo("Unrecognized btree element '" .. name .. "'")
     node = nil
