@@ -1,140 +1,352 @@
 {
-    "title": "A Behavior Tree",
+    "title": "Forestbot",
     "description": "",
-    "root": "3648baca-a9b7-48be-81b8-2bedd0eb5d2d",
+    "root": "35e0c1ce-9d0c-478a-814d-014607d9a98a",
     "display": {
         "camera_x": 546.5,
         "camera_y": 363,
         "camera_z": 1,
-        "x": -208,
-        "y": -112
+        "x": -192,
+        "y": -32
     },
     "properties": {},
     "nodes": {
-        "3648baca-a9b7-48be-81b8-2bedd0eb5d2d": {
-            "id": "3648baca-a9b7-48be-81b8-2bedd0eb5d2d",
-            "name": "Sequence",
-            "title": "Sequence",
+        "72996c1d-f1b7-403b-bf2a-0bced862099f": {
+            "id": "72996c1d-f1b7-403b-bf2a-0bced862099f",
+            "name": "Repeater",
+            "title": "Repeater",
             "description": "",
             "display": {
-                "x": -144,
-                "y": -112
+                "x": -384,
+                "y": -64
+            },
+            "parameters": {
+                "maxLoop": -1
+            },
+            "properties": {},
+            "child": null
+        },
+        "4b6cbdfe-4513-4689-8c12-a221c4c5ed91": {
+            "id": "4b6cbdfe-4513-4689-8c12-a221c4c5ed91",
+            "name": "IsHungry",
+            "title": "Is hungry",
+            "description": "",
+            "display": {
+                "x": 176,
+                "y": -288
             },
             "parameters": {},
-            "properties": {},
-            "children": [
-                "70ab412d-3302-4072-bd88-bd7f8505313f",
-                "e7a75a4a-4561-44f5-952e-0ff1cc988eca",
-                "8ab28a3d-7d1a-4aed-beb4-3a19ed9066fe",
-                "58b4ab29-9d99-45c0-a977-fb322ad2e20f"
-            ]
+            "properties": {}
         },
-        "70ab412d-3302-4072-bd88-bd7f8505313f": {
-            "id": "70ab412d-3302-4072-bd88-bd7f8505313f",
-            "name": "Priority",
-            "title": "Priority",
+        "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad": {
+            "id": "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad",
+            "name": "EatFood",
+            "title": "Eat food",
             "description": "",
             "display": {
-                "x": -48,
+                "x": 176,
+                "y": -192
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "a23e48fa-47b8-4d06-b9c5-773340668547": {
+            "id": "a23e48fa-47b8-4d06-b9c5-773340668547",
+            "name": "Sequence",
+            "title": "Sequence",
+            "description": "Food",
+            "display": {
+                "x": 16,
                 "y": -240
             },
             "parameters": {},
             "properties": {},
             "children": [
-                "5051d906-ea7e-497f-8374-d374da9e973a",
-                "999a9c74-0f08-4c77-8443-45ab11a9719b"
+                "4b6cbdfe-4513-4689-8c12-a221c4c5ed91",
+                "1e373794-ae21-4a3c-8ad6-dc235f3718d0",
+                "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad"
             ]
         },
-        "8ab28a3d-7d1a-4aed-beb4-3a19ed9066fe": {
-            "id": "8ab28a3d-7d1a-4aed-beb4-3a19ed9066fe",
-            "name": "Repeater",
-            "title": "Repeater",
+        "35e0c1ce-9d0c-478a-814d-014607d9a98a": {
+            "id": "35e0c1ce-9d0c-478a-814d-014607d9a98a",
+            "name": "Sequence",
+            "title": "Sequence",
             "description": "",
             "display": {
-                "x": 0,
-                "y": -96
-            },
-            "parameters": {
-                "maxLoop": 3
-            },
-            "properties": {},
-            "child": "97145485-abff-433c-8d62-ea6318c126e8"
-        },
-        "58b4ab29-9d99-45c0-a977-fb322ad2e20f": {
-            "id": "58b4ab29-9d99-45c0-a977-fb322ad2e20f",
-            "name": "RepeatUntilFailure",
-            "title": "Repeat Until Failure",
-            "description": "",
-            "display": {
-                "x": 16,
-                "y": -16
-            },
-            "parameters": {
-                "maxLoop": 3
-            },
-            "properties": {},
-            "child": "c4ff85de-b7e0-46cd-b264-69622be88c30"
-        },
-        "e7a75a4a-4561-44f5-952e-0ff1cc988eca": {
-            "id": "e7a75a4a-4561-44f5-952e-0ff1cc988eca",
-            "name": "Succeeder",
-            "title": "Succeeder",
-            "description": "",
-            "display": {
-                "x": 0,
-                "y": -160
+                "x": -112,
+                "y": -32
             },
             "parameters": {},
-            "properties": {}
+            "properties": {},
+            "children": [
+                "a23e48fa-47b8-4d06-b9c5-773340668547",
+                "3d19d3e6-4b43-4b44-86ad-3039660912d2",
+                "bf211aeb-5b72-40e3-8144-7e0c7fb2aa28",
+                "785714c2-45c1-4db5-a320-746bd16c86af"
+            ]
         },
-        "97145485-abff-433c-8d62-ea6318c126e8": {
-            "id": "97145485-abff-433c-8d62-ea6318c126e8",
-            "name": "Failer",
-            "title": "Failer",
-            "description": "",
+        "3d19d3e6-4b43-4b44-86ad-3039660912d2": {
+            "id": "3d19d3e6-4b43-4b44-86ad-3039660912d2",
+            "name": "Sequence",
+            "title": "Sequence",
+            "description": "Drink",
             "display": {
-                "x": 160,
+                "x": 16,
                 "y": -80
             },
             "parameters": {},
-            "properties": {}
+            "properties": {},
+            "children": [
+                "8dad92de-95c1-4a03-853f-33e67ed428a9",
+                "e5be7f01-8c38-4dc6-844a-aa247de70beb",
+                "cc7cd240-b053-42a2-8de3-b6c2abb879ee"
+            ]
         },
-        "5051d906-ea7e-497f-8374-d374da9e973a": {
-            "id": "5051d906-ea7e-497f-8374-d374da9e973a",
-            "name": "Failer",
-            "title": "Failer",
+        "8dad92de-95c1-4a03-853f-33e67ed428a9": {
+            "id": "8dad92de-95c1-4a03-853f-33e67ed428a9",
+            "name": "IsThirsty",
+            "title": "Is thirsty",
             "description": "",
             "display": {
-                "x": 112,
-                "y": -272
+                "x": 176,
+                "y": -128
             },
             "parameters": {},
             "properties": {}
         },
-        "999a9c74-0f08-4c77-8443-45ab11a9719b": {
-            "id": "999a9c74-0f08-4c77-8443-45ab11a9719b",
-            "name": "Succeeder",
-            "title": "Succeeder",
+        "cc7cd240-b053-42a2-8de3-b6c2abb879ee": {
+            "id": "cc7cd240-b053-42a2-8de3-b6c2abb879ee",
+            "name": "Drink",
+            "title": "Drink",
             "description": "",
             "display": {
-                "x": 112,
-                "y": -224
+                "x": 176,
+                "y": -32
             },
             "parameters": {},
             "properties": {}
         },
-        "c4ff85de-b7e0-46cd-b264-69622be88c30": {
-            "id": "c4ff85de-b7e0-46cd-b264-69622be88c30",
-            "name": "Failer",
-            "title": "Failer",
+        "1e373794-ae21-4a3c-8ad6-dc235f3718d0": {
+            "id": "1e373794-ae21-4a3c-8ad6-dc235f3718d0",
+            "name": "HasItem",
+            "title": "Has item",
             "description": "",
             "display": {
-                "x": 240,
-                "y": 48
+                "x": 176,
+                "y": -240
+            },
+            "parameters": {
+                "anyItem": "food"
+            },
+            "properties": {}
+        },
+        "e5be7f01-8c38-4dc6-844a-aa247de70beb": {
+            "id": "e5be7f01-8c38-4dc6-844a-aa247de70beb",
+            "name": "HasItem",
+            "title": "Has item",
+            "description": "",
+            "display": {
+                "x": 176,
+                "y": -80
+            },
+            "parameters": {
+                "anyItem": "drink"
+            },
+            "properties": {}
+        },
+        "bf211aeb-5b72-40e3-8144-7e0c7fb2aa28": {
+            "id": "bf211aeb-5b72-40e3-8144-7e0c7fb2aa28",
+            "name": "Sequence",
+            "title": "Sequence",
+            "description": "Combat",
+            "display": {
+                "x": 16,
+                "y": 80
+            },
+            "parameters": {},
+            "properties": {},
+            "children": [
+                "d9303cb9-2f71-4cab-b929-6d377fc5d40d",
+                "85defb61-6d5c-41f9-a02b-3c050011f4fa",
+                "99f436a5-c97a-41f2-8253-67dd1b58bce0"
+            ]
+        },
+        "d9303cb9-2f71-4cab-b929-6d377fc5d40d": {
+            "id": "d9303cb9-2f71-4cab-b929-6d377fc5d40d",
+            "name": "EnemyPresent",
+            "title": "Enemy present",
+            "description": "",
+            "display": {
+                "x": 176,
+                "y": 32
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "ab94581f-5d74-44b2-8c9f-dd90233dc206": {
+            "id": "ab94581f-5d74-44b2-8c9f-dd90233dc206",
+            "name": "ShouldFight",
+            "title": "Should Fight",
+            "description": "",
+            "display": {
+                "x": 320,
+                "y": 80
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "99f436a5-c97a-41f2-8253-67dd1b58bce0": {
+            "id": "99f436a5-c97a-41f2-8253-67dd1b58bce0",
+            "name": "Attack",
+            "title": "Attack",
+            "description": "",
+            "display": {
+                "x": 160,
+                "y": 192
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "785714c2-45c1-4db5-a320-746bd16c86af": {
+            "id": "785714c2-45c1-4db5-a320-746bd16c86af",
+            "name": "Sequence",
+            "title": "Sequence",
+            "description": "Wander",
+            "display": {
+                "x": 16,
+                "y": 256
+            },
+            "parameters": {},
+            "properties": {},
+            "children": [
+                "9ead1301-77f1-47b7-89b9-e76242d2a268"
+            ]
+        },
+        "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe": {
+            "id": "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe",
+            "name": "MoveTo",
+            "title": "Escape",
+            "description": "specialized movement",
+            "display": {
+                "x": 400,
+                "y": 128
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "85defb61-6d5c-41f9-a02b-3c050011f4fa": {
+            "id": "85defb61-6d5c-41f9-a02b-3c050011f4fa",
+            "name": "Priority",
+            "title": "Priority",
+            "description": "",
+            "display": {
+                "x": 96,
+                "y": 80
+            },
+            "parameters": {},
+            "properties": {},
+            "children": [
+                "ab94581f-5d74-44b2-8c9f-dd90233dc206",
+                "7ed0c025-649a-4771-aaff-62cdb946fcfa"
+            ]
+        },
+        "7ed0c025-649a-4771-aaff-62cdb946fcfa": {
+            "id": "7ed0c025-649a-4771-aaff-62cdb946fcfa",
+            "name": "Inverter",
+            "title": "Inverter",
+            "description": "",
+            "display": {
+                "x": 224,
+                "y": 128
+            },
+            "parameters": {},
+            "properties": {},
+            "child": "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe"
+        },
+        "acbb8299-5dad-4f45-b826-2dfe5b4c9299": {
+            "id": "acbb8299-5dad-4f45-b826-2dfe5b4c9299",
+            "name": "Sequence",
+            "title": "Sequence",
+            "description": "",
+            "display": {
+                "x": -432,
+                "y": 32
+            },
+            "parameters": {},
+            "properties": {},
+            "children": []
+        },
+        "d53c9cae-ddb3-48a9-be17-b84b7cc14a34": {
+            "id": "d53c9cae-ddb3-48a9-be17-b84b7cc14a34",
+            "name": "Sequence",
+            "title": "Sequence",
+            "description": "",
+            "display": {
+                "x": -432,
+                "y": 64
+            },
+            "parameters": {},
+            "properties": {},
+            "children": []
+        },
+        "9ead1301-77f1-47b7-89b9-e76242d2a268": {
+            "id": "9ead1301-77f1-47b7-89b9-e76242d2a268",
+            "name": "MoveTo",
+            "title": "Move to",
+            "description": "",
+            "display": {
+                "x": 160,
+                "y": 256
             },
             "parameters": {},
             "properties": {}
         }
     },
-    "custom_nodes": []
+    "custom_nodes": [
+        {
+            "name": "IsHungry",
+            "title": "Is hungry",
+            "category": "condition"
+        },
+        {
+            "name": "EatFood",
+            "title": "Eat food",
+            "category": "action"
+        },
+        {
+            "name": "IsThirsty",
+            "title": "Is thirsty",
+            "category": "condition"
+        },
+        {
+            "name": "Drink",
+            "title": "Drink",
+            "category": "action"
+        },
+        {
+            "name": "HasItem",
+            "title": "Has item",
+            "category": "condition"
+        },
+        {
+            "name": "EnemyPresent",
+            "title": "Enemy present",
+            "category": "condition"
+        },
+        {
+            "name": "Attack",
+            "title": "Attack",
+            "category": "action"
+        },
+        {
+            "name": "ShouldFight",
+            "title": "Should Fight",
+            "category": "condition"
+        },
+        {
+            "name": "MoveTo",
+            "title": "Move to",
+            "category": "action"
+        }
+    ]
 }
