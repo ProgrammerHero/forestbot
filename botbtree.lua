@@ -53,15 +53,15 @@ local function buildBTree(tree, rootID)
 
   -- sort out my children and build the tree from the bottom up
   if (node["children"] and #(node["children"]) > 0) then
-    echo("multiple children")
+    --echo("multiple children")
     for i,c in ipairs(node["children"]) do
       children[#children+1] = buildBTree(tree, c)
     end
   elseif (node["child"] and #(node["child"]) > 0) then
-    echo("one child")
+    --echo("one child")
     children[1] = buildBTree(tree, node["child"])
   else
-    echo("no children") -- probably an action node
+    --echo("no children") -- probably an action node
     children[1] = COND_TRUE
   end
 
@@ -140,7 +140,7 @@ function botbtree.loadJSON(file)
 
   local tree = json.parse(content)
   local root = tree["root"]
-  echo(tree["nodes"][root]["name"])
+  --echo(tree["nodes"][root]["name"])
   return buildBTree(tree["nodes"], root)
 end
 
