@@ -34,8 +34,7 @@
                 <regexCodePropertyList/>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>mildly hungry</name>
-                    <script>bot.needs.hunger = 1
-bot.think()</script>
+                    <script>raiseEvent(&quot;hungerEvent&quot;, 1)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -55,8 +54,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>hungry</name>
-                    <script>bot.needs.hunger = 2
-bot.think()</script>
+                    <script>raiseEvent(&quot;hungerEvent&quot;, 2)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -76,8 +74,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>ravenous</name>
-                    <script>bot.needs.hunger = 3
-bot.think()</script>
+                    <script>raiseEvent(&quot;hungerEvent&quot;, 3)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -97,8 +94,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>starving to death</name>
-                    <script>bot.needs.hunger = 4
-bot.think()</script>
+                    <script>raiseEvent(&quot;hungerEvent&quot;, 4)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -118,8 +114,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>full</name>
-                    <script>bot.needs.hunger = 0
-bot.think()</script>
+                    <script>raiseEvent(&quot;hungerEvent&quot;, 0)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -157,8 +152,7 @@ bot.think()</script>
                 <regexCodePropertyList/>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>throat feels dry</name>
-                    <script>bot.needs.thirst = 1
-bot.think()</script>
+                    <script>raiseEvent(&quot;thirstEvent&quot;, 1)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -178,8 +172,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>thirsty</name>
-                    <script>bot.needs.thirst = 2
-bot.think()</script>
+                    <script>raiseEvent(&quot;thirstEvent&quot;, 2)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -199,8 +192,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>parched</name>
-                    <script>bot.needs.thirst = 3
-bot.think()</script>
+                    <script>raiseEvent(&quot;thirstEvent&quot;, 3)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -220,8 +212,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>dying of thirst</name>
-                    <script>bot.needs.thirst = 4
-bot.think()</script>
+                    <script>raiseEvent(&quot;thirstEvent&quot;, 4)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -241,8 +232,7 @@ bot.think()</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>quenched</name>
-                    <script>bot.needs.thirst = 0
-bot.think()</script>
+                    <script>raiseEvent(&quot;thirstEvent&quot;, 0)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>39</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -426,7 +416,7 @@ bot.items.encumbrance = matches[3]</script>
                     <script>bot.items.numItems = tonumber(matches[2])
 bot.items.maxItems = tonumber(matches[3])
 disableTrigger(&quot;inventory&quot;)
-bot.think()</script>
+raiseEvent(&quot;inventoryUpdated&quot;)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -447,7 +437,7 @@ bot.think()</script>
             </TriggerGroup>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>NoFood</name>
-                <script>bot.items.hasFood = false</script>
+                <script>raiseEvent(&quot;noFood&quot;)</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>39</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -467,7 +457,7 @@ bot.think()</script>
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>NoWater</name>
-                <script>bot.items.hasWater = false</script>
+                <script>raiseEvent(&quot;noWater&quot;)</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -490,30 +480,7 @@ bot.think()</script>
                 </regexCodePropertyList>
             </Trigger>
         </TriggerGroup>
-        <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-            <name>init</name>
-            <script>-- will run on first login to &quot;the forests edge&quot;
-echo(&quot;preinit&quot;)
-dofile(os.getenv(&quot;forestbot_path&quot;)..&quot;/forestbot.lua&quot;)
-echo(&quot;postinit&quot;)</script>
-            <triggerType>0</triggerType>
-            <conditonLineDelta>0</conditonLineDelta>
-            <mStayOpen>0</mStayOpen>
-            <mCommand></mCommand>
-            <packageName></packageName>
-            <mFgColor>#ff0000</mFgColor>
-            <mBgColor>#ffff00</mBgColor>
-            <mSoundFile></mSoundFile>
-            <colorTriggerFgColor>#000000</colorTriggerFgColor>
-            <colorTriggerBgColor>#000000</colorTriggerBgColor>
-            <regexCodeList>
-                <string>http://www.theforestsedge.com</string>
-            </regexCodeList>
-            <regexCodePropertyList>
-                <integer>0</integer>
-            </regexCodePropertyList>
-        </Trigger>
-        <TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>score</name>
             <script></script>
             <triggerType>0</triggerType>
@@ -550,7 +517,7 @@ echo(&quot;postinit&quot;)</script>
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>cleanup</name>
-                <script>disableTrigger(&quot;score&quot;)</script>
+                <script>raiseEvent(&quot;scoreUpdated&quot;)</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -594,6 +561,7 @@ bot.status.maxEnergy = tonumber(matches[5])
 bot.status.moves = tonumber(matches[6])
 bot.status.maxMoves = tonumber(matches[7])
 bot.status.xp = tonumber(matches[8])
+raiseEvent(&quot;prompt&quot;)
 
 -- prompt ?p'-- MORE -- '&lt;%f?f|%h/%Hhp %e/%Ee ?m'[%m/%Mmv]'!m'%v/%Vmv' %xxp ?b'%c'!b'%d'&gt;</script>
             <triggerType>0</triggerType>
@@ -611,6 +579,29 @@ bot.status.xp = tonumber(matches[8])
             </regexCodeList>
             <regexCodePropertyList>
                 <integer>1</integer>
+            </regexCodePropertyList>
+        </Trigger>
+        <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>init</name>
+            <script>-- will run on first login to &quot;the forests edge&quot;
+echo(&quot;preinit&quot;)
+dofile(os.getenv(&quot;forestbot_path&quot;)..&quot;/forestbot.lua&quot;)
+echo(&quot;postinit&quot;)</script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList>
+                <string>http://www.theforestsedge.com</string>
+            </regexCodeList>
+            <regexCodePropertyList>
+                <integer>0</integer>
             </regexCodePropertyList>
         </Trigger>
     </TriggerPackage>
