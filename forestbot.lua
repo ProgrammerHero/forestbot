@@ -46,7 +46,14 @@ end
 -- Evaluate the behaviour tree based on the current known state of the world.
 --------------------------------------------------------------------------------
 function bot.think()
-  -- dispatch behaviour tree
+  bot.debugMessage("Thinking...")
+end
+
+--------------------------------------------------------------------------------
+-- Run bot.think() after all triggers have finished for the current line.
+--------------------------------------------------------------------------------
+function bot.thinkAfterTriggers()
+  tempTimer(0, [[bot.think()]])
 end
 
 --------------------------------------------------------------------------------
@@ -128,6 +135,7 @@ end
 --------------------------------------------------------------------------------
 -- Function to register an event handler with Mudlet's event system
 -- Stores registered handlers in the bot.handlers namespace.
+-- All events include bot.thinkAfterTriggers as a handler.
 -- We guarantee that only one event will be fired per line from the mud.
 --------------------------------------------------------------------------------
 function bot.addHandler(eventName, handlerName, handlerFunc)
@@ -135,6 +143,7 @@ function bot.addHandler(eventName, handlerName, handlerFunc)
   " to handle \"" .. eventName .. "\" event.")
   bot.handlers[handlerName] = handlerFunc
   registerAnonymousEventHandler(eventName, "bot.handlers." .. handlerName)
+  registerAnonymousEventHandler(eventName, "bot.thinkAfterTriggers")
 end
 
 --------------------------------------------------------------------------------
