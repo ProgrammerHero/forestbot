@@ -10,6 +10,7 @@
 bot = {}
 bot.handlers = {}
 bot.functions = {}
+bot.combat = {}
 bot.debug = true
 
 --------------------------------------------------------------------------------
@@ -88,6 +89,8 @@ function bot.reset()
   bot.items.hasWater = true
 
   bot.items.inventory = {}
+
+  bot.combat.targets = {}
 
   -- should probably init inventory here
   -- and stats
@@ -202,6 +205,99 @@ function bot.initHandlers()
   function()
   end
   )
+
+  bot.addHandler("leapsToAttack", "leapsToAttackYou",
+  function(event, attacker, target)
+    if(attacker == "you") then
+      bot.combat.addTarget(target)
+      bot.debugMessage("Now fighting \"" .. target .. "\".") 
+    elseif(target == "you") then
+      bot.combat.addTarget(attacker)
+      bot.debugMessage("Now fighting \"" .. attacker .. "\".") 
+    end
+  end
+  )
+
+  bot.addHandler("counterattacks", "counterattacksYou",
+  function(event, attacker, target)
+    if(target == "you") then
+      bot.debugMessage("Now fighting \"" .. attacker .. "\".") 
+      bot.combat.addTarget(attacker)
+    end
+  end
+  )
+
+  bot.addHandler("someoneFled", "currentTargetFled",
+  function(event, actor, direction)
+    if bot.combat.isTarget(actor) then
+      bot.debugMessage("Target \"" .. actor .. "\" fled " .. direction .. ".") 
+      bot.combat.removeTarget(actor)
+    end
+  end
+  )
+
+  bot.addHandler("someoneIsDEAD", "targetIsDEAD",
+  function(event, whoDied)
+    if bot.combat.isTarget(whoDied) then
+      bot.debugMessage("Target \"" .. whoDied .. "\" died.") 
+      bot.combat.removeTarget(whoDied)
+    end
+  end
+  )
+
+  bot.addHandler("botFled", "botFled",
+  function(event, fleeDirection)
+    bot.debugMessage("Bot fled " .. fleeDirection) 
+    bot.combat.botFleeDirection = fleeDirection
+    bot.combat.removeAllTargets()
+    -- TODO: Track that we have 'angry' enemies around
+  end
+  )
+
+  bot.addHandler("botDeath", "botCombatDeath",
+  function()
+    bot.combat.removeAllTargets()
+  end
+  )
+end
+
+--------------------------------------------------------------------------------
+-- Combat Functions
+--------------------------------------------------------------------------------
+function bot.combat.addTarget(target)
+  bot.combat.targets[#bot.combat.targets + 1] = target
+  bot.debugMessage(bot.combat.listTargets())
+end
+
+function bot.combat.removeTarget(target)
+  local index = table.index_of(bot.combat.targets, target)
+  local success = false
+
+  if index then
+    table.remove(bot.combat.targets, index)
+    success = true
+  end
+
+  bot.debugMessage(bot.combat.listTargets())
+
+  return success
+end
+
+function bot.combat.removeAllTargets()
+  bot.combat.targets = {}
+  bot.debugMessage(bot.combat.listTargets())
+end
+
+function bot.combat.isTarget(target)
+  return table.contains(bot.combat.targets, target)
+end
+
+function bot.combat.listTargets()
+  return "Targets = {" ..table.concat(bot.combat.targets, ", ") .. "}"
+end
+
+function bot.combat.inCombat()
+  return #bot.combat.targets == 0
 end
 
 --------------------------------------------------------------------------------

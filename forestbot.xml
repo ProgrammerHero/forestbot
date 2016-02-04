@@ -327,7 +327,7 @@ bot.items.coinsWeight = tonumber(matches[3])
                     <regexCodePropertyList>
                         <integer>3</integer>
                     </regexCodePropertyList>
-                    <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                         <name>one-item line</name>
                         <script>bot.items.inventory[#bot.items.inventory + 1] = {matches[2], tonumber(matches[3]), tonumber(matches[4])}
 </script>
@@ -342,7 +342,7 @@ bot.items.coinsWeight = tonumber(matches[3])
                         <colorTriggerFgColor>#000000</colorTriggerFgColor>
                         <colorTriggerBgColor>#000000</colorTriggerBgColor>
                         <regexCodeList>
-                            <string>^((?:\s?\S+)+)\s+(\d+)\s+([0-9.]+)</string>
+                            <string>^((?:\s?\S+)+)\s+(\d+)\s+([0-9.]+)\s*$</string>
                         </regexCodeList>
                         <regexCodePropertyList>
                             <integer>1</integer>
@@ -415,7 +415,7 @@ bot.items.encumbrance = matches[3]</script>
                     <name>number</name>
                     <script>bot.items.numItems = tonumber(matches[2])
 bot.items.maxItems = tonumber(matches[3])
-disableTrigger(&quot;inventory&quot;)
+disableTrigger(&quot;refresh inventory&quot;)
 raiseEvent(&quot;inventoryUpdated&quot;)</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
@@ -480,7 +480,7 @@ raiseEvent(&quot;inventoryUpdated&quot;)</script>
                 </regexCodePropertyList>
             </Trigger>
         </TriggerGroup>
-        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+        <TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>score</name>
             <script></script>
             <triggerType>0</triggerType>
@@ -517,7 +517,8 @@ raiseEvent(&quot;inventoryUpdated&quot;)</script>
             </Trigger>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>cleanup</name>
-                <script>raiseEvent(&quot;scoreUpdated&quot;)</script>
+                <script>disableTrigger(&quot;score&quot;)
+raiseEvent(&quot;scoreUpdated&quot;)</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -561,7 +562,6 @@ bot.status.maxEnergy = tonumber(matches[5])
 bot.status.moves = tonumber(matches[6])
 bot.status.maxMoves = tonumber(matches[7])
 bot.status.xp = tonumber(matches[8])
-raiseEvent(&quot;prompt&quot;)
 
 -- prompt ?p'-- MORE -- '&lt;%f?f|%h/%Hhp %e/%Ee ?m'[%m/%Mmv]'!m'%v/%Vmv' %xxp ?b'%c'!b'%d'&gt;</script>
             <triggerType>0</triggerType>
@@ -575,7 +575,7 @@ raiseEvent(&quot;prompt&quot;)
             <colorTriggerFgColor>#000000</colorTriggerFgColor>
             <colorTriggerBgColor>#000000</colorTriggerBgColor>
             <regexCodeList>
-                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? (\d*)xp(?: (\d*)\/(\d*)hp)?.*&gt;</string>
+                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? ([-0-9]+)xp(?: (\d*)\/(\d*)hp)?.*&gt;</string>
             </regexCodeList>
             <regexCodePropertyList>
                 <integer>1</integer>
@@ -604,6 +604,150 @@ echo(&quot;postinit&quot;)</script>
                 <integer>0</integer>
             </regexCodePropertyList>
         </Trigger>
+        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>combat</name>
+            <script></script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList/>
+            <regexCodePropertyList/>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>leapsToAttack</name>
+                <script>raiseEvent(&quot;leapsToAttack&quot;,
+           string.lower(string.trim(matches[2])),
+           string.lower(string.trim(matches[3])))</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>(.+) leaps? to attack (.+)!$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>counterattacks</name>
+                <script>raiseEvent(&quot;counterattacks&quot;,
+           string.lower(string.trim(matches[2])),
+           string.lower(string.trim(matches[3])))</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>(.+) counterattacks? (.+)!$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>someoneFled</name>
+                <script>-- TODO: This could also be a player fleeing. The trigger should differentiate
+raiseEvent(&quot;someoneFled&quot;,
+           string.lower(string.trim(matches[2])),
+           string.lower(string.trim(matches[3])))</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>(.+) blindly flees (\w+).$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>someoneIsDEAD</name>
+                <script>-- TODO: This may detect a player's death as well as an npc.
+raiseEvent(&quot;someoneIsDEAD&quot;, string.lower(string.trim(matches[2])))</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>(.+) is DEAD!!$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>botFled</name>
+                <script>raiseEvent(&quot;botFled&quot;, string.lower(string.trim(matches[2])))</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>You flee (\w+).$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>botDeath</name>
+                <script>raiseEvent(&quot;botDeath&quot;)</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>You have been killed!</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>3</integer>
+                </regexCodePropertyList>
+            </Trigger>
+        </TriggerGroup>
     </TriggerPackage>
     <TimerPackage>
         <Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
