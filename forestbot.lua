@@ -51,13 +51,6 @@ function bot.think()
 end
 
 --------------------------------------------------------------------------------
--- Run bot.think() after all triggers have finished for the current line.
---------------------------------------------------------------------------------
-function bot.thinkAfterTriggers()
-  tempTimer(0, [[bot.think()]])
-end
-
---------------------------------------------------------------------------------
 -- Resets all bot state to initial values.
 --------------------------------------------------------------------------------
 function bot.reset()
@@ -149,7 +142,7 @@ function bot.addHandler(eventName, handlerName, handlerFunc)
   " to handle \"" .. eventName .. "\" event.")
   bot.handlers[handlerName] = handlerFunc
   registerAnonymousEventHandler(eventName, "bot.handlers." .. handlerName)
-  registerAnonymousEventHandler(eventName, "bot.thinkAfterTriggers")
+  registerAnonymousEventHandler(eventName, "bot.think")
 end
 
 --------------------------------------------------------------------------------
