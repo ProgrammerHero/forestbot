@@ -75,6 +75,9 @@ function bot.reset()
   bot.status.xp = 0
 
   bot.status.stance = ""
+  
+  bot.location = {}
+  bot.location.roomNo = 0
 
   bot.needs = {}
   bot.needs.hunger = 0
@@ -257,6 +260,13 @@ function bot.initHandlers()
   bot.addHandler("botDeath", "botCombatDeath",
   function()
     bot.combat.removeAllTargets()
+  end
+  )
+
+  bot.addHandler("newRoom", "updateRoomNumber",
+  function(event, roomNo)
+    bot.location.roomNo = roomNo
+    bot.debugMessage("Currently in room #".. bot.location.roomNo)
   end
   )
 end
