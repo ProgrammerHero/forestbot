@@ -743,7 +743,7 @@ raiseEvent(&quot;someoneIsDEAD&quot;, string.lower(string.trim(matches[2])))</sc
                 <colorTriggerFgColor>#000000</colorTriggerFgColor>
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList>
-                    <string>You have been killed!</string>
+                    <string>You have been KILLED!!</string>
                 </regexCodeList>
                 <regexCodePropertyList>
                     <integer>3</integer>
@@ -856,7 +856,7 @@ raiseEvent(&quot;someoneIsDEAD&quot;, string.lower(string.trim(matches[2])))</sc
                         <integer>3</integer>
                     </regexCodePropertyList>
                 </Trigger>
-                <Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>equipment line</name>
                     <script>if not (matches[2] == &quot;---- --------&quot;) then
   if #matches == 5 then
@@ -891,7 +891,7 @@ end</script>
                         <integer>1</integer>
                     </regexCodePropertyList>
                 </Trigger>
-                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>disable equipment</name>
                     <script>bot.items.wornWeight = tonumber(matches[2])
 disableTrigger(&quot;equipment line&quot;)
@@ -961,6 +961,13 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
             <command></command>
             <packageName></packageName>
             <regex>testIdent</regex>
+        </Alias>
+        <Alias isActive="yes" isFolder="no">
+            <name>test equipment</name>
+            <script>bot.functions.updateEquipment()</script>
+            <command></command>
+            <packageName></packageName>
+            <regex>^testEq</regex>
         </Alias>
     </AliasPackage>
     <ActionPackage/>
