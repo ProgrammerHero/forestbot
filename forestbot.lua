@@ -85,6 +85,7 @@ function bot.reset()
   bot.items.hasWater = true
 
   bot.items.inventory = {}
+  bot.items.equipment = {}
 
   bot.combat.targets = {}
 
@@ -132,6 +133,14 @@ function bot.functions.updateInventory()
 end
 
 --------------------------------------------------------------------------------
+-- Enable equipment parsing triggers and request equipment from the mud.
+--------------------------------------------------------------------------------
+function bot.functions.updateEquipment()
+  enableTrigger("refresh equipment")
+  send("equipment")
+end
+
+--------------------------------------------------------------------------------
 -- Function to register an event handler with Mudlet's event system
 -- Stores registered handlers in the bot.handlers namespace.
 -- All events include bot.thinkAfterTriggers as a handler.
@@ -175,6 +184,12 @@ function bot.initHandlers()
   bot.addHandler("inventoryUpdated", "inventory",
   function()
     bot.debugMessage("Implement inventory update handler.")
+  end
+  )
+
+  bot.addHandler("equipmentUpdated", "equipment",
+  function()
+    bot.debugMessage("Implement equipment update handler.")
   end
   )
 
