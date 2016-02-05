@@ -30,6 +30,7 @@ local modules = {
                   "handlers.inventory",
                   "handlers.score",
                   "handlers.location",
+                  "handlers.equipment",
 --                  "handlers.scan",
                 }
 
@@ -145,8 +146,6 @@ end
 --  bot.status.xp = 0
 --
 --  bot.status.stance = ""
---
---  bot.items.equipment = {}
 
 -- should probably init inventory here
 -- and stats
@@ -159,23 +158,9 @@ end
 --end
 
 --------------------------------------------------------------------------------
--- Enable equipment parsing triggers and request equipment from the mud.
---------------------------------------------------------------------------------
-function bot.functions.updateEquipment()
-  enableTrigger("refresh equipment")
-  send("equipment")
-end
-
---------------------------------------------------------------------------------
 -- Handlers for triggered events
 --------------------------------------------------------------------------------
 function bot.initHandlers()
-  bot.handlers.handlerUtils.addHandler("equipmentUpdated", "equipment",
-  function()
-    debugMessage("Implement equipment update handler.")
-  end
-  )
-
   bot.handlers.handlerUtils.addHandler("prompt", "prompt",
   function()
   end
