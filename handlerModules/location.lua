@@ -18,7 +18,8 @@ function location.init(worldStatus)
 end
 
 function location.reset()
-  status.roomNo = {}
+  status.roomNo = 0
+  status.exits = ""
 end
 
 function addHandlers()
