@@ -3,6 +3,16 @@
 -- Aegeus, ProgrammerHero
 -- 2016
 --------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- Add the forestbot directory to lua's package search paths
+-- This should only happen the first time this file is loaded.
+--------------------------------------------------------------------------------
+if not savedPackagePath then
+  savedPackagePath = package.path
+  package.path = os.getenv("forestbot_path") .. "/?.lua;" .. savedPackagePath
+end
+
 local debugMode = true
 local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 
@@ -25,7 +35,6 @@ local modules = {
 
 -- Forward declarations to allow these functions to be private and defined
 -- after functions that call them.
-local setupPackagePaths
 local reloadModule
 local initModule
 local getModuleFromName
@@ -37,8 +46,6 @@ local reset
 function bot.init()
   debugMessage("bot.init()")
 
-  setupPackagePaths()
-
   for i, moduleName in ipairs(modules) do
     reloadModule(bot, moduleName)
     initModule(bot, moduleName)
@@ -46,18 +53,6 @@ function bot.init()
 
   bot.initHandlers()
   bot.reset()
-end
-
---------------------------------------------------------------------------------
--- Add the forestbot directory to lua's package search paths
--- This should only happen the first time this file is loaded.
---------------------------------------------------------------------------------
-function setupPackagePaths()
-  if not savedPackagePath then
-    savedPackagePath = package.path
-    debugMessage("Capturing default package path")
-    package.path = os.getenv("forestbot_path") .. "/?.lua;" .. savedPackagePath
-  end
 end
 
 --------------------------------------------------------------------------------
