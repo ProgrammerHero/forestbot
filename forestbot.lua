@@ -25,7 +25,7 @@ bot.functions = {}
 local modules = {
                   "botbtree",
                   "handlers.handlerUtils",
---                  "handlers.needs",
+                  "handlers.needs",
                   "handlers.combat",
 --                  "handlers.inventory",
 --                  "handlers.score",
@@ -150,10 +150,6 @@ end
 --  bot.location = {}
 --  bot.location.roomNo = 0
 --
---  bot.needs = {}
---  bot.needs.hunger = 0
---  bot.needs.thirst = 0
---
 --  bot.items = {}
 --  bot.items.coins = 0
 --  bot.items.weight = 0
@@ -220,20 +216,6 @@ end
 -- Handlers for triggered events
 --------------------------------------------------------------------------------
 function bot.initHandlers()
-  bot.handlers.handlerUtils.addHandler("hungerEvent", "hunger",
-  function(eventName, hungerLevel)
-    debugMessage("Setting bot.needs.hunger to " .. hungerLevel)
-    bot.needs.hunger = hungerLevel
-  end
-  )
-
-  bot.handlers.handlerUtils.addHandler("thirstEvent", "thirst",
-  function(eventName, thirstLevel)
-    debugMessage("Setting bot.needs.thirst to " .. thirstLevel)
-    bot.needs.thirst = thirstLevel
-  end
-  )
-
   bot.handlers.handlerUtils.addHandler("inventoryUpdated", "inventory",
   function()
     debugMessage("Implement inventory update handler.")
