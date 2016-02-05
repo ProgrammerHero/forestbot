@@ -20,13 +20,13 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 -- Central bot namespace
 --------------------------------------------------------------------------------
 bot = {}
-bot.handlers = {}
+bot.status = {}
 bot.functions = {}
-bot.combat = {}
 local modules = {
                   "botbtree",
+                  "handlers.handlerUtils",
 --                  "handlers.needs",
---                  "handlers.combat",
+                  "handlers.combat",
 --                  "handlers.inventory",
 --                  "handlers.score",
 --                  "handlers.location",
@@ -48,11 +48,21 @@ function bot.init()
 
   for i, moduleName in ipairs(modules) do
     reloadModule(bot, moduleName)
-    initModule(bot, moduleName)
+    initModule(bot, moduleName, bot.status)
   end
 
   bot.initHandlers()
-  bot.reset()
+end
+
+--------------------------------------------------------------------------------
+-- Calls each module's reset() function, resetting the bot to its initial state.
+--------------------------------------------------------------------------------
+function bot.reset()
+  debugMessage("bot.reset()")
+
+  for i, moduleName in ipairs(modules) do
+    resetModule(moduleName)
+  end
 end
 
 --------------------------------------------------------------------------------
@@ -75,14 +85,26 @@ function reloadModule(rootNamespace, moduleName)
 end
 
 --------------------------------------------------------------------------------
--- Call the init() function of a module, give its period-delimited name.
+-- Call the init() function of a module, given its period-delimited name.
 --------------------------------------------------------------------------------
-function initModule(rootNamespace, moduleName)
+function initModule(rootNamespace, moduleName, worldStatus)
   debugMessage("  Initializing module " .. moduleName)
   local module = getModuleFromName(rootNamespace, moduleName)
 
   if module and module.init then
-    module.init()
+    module.init(worldStatus)
+  end
+end
+
+--------------------------------------------------------------------------------
+-- Call the reset() function of a module, given its period-delimited name.
+--------------------------------------------------------------------------------
+function reset(moduleName)
+  debugMessage("Resetting module " .. moduleName)
+  local module = getModuleFromName(rootNamespace, moduleName)
+
+  if module and module.reset then
+    module.reset()
   end
 end
 
@@ -110,54 +132,48 @@ function bot.think()
   debugMessage("Thinking...")
 end
 
---------------------------------------------------------------------------------
--- Resets all bot state to initial values.
---------------------------------------------------------------------------------
-function bot.reset()
-  debugMessage("bot.reset()")
 
-  bot.status = {}
-  bot.status.hits = 0
-  bot.status.energy = 0
-  bot.status.moves = 0
 
-  bot.status.maxHits = 0
-  bot.status.maxMoves = 0
+--  bot.status = {}
+--  bot.status.hits = 0
+--  bot.status.energy = 0
+--  bot.status.moves = 0
+--
+--  bot.status.maxHits = 0
+--  bot.status.maxMoves = 0
+--
+--  bot.status.level = 0
+--  bot.status.xp = 0
+--
+--  bot.status.stance = ""
+--
+--  bot.location = {}
+--  bot.location.roomNo = 0
+--
+--  bot.needs = {}
+--  bot.needs.hunger = 0
+--  bot.needs.thirst = 0
+--
+--  bot.items = {}
+--  bot.items.coins = 0
+--  bot.items.weight = 0
+--  bot.items.wornWeight = 0
+--  bot.items.encumbrance = ""
+--  bot.items.hasFood = true
+--  bot.items.hasWater = true
+--
+--  bot.items.inventory = {}
+--  bot.items.equipment = {}
 
-  bot.status.level = 0
-  bot.status.xp = 0
+-- should probably init inventory here
+-- and stats
 
-  bot.status.stance = ""
-
-  bot.location = {}
-  bot.location.roomNo = 0
-
-  bot.needs = {}
-  bot.needs.hunger = 0
-  bot.needs.thirst = 0
-
-  bot.items = {}
-  bot.items.coins = 0
-  bot.items.weight = 0
-  bot.items.wornWeight = 0
-  bot.items.encumbrance = ""
-  bot.items.hasFood = true
-  bot.items.hasWater = true
-
-  bot.items.inventory = {}
-  bot.items.equipment = {}
-
-  bot.combat.targets = {}
-
-  -- should probably init inventory here
-  -- and stats
-
-  -- reset behaviours
-  bot.btree = bot.botbtree.loadJSON("behaviour.json")
-
-  bot.btree:run(bot)
-
-end
+---- reset behaviours
+--bot.btree = bot.botbtree.loadJSON("behaviour.json")
+--
+--  bot.btree:run(bot)
+--
+--end
 
 --------------------------------------------------------------------------------
 -- Bot identity/score functions.
@@ -201,181 +217,65 @@ function bot.functions.updateEquipment()
 end
 
 --------------------------------------------------------------------------------
--- Function to register an event handler with Mudlet's event system
--- Stores registered handlers in the bot.handlers namespace.
--- All events include bot.thinkAfterTriggers as a handler.
--- We guarantee that only one event will be fired per line from the mud.
---------------------------------------------------------------------------------
-function bot.addHandler(eventName, handlerName, handlerFunc)
-  debugMessage("Adding bot.handlers." .. handlerName ..
-  " to handle \"" .. eventName .. "\" event.")
-  bot.handlers[handlerName] = handlerFunc
-  registerAnonymousEventHandler(eventName, "bot.handlers." .. handlerName)
-  registerAnonymousEventHandler(eventName, "bot.think")
-end
-
---------------------------------------------------------------------------------
--- Function to remove an event handler
--- As of Feb 2016, Mudlet's event system cannot unregister an event handler,
--- so we instead change the lua function registered as a handler to a no-op.
---------------------------------------------------------------------------------
-function bot.removeHandler(eventName, handlerName)
-  bot.handlers[handlerName] = function() end
-end
-
---------------------------------------------------------------------------------
 -- Handlers for triggered events
 --------------------------------------------------------------------------------
 function bot.initHandlers()
-  bot.addHandler("hungerEvent", "hunger",
+  bot.handlers.handlerUtils.addHandler("hungerEvent", "hunger",
   function(eventName, hungerLevel)
     debugMessage("Setting bot.needs.hunger to " .. hungerLevel)
     bot.needs.hunger = hungerLevel
   end
   )
 
-  bot.addHandler("thirstEvent", "thirst",
+  bot.handlers.handlerUtils.addHandler("thirstEvent", "thirst",
   function(eventName, thirstLevel)
     debugMessage("Setting bot.needs.thirst to " .. thirstLevel)
     bot.needs.thirst = thirstLevel
   end
   )
 
-  bot.addHandler("inventoryUpdated", "inventory",
+  bot.handlers.handlerUtils.addHandler("inventoryUpdated", "inventory",
   function()
     debugMessage("Implement inventory update handler.")
   end
   )
 
-  bot.addHandler("equipmentUpdated", "equipment",
+  bot.handlers.handlerUtils.addHandler("equipmentUpdated", "equipment",
   function()
     debugMessage("Implement equipment update handler.")
   end
   )
 
-  bot.addHandler("noFood", "noFood",
+  bot.handlers.handlerUtils.addHandler("noFood", "noFood",
   function()
     debugMessage("Setting bot.items.hasFood = false")
     bot.items.hasFood = false
   end
   )
 
-  bot.addHandler("noWater", "noWater",
+  bot.handlers.handlerUtils.addHandler("noWater", "noWater",
   function()
     bot.items.hasWater = false
   end
   )
 
-  bot.addHandler("scoreUpdated", "score",
+  bot.handlers.handlerUtils.addHandler("scoreUpdated", "score",
   function()
     debugMessage("Implement score update handler.")
   end
   )
 
-  bot.addHandler("prompt", "prompt",
+  bot.handlers.handlerUtils.addHandler("prompt", "prompt",
   function()
   end
   )
 
-  bot.addHandler("leapsToAttack", "leapsToAttackYou",
-  function(event, attacker, target)
-    if(attacker == "you") then
-      bot.combat.addTarget(target)
-      debugMessage("Now fighting \"" .. target .. "\".")
-    elseif(target == "you") then
-      bot.combat.addTarget(attacker)
-      debugMessage("Now fighting \"" .. attacker .. "\".")
-    end
-  end
-  )
-
-  bot.addHandler("counterattacks", "counterattacksYou",
-  function(event, attacker, target)
-    if(target == "you") then
-      debugMessage("Now fighting \"" .. attacker .. "\".")
-      bot.combat.addTarget(attacker)
-    end
-  end
-  )
-
-  bot.addHandler("someoneFled", "currentTargetFled",
-  function(event, actor, direction)
-    if bot.combat.isTarget(actor) then
-      debugMessage("Target \"" .. actor .. "\" fled " .. direction .. ".")
-      bot.combat.removeTarget(actor)
-    end
-  end
-  )
-
-  bot.addHandler("someoneIsDEAD", "targetIsDEAD",
-  function(event, whoDied)
-    if bot.combat.isTarget(whoDied) then
-      debugMessage("Target \"" .. whoDied .. "\" died.")
-      bot.combat.removeTarget(whoDied)
-    end
-  end
-  )
-
-  bot.addHandler("botFled", "botFled",
-  function(event, fleeDirection)
-    debugMessage("Bot fled " .. fleeDirection)
-    bot.combat.botFleeDirection = fleeDirection
-    bot.combat.removeAllTargets()
-    -- TODO: Track that we have 'angry' enemies around
-  end
-  )
-
-  bot.addHandler("botDeath", "botCombatDeath",
-  function()
-    bot.combat.removeAllTargets()
-  end
-  )
-
-  bot.addHandler("newRoom", "updateRoomNumber",
+  bot.handlers.handlerUtils.addHandler("newRoom", "updateRoomNumber",
   function(event, roomNo)
     bot.location.roomNo = roomNo
     debugMessage("Currently in room #".. bot.location.roomNo)
   end
   )
-end
-
---------------------------------------------------------------------------------
--- Combat Functions
---------------------------------------------------------------------------------
-function bot.combat.addTarget(target)
-  bot.combat.targets[#bot.combat.targets + 1] = target
-  debugMessage(bot.combat.listTargets())
-end
-
-function bot.combat.removeTarget(target)
-  local index = table.index_of(bot.combat.targets, target)
-  local success = false
-
-  if index then
-    table.remove(bot.combat.targets, index)
-    success = true
-  end
-
-  debugMessage(bot.combat.listTargets())
-
-  return success
-end
-
-function bot.combat.removeAllTargets()
-  bot.combat.targets = {}
-  debugMessage(bot.combat.listTargets())
-end
-
-function bot.combat.isTarget(target)
-  return table.contains(bot.combat.targets, target)
-end
-
-function bot.combat.listTargets()
-  return "Targets = {" ..table.concat(bot.combat.targets, ", ") .. "}"
-end
-
-function bot.combat.inCombat()
-  return #bot.combat.targets == 0
 end
 
 --------------------------------------------------------------------------------
