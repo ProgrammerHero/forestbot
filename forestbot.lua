@@ -29,7 +29,7 @@ local modules = {
                   "handlers.combat",
                   "handlers.inventory",
                   "handlers.score",
---                  "handlers.location",
+                  "handlers.location",
 --                  "handlers.scan",
                 }
 
@@ -146,9 +146,6 @@ end
 --
 --  bot.status.stance = ""
 --
---  bot.location = {}
---  bot.location.roomNo = 0
---
 --  bot.items.equipment = {}
 
 -- should probably init inventory here
@@ -184,12 +181,6 @@ function bot.initHandlers()
   end
   )
 
-  bot.handlers.handlerUtils.addHandler("newRoom", "updateRoomNumber",
-  function(event, roomNo)
-    bot.location.roomNo = roomNo
-    debugMessage("Currently in room #".. bot.location.roomNo)
-  end
-  )
 end
 
 --------------------------------------------------------------------------------
