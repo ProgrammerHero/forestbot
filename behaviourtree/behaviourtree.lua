@@ -194,8 +194,8 @@ function treeToString(tree)
   return _treeToString(tree, 0)
 end
 
-COND_TRUE = Action(function() return true end)
-COND_FALSE = Action(function() return false end)
+COND_TRUE = bt.Action(function() return true end)
+COND_FALSE = bt.Action(function() return false end)
 
 --------------------------------------------------------------------------------
 -- Example

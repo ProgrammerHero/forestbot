@@ -10,6 +10,7 @@
 
 local botbtree = {}
 local json = require("json")
+local bt = require("behaviourtree.behaviourtree")
 
 ---------------------------------------
 -- Add custom behaviour tree nodes here
@@ -76,25 +77,25 @@ local function buildBTree(tree, rootID)
   --------------------------
   local name = tree[rootID]["name"]
   if (name == "Sequence") then
-    node = Sequence(children)
+    node = bt.Sequence(children)
   elseif (name == "Priority") then
-    node = Selector(children)
+    node = bt.Selector(children)
   elseif (name == "MemSequence") then
   elseif (name == "MemPriority") then
   elseif (name == "Repeater") then
-    node = Repeater(children[1], maxLoop)
+    node = bt.Repeater(children[1], maxLoop)
   elseif (name == "RepeatUntilFailure") then
-    node = Repeater_Succeed(Inverter(children[1], maxLoop))
+    node = bt.Repeater_Succeed(bt.Inverter(children[1], maxLoop))
   elseif (name == "RepeatUntilSuccess") then
-    node = Repeater_Succeed(children[1], maxLoop)
+    node = bt.Repeater_Succeed(children[1], maxLoop)
   elseif (name == "MaxTime") then
   elseif (name == "Inverter") then
-    node = Inverter(children[1])
+    node = bt.Inverter(children[1])
   elseif (name == "Limiter") then
   elseif (name == "Failer") then
-    node = Inverter(Succeeder(children[1]))
+    node = bt.Inverter(bt.Succeeder(children[1]))
   elseif (name == "Succeeder") then
-    node = Succeeder(children[1])
+    node = bt.Succeeder(children[1])
   elseif (name == "Runner") then
   elseif (name == "Error") then
   elseif (name == "Wait") then
@@ -103,23 +104,23 @@ local function buildBTree(tree, rootID)
   -- Custom nodes
   ---------------
   elseif (name == "IsHungry") then
-    node = Action(isHungry)
+    node = bt.Action(isHungry)
   elseif (name == "IsThirsty") then
-    node = Action(isThirsty)
+    node = bt.Action(isThirsty)
   elseif (name == "HasItem") then
   elseif (name == "EatFood") then
-    node = Action(eatFood)
+    node = bt.Action(eatFood)
   elseif (name == "Drink") then
-    node = Action(drink)
+    node = bt.Action(drink)
   elseif (name == "EnemyPresent") then
-    node = Action(enemyPresent)
+    node = bt.Action(enemyPresent)
   elseif (name == "ShouldFight") then
   elseif (name == "Attack") then
   elseif (name == "MoveTo") then
   elseif (name == "IsTired") then
-    node = Action(isTired)
+    node = bt.Action(isTired)
   elseif (name == "Sleep") then
-    node = Action(sleep)
+    node = bt.Action(sleep)
   else
     echo("Unrecognized btree element '" .. name .. "'")
     node = nil

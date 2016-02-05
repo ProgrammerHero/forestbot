@@ -15,7 +15,6 @@ bot.functions = {}
 bot.combat = {}
 local modules = {
                   "botbtree",
-                  "behaviourtree.behaviourtree",
 --                  "handlers.needs",
 --                  "handlers.combat",
 --                  "handlers.inventory",
