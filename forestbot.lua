@@ -28,7 +28,7 @@ local modules = {
                   "handlers.needs",
                   "handlers.combat",
                   "handlers.inventory",
---                  "handlers.score",
+                  "handlers.score",
 --                  "handlers.location",
 --                  "handlers.scan",
                 }
@@ -142,7 +142,6 @@ end
 --  bot.status.maxHits = 0
 --  bot.status.maxMoves = 0
 --
---  bot.status.level = 0
 --  bot.status.xp = 0
 --
 --  bot.status.stance = ""
@@ -163,31 +162,6 @@ end
 --end
 
 --------------------------------------------------------------------------------
--- Bot identity/score functions.
---------------------------------------------------------------------------------
-
--- Request an update of the 'score' information. Its format follows:
---[[
-           Items: 7/75             Weight: 11/436              Age: 20 years
-      Quest Pnts: 0           Gossip Pnts: 73            Hit Regen: 0.0
-   Practice Pnts: 25             Aptitude: Genius        Ene Regen: 0.0
-         Hitroll: +2.00           Damroll: +1.00          Mv Regen: 0.0
-
-      Str: 15(15)   Int:  9( 9)   Wis:  9( 9)   Dex: 15(15)   Con: 19(19)
-
-         Magic: -9%        Fire: -21%       Cold: +4%        Mind: -7%
-      Electric: +9%        Acid: +17%     Poison: +21%
-
-            Coins: 5 sp.
-         Position: [ mortally wounded ]    Condition: [ sober hungry thirsty ]
-
-             [Also try the command identity for more information.]--]]
-function bot.functions.updateScore()
-  enableTrigger("score")
-  send("score")
-end
-
---------------------------------------------------------------------------------
 -- Enable equipment parsing triggers and request equipment from the mud.
 --------------------------------------------------------------------------------
 function bot.functions.updateEquipment()
@@ -202,12 +176,6 @@ function bot.initHandlers()
   bot.handlers.handlerUtils.addHandler("equipmentUpdated", "equipment",
   function()
     debugMessage("Implement equipment update handler.")
-  end
-  )
-
-  bot.handlers.handlerUtils.addHandler("scoreUpdated", "score",
-  function()
-    debugMessage("Implement score update handler.")
   end
   )
 
