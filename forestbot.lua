@@ -21,7 +21,6 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 --------------------------------------------------------------------------------
 bot = {}
 bot.status = {}
-bot.functions = {}
 local modules = {
                   "botbtree",
                   "handlers.handlerUtils",
@@ -31,7 +30,10 @@ local modules = {
                   "handlers.score",
                   "handlers.location",
                   "handlers.equipment",
+                  "handlers.health",
 --                  "handlers.scan",
+--                  "handlers.effects",
+--                  "handlers.stance",
                 }
 
 -- Forward declarations to allow these functions to be private and defined
@@ -51,8 +53,6 @@ function bot.init()
     reloadModule(bot, moduleName)
     initModule(bot, moduleName, bot.status)
   end
-
-  bot.initHandlers()
 end
 
 --------------------------------------------------------------------------------
@@ -133,40 +133,12 @@ function bot.think()
   debugMessage("Thinking...")
 end
 
-
-
---  bot.status = {}
---  bot.status.hits = 0
---  bot.status.energy = 0
---  bot.status.moves = 0
---
---  bot.status.maxHits = 0
---  bot.status.maxMoves = 0
---
---  bot.status.xp = 0
---
---  bot.status.stance = ""
-
--- should probably init inventory here
--- and stats
-
 ---- reset behaviours
 --bot.btree = bot.botbtree.loadJSON("behaviour.json")
 --
 --  bot.btree:run(bot)
 --
 --end
-
---------------------------------------------------------------------------------
--- Handlers for triggered events
---------------------------------------------------------------------------------
-function bot.initHandlers()
-  bot.handlers.handlerUtils.addHandler("prompt", "prompt",
-  function()
-  end
-  )
-
-end
 
 --------------------------------------------------------------------------------
 -- Script start.
