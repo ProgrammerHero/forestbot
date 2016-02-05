@@ -23,17 +23,17 @@ bot = {}
 bot.status = {}
 local modules = {
                   "botbtree",
-                  "handlers.handlerUtils",
-                  "handlers.needs",
-                  "handlers.combat",
-                  "handlers.inventory",
-                  "handlers.score",
-                  "handlers.location",
-                  "handlers.equipment",
-                  "handlers.health",
---                  "handlers.scan",
---                  "handlers.effects",
---                  "handlers.stance",
+                  "handlerModules.handlerUtils",
+                  "handlerModules.needs",
+                  "handlerModules.combat",
+                  "handlerModules.inventory",
+                  "handlerModules.score",
+                  "handlerModules.location",
+                  "handlerModules.equipment",
+                  "handlerModules.health",
+--                  "handlerModules.scan",
+--                  "handlerModules.effects",
+--                  "handlerModules.stance",
                 }
 
 -- Forward declarations to allow these functions to be private and defined

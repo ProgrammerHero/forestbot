@@ -3,8 +3,14 @@ local handlerUtils = {}
 local debugMode = true
 local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 
---TODO: See if there's a nicer place to choose where handlers should be stored,
+--TODO: See if there's a nicer way to choose where handlers should be stored,
 --rather than hard-coding their location to bot.handlers.
+-- This may be tough, because I think Mudlet needs the handlers to be accessible
+-- through the global namespace so that it can call them by name.
+
+function handlerUtils.init()
+  bot.handlers = {}
+end
 
 --------------------------------------------------------------------------------
 -- Function to register an event handler with Mudlet's event system
