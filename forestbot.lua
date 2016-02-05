@@ -11,36 +11,116 @@ bot = {}
 bot.handlers = {}
 bot.functions = {}
 bot.combat = {}
-bot.debug = true
+local debug = true
+local modules = {
+                  "botbtree",
+                  "behaviourtree.behaviourtree",
+--                  "handlers.needs",
+--                  "handlers.combat",
+--                  "handlers.inventory",
+--                  "handlers.score",
+--                  "handlers.location",
+--                  "handlers.scan",
+                }
+
+-- Forward declarations to allow these functions to be private and defined
+-- after functions that call them.
+local setupDebugMessage
+local setupPackagePaths
+local reloadModule
+local initModule
+local getModuleFromName
+local reset
 
 --------------------------------------------------------------------------------
 -- Initializer function.  Will be executed when this script file is loaded.
 --------------------------------------------------------------------------------
 function bot.init()
-  if bot.debug then
+  setupDebugMessage()
+  bot.debugMessage("bot.init()")
+
+  setupPackagePaths()
+
+  for i, moduleName in ipairs(modules) do
+    reloadModule(bot, moduleName)
+    initModule(bot, moduleName)
+  end
+
+  bot.initHandlers()
+  bot.reset()
+end
+
+--------------------------------------------------------------------------------
+-- Set up function for printing debug messages
+--------------------------------------------------------------------------------
+function setupDebugMessage()
+  if debug then
     bot.debugMessage = function(s)
       print(">> " .. s)
     end
   else
     bot.debugMessage = function(s) end
   end
+end
 
-  bot.debugMessage("bot.init()")
-
+--------------------------------------------------------------------------------
+-- Add the forestbot directory to lua's package search paths
+-- This should only happen the first time this file is loaded.
+--------------------------------------------------------------------------------
+function setupPackagePaths()
   if not savedPackagePath then
     savedPackagePath = package.path
     bot.debugMessage("Capturing default package path")
     package.path = os.getenv("forestbot_path") .. "/?.lua;" .. savedPackagePath
   end
+end
 
-  -- unload+reload modules here
-  package.loaded["botbtree"] = nil
-  bot.botbtree = require("botbtree")
-  package.loaded["behaviourtree.behaviourtree"] = nil
-  behaviourtree = require("behaviourtree.behaviourtree")
+--------------------------------------------------------------------------------
+-- Reload module given its period-delimited name.
+--------------------------------------------------------------------------------
+function reloadModule(rootNamespace, moduleName)
+  bot.debugMessage("  Reloading module " .. moduleName)
+  package.loaded[moduleName] = nil
+  local modulePath = string.split(moduleName, "%.")
+  local currentNamespace = rootNamespace
 
-  bot.initHandlers()
-  bot.reset()
+  for i=1,(#modulePath - 1) do
+    if not currentNamespace[modulePath[i]] then
+      currentNamespace[modulePath[i]] = {}
+    end
+    currentNamespace = currentNamespace[modulePath[i]]
+  end
+
+  currentNamespace[modulePath[#modulePath]] = require(moduleName)
+end
+
+--------------------------------------------------------------------------------
+-- Call the init() function of a module, give its period-delimited name.
+--------------------------------------------------------------------------------
+function initModule(rootNamespace, moduleName)
+  bot.debugMessage("  Initializing module " .. moduleName)
+  local module = getModuleFromName(rootNamespace, moduleName)
+
+  if module and module.init then
+    module.init()
+  end
+end
+
+--------------------------------------------------------------------------------
+-- Get the namespace for a module from its period-delimited name.
+--------------------------------------------------------------------------------
+function getModuleFromName(rootNamespace, moduleName)
+  local modulePath = string.split(moduleName, "%.")
+  local currentNamespace = rootNamespace
+
+  for i=1,#modulePath do
+    if not currentNamespace[modulePath[i]] then
+      return nil
+    end
+    currentNamespace = currentNamespace[modulePath[i]]
+  end
+
+  return currentNamespace
 end
 
 --------------------------------------------------------------------------------
