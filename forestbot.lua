@@ -3,6 +3,8 @@
 -- Aegeus, ProgrammerHero
 -- 2016
 --------------------------------------------------------------------------------
+local debugMode = true
+local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 
 --------------------------------------------------------------------------------
 -- Central bot namespace
@@ -11,7 +13,6 @@ bot = {}
 bot.handlers = {}
 bot.functions = {}
 bot.combat = {}
-local debug = true
 local modules = {
                   "botbtree",
                   "behaviourtree.behaviourtree",
@@ -25,7 +26,6 @@ local modules = {
 
 -- Forward declarations to allow these functions to be private and defined
 -- after functions that call them.
-local setupDebugMessage
 local setupPackagePaths
 local reloadModule
 local initModule
@@ -36,8 +36,7 @@ local reset
 -- Initializer function.  Will be executed when this script file is loaded.
 --------------------------------------------------------------------------------
 function bot.init()
-  setupDebugMessage()
-  bot.debugMessage("bot.init()")
+  debugMessage("bot.init()")
 
   setupPackagePaths()
 
@@ -51,26 +50,13 @@ function bot.init()
 end
 
 --------------------------------------------------------------------------------
--- Set up function for printing debug messages
---------------------------------------------------------------------------------
-function setupDebugMessage()
-  if debug then
-    bot.debugMessage = function(s)
-      print(">> " .. s)
-    end
-  else
-    bot.debugMessage = function(s) end
-  end
-end
-
---------------------------------------------------------------------------------
 -- Add the forestbot directory to lua's package search paths
 -- This should only happen the first time this file is loaded.
 --------------------------------------------------------------------------------
 function setupPackagePaths()
   if not savedPackagePath then
     savedPackagePath = package.path
-    bot.debugMessage("Capturing default package path")
+    debugMessage("Capturing default package path")
     package.path = os.getenv("forestbot_path") .. "/?.lua;" .. savedPackagePath
   end
 end
@@ -79,7 +65,7 @@ end
 -- Reload module given its period-delimited name.
 --------------------------------------------------------------------------------
 function reloadModule(rootNamespace, moduleName)
-  bot.debugMessage("  Reloading module " .. moduleName)
+  debugMessage("  Reloading module " .. moduleName)
   package.loaded[moduleName] = nil
   local modulePath = string.split(moduleName, "%.")
   local currentNamespace = rootNamespace
@@ -98,7 +84,7 @@ end
 -- Call the init() function of a module, give its period-delimited name.
 --------------------------------------------------------------------------------
 function initModule(rootNamespace, moduleName)
-  bot.debugMessage("  Initializing module " .. moduleName)
+  debugMessage("  Initializing module " .. moduleName)
   local module = getModuleFromName(rootNamespace, moduleName)
 
   if module and module.init then
@@ -127,14 +113,14 @@ end
 -- Evaluate the behaviour tree based on the current known state of the world.
 --------------------------------------------------------------------------------
 function bot.think()
-  bot.debugMessage("Thinking...")
+  debugMessage("Thinking...")
 end
 
 --------------------------------------------------------------------------------
 -- Resets all bot state to initial values.
 --------------------------------------------------------------------------------
 function bot.reset()
-  bot.debugMessage("bot.reset()")
+  debugMessage("bot.reset()")
 
   bot.status = {}
   bot.status.hits = 0
@@ -148,7 +134,7 @@ function bot.reset()
   bot.status.xp = 0
 
   bot.status.stance = ""
-  
+
   bot.location = {}
   bot.location.roomNo = 0
 
@@ -161,7 +147,7 @@ function bot.reset()
   bot.items.weight = 0
   bot.items.wornWeight = 0
   bot.items.encumbrance = ""
-  bot.items.hasFood = true 
+  bot.items.hasFood = true
   bot.items.hasWater = true
 
   bot.items.inventory = {}
@@ -227,7 +213,7 @@ end
 -- We guarantee that only one event will be fired per line from the mud.
 --------------------------------------------------------------------------------
 function bot.addHandler(eventName, handlerName, handlerFunc)
-  bot.debugMessage("Adding bot.handlers." .. handlerName ..
+  debugMessage("Adding bot.handlers." .. handlerName ..
   " to handle \"" .. eventName .. "\" event.")
   bot.handlers[handlerName] = handlerFunc
   registerAnonymousEventHandler(eventName, "bot.handlers." .. handlerName)
@@ -249,33 +235,33 @@ end
 function bot.initHandlers()
   bot.addHandler("hungerEvent", "hunger",
   function(eventName, hungerLevel)
-    bot.debugMessage("Setting bot.needs.hunger to " .. hungerLevel)
+    debugMessage("Setting bot.needs.hunger to " .. hungerLevel)
     bot.needs.hunger = hungerLevel
   end
   )
 
   bot.addHandler("thirstEvent", "thirst",
   function(eventName, thirstLevel)
-    bot.debugMessage("Setting bot.needs.thirst to " .. thirstLevel)
+    debugMessage("Setting bot.needs.thirst to " .. thirstLevel)
     bot.needs.thirst = thirstLevel
   end
   )
 
   bot.addHandler("inventoryUpdated", "inventory",
   function()
-    bot.debugMessage("Implement inventory update handler.")
+    debugMessage("Implement inventory update handler.")
   end
   )
 
   bot.addHandler("equipmentUpdated", "equipment",
   function()
-    bot.debugMessage("Implement equipment update handler.")
+    debugMessage("Implement equipment update handler.")
   end
   )
 
   bot.addHandler("noFood", "noFood",
   function()
-    bot.debugMessage("Setting bot.items.hasFood = false")
+    debugMessage("Setting bot.items.hasFood = false")
     bot.items.hasFood = false
   end
   )
@@ -288,7 +274,7 @@ function bot.initHandlers()
 
   bot.addHandler("scoreUpdated", "score",
   function()
-    bot.debugMessage("Implement score update handler.")
+    debugMessage("Implement score update handler.")
   end
   )
 
@@ -301,10 +287,10 @@ function bot.initHandlers()
   function(event, attacker, target)
     if(attacker == "you") then
       bot.combat.addTarget(target)
-      bot.debugMessage("Now fighting \"" .. target .. "\".") 
+      debugMessage("Now fighting \"" .. target .. "\".")
     elseif(target == "you") then
       bot.combat.addTarget(attacker)
-      bot.debugMessage("Now fighting \"" .. attacker .. "\".") 
+      debugMessage("Now fighting \"" .. attacker .. "\".")
     end
   end
   )
@@ -312,7 +298,7 @@ function bot.initHandlers()
   bot.addHandler("counterattacks", "counterattacksYou",
   function(event, attacker, target)
     if(target == "you") then
-      bot.debugMessage("Now fighting \"" .. attacker .. "\".") 
+      debugMessage("Now fighting \"" .. attacker .. "\".")
       bot.combat.addTarget(attacker)
     end
   end
@@ -321,7 +307,7 @@ function bot.initHandlers()
   bot.addHandler("someoneFled", "currentTargetFled",
   function(event, actor, direction)
     if bot.combat.isTarget(actor) then
-      bot.debugMessage("Target \"" .. actor .. "\" fled " .. direction .. ".") 
+      debugMessage("Target \"" .. actor .. "\" fled " .. direction .. ".")
       bot.combat.removeTarget(actor)
     end
   end
@@ -330,7 +316,7 @@ function bot.initHandlers()
   bot.addHandler("someoneIsDEAD", "targetIsDEAD",
   function(event, whoDied)
     if bot.combat.isTarget(whoDied) then
-      bot.debugMessage("Target \"" .. whoDied .. "\" died.") 
+      debugMessage("Target \"" .. whoDied .. "\" died.")
       bot.combat.removeTarget(whoDied)
     end
   end
@@ -338,7 +324,7 @@ function bot.initHandlers()
 
   bot.addHandler("botFled", "botFled",
   function(event, fleeDirection)
-    bot.debugMessage("Bot fled " .. fleeDirection) 
+    debugMessage("Bot fled " .. fleeDirection)
     bot.combat.botFleeDirection = fleeDirection
     bot.combat.removeAllTargets()
     -- TODO: Track that we have 'angry' enemies around
@@ -354,7 +340,7 @@ function bot.initHandlers()
   bot.addHandler("newRoom", "updateRoomNumber",
   function(event, roomNo)
     bot.location.roomNo = roomNo
-    bot.debugMessage("Currently in room #".. bot.location.roomNo)
+    debugMessage("Currently in room #".. bot.location.roomNo)
   end
   )
 end
@@ -364,7 +350,7 @@ end
 --------------------------------------------------------------------------------
 function bot.combat.addTarget(target)
   bot.combat.targets[#bot.combat.targets + 1] = target
-  bot.debugMessage(bot.combat.listTargets())
+  debugMessage(bot.combat.listTargets())
 end
 
 function bot.combat.removeTarget(target)
@@ -376,14 +362,14 @@ function bot.combat.removeTarget(target)
     success = true
   end
 
-  bot.debugMessage(bot.combat.listTargets())
+  debugMessage(bot.combat.listTargets())
 
   return success
 end
 
 function bot.combat.removeAllTargets()
   bot.combat.targets = {}
-  bot.debugMessage(bot.combat.listTargets())
+  debugMessage(bot.combat.listTargets())
 end
 
 function bot.combat.isTarget(target)
