@@ -27,7 +27,7 @@ local modules = {
                   "handlers.handlerUtils",
                   "handlers.needs",
                   "handlers.combat",
---                  "handlers.inventory",
+                  "handlers.inventory",
 --                  "handlers.score",
 --                  "handlers.location",
 --                  "handlers.scan",
@@ -150,15 +150,6 @@ end
 --  bot.location = {}
 --  bot.location.roomNo = 0
 --
---  bot.items = {}
---  bot.items.coins = 0
---  bot.items.weight = 0
---  bot.items.wornWeight = 0
---  bot.items.encumbrance = ""
---  bot.items.hasFood = true
---  bot.items.hasWater = true
---
---  bot.items.inventory = {}
 --  bot.items.equipment = {}
 
 -- should probably init inventory here
@@ -197,14 +188,6 @@ function bot.functions.updateScore()
 end
 
 --------------------------------------------------------------------------------
--- Enable inventory parsing triggers and request inventory from the mud.
---------------------------------------------------------------------------------
-function bot.functions.updateInventory()
-  enableTrigger("refresh inventory")
-  send("inventory")
-end
-
---------------------------------------------------------------------------------
 -- Enable equipment parsing triggers and request equipment from the mud.
 --------------------------------------------------------------------------------
 function bot.functions.updateEquipment()
@@ -216,28 +199,9 @@ end
 -- Handlers for triggered events
 --------------------------------------------------------------------------------
 function bot.initHandlers()
-  bot.handlers.handlerUtils.addHandler("inventoryUpdated", "inventory",
-  function()
-    debugMessage("Implement inventory update handler.")
-  end
-  )
-
   bot.handlers.handlerUtils.addHandler("equipmentUpdated", "equipment",
   function()
     debugMessage("Implement equipment update handler.")
-  end
-  )
-
-  bot.handlers.handlerUtils.addHandler("noFood", "noFood",
-  function()
-    debugMessage("Setting bot.items.hasFood = false")
-    bot.items.hasFood = false
-  end
-  )
-
-  bot.handlers.handlerUtils.addHandler("noWater", "noWater",
-  function()
-    bot.items.hasWater = false
   end
   )
 
