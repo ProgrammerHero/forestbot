@@ -564,6 +564,7 @@ bot.status.health.maxEnergy = tonumber(matches[5])
 bot.status.health.moves = tonumber(matches[6])
 bot.status.health.maxMoves = tonumber(matches[7])
 bot.status.score.xp = tonumber(matches[8])
+bot.status.location.exits=string.lower(matches[11])
 
 -- prompt ?p'-- MORE -- '&lt;%f?f|%h/%Hhp %e/%Ee ?m'[%m/%Mmv]'!m'%v/%Vmv' %xxp ?b'%c'!b'%d'&gt;</script>
             <triggerType>0</triggerType>
@@ -577,7 +578,7 @@ bot.status.score.xp = tonumber(matches[8])
             <colorTriggerFgColor>#000000</colorTriggerFgColor>
             <colorTriggerBgColor>#000000</colorTriggerBgColor>
             <regexCodeList>
-                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? ([-0-9]+)xp(?: (\d*)\/(\d*)hp)?.*&gt;</string>
+                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? ([-0-9]+)xp(?: (\d*)\/(\d*)hp)? (\w+)&gt;</string>
             </regexCodeList>
             <regexCodePropertyList>
                 <integer>1</integer>
@@ -623,9 +624,7 @@ echo(&quot;postinit&quot;)</script>
             <regexCodePropertyList/>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>leapsToAttack</name>
-                <script>raiseEvent(&quot;leapsToAttack&quot;,
-           string.lower(string.trim(matches[2])),
-           string.lower(string.trim(matches[3])))</script>
+                <script></script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -916,6 +915,47 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
                 </Trigger>
             </TriggerGroup>
         </TriggerGroup>
+        <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>scanLine</name>
+            <script>bot.handlerModules.scan.parseScanLine(matches[2], matches[3])
+--raiseEvent(&quot;scanLine&quot;, string.trim(matches[2]), matches[3])</script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList>
+                <string>^      (\[Here\]| north|  east| south|  west|    up|  down) : (.+)$</string>
+            </regexCodeList>
+            <regexCodePropertyList>
+                <integer>1</integer>
+            </regexCodePropertyList>
+        </Trigger>
+        <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>moved</name>
+            <script>raiseEvent(&quot;moved&quot;, matches[2])</script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList>
+                <string>You leave (\w+).$</string>
+            </regexCodeList>
+            <regexCodePropertyList>
+                <integer>1</integer>
+            </regexCodePropertyList>
+        </Trigger>
     </TriggerPackage>
     <TimerPackage>
         <Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">

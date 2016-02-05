@@ -31,7 +31,8 @@ local modules = {
                   "handlerModules.location",
                   "handlerModules.equipment",
                   "handlerModules.health",
---                  "handlerModules.scan",
+                  "handlerModules.scan",
+                  "handlerModules.movement",
 --                  "handlerModules.effects",
 --                  "handlerModules.stance",
                 }
