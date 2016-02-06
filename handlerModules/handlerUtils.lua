@@ -19,7 +19,7 @@ end
 -- We guarantee that only one event will be fired per line from the mud.
 --------------------------------------------------------------------------------
 function handlerUtils.addHandler(eventName, handlerName, handlerFunc)
-  debugMessage("Adding bot.handlers." .. handlerName ..
+  debugMessage("    Adding bot.handlers." .. handlerName ..
   " to handle \"" .. eventName .. "\" event.")
   bot.handlers[handlerName] = handlerFunc
   registerAnonymousEventHandler(eventName, "bot.handlers." .. handlerName)
