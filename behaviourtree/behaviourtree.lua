@@ -19,8 +19,9 @@ local Class = require 'behaviourtree.class'
 --------------------------------------------------------------------------------
 -- ACTION: Perform a single task and return the result.
 --------------------------------------------------------------------------------
-bt.Action = Class({init = function(self, task)
-  self.name = "action"
+bt.Action = Class({init = function(self, name, task)
+  self.nodeType = "action"
+  self.name = name
   self.task = task
 end})
 
@@ -36,12 +37,12 @@ end
 -- Inverter: Perform a single task and return the negative of the result.
 --------------------------------------------------------------------------------
 bt.Inverter = Class({init = function(self, action)
-  self.name = "inverter"
+  self.nodeType = "inverter"
   self.action = action
 end})
 
 function bt.Inverter:run(creatureAI)
-  debugMessage(self.name .. " update\n")
+  debugMessage(self.nodeType .. " update\n")
   return not self.action:run(creatureAI)
 end
 
@@ -50,12 +51,12 @@ end
 -- Return: true, always
 --------------------------------------------------------------------------------
 bt.Succeeder = Class({init = function(self, action)
-  self.name = "succeeder"
+  self.nodeType = "succeeder"
   self.action = action
 end})
 
 function bt.Succeeder:run(creatureAI)
-  debugMessage(self.name .. " update")
+  debugMessage(self.nodeType .. " update")
   self.action:run(creatureAI)
   return true
 end
@@ -66,14 +67,14 @@ end
 --         false if both tasks succeeded or both tasks failed
 --------------------------------------------------------------------------------
 bt.XOR = Class({init = function(self, children)
-  self.name = "xor"
+  self.nodeType = "xor"
   if #children == 2 then
     self.children = children
   end
 end})
 
 function bt.XOR:run(creatureAI)
-  debugMessage(self.name .. " update")
+  debugMessage(self.nodeType .. " update")
   if #self.children == 2 then
     return (self.children[1]:run(creatureAI) == not self.children[2]:run(creatureAI))
   end
@@ -85,13 +86,13 @@ end
 -- Return: true, always
 --------------------------------------------------------------------------------
 bt.Repeater = Class({init = function(self, action, count)
-  self.name = "repeater"
+  self.nodeType = "repeater"
   self.action = action
   self.count = count
 end})
 
 function bt.Repeater:run(creatureAI)
-  debugMessage(self.name .. " update")
+  debugMessage(self.nodeType .. " update")
   for i = 1, self.count do
     self.action:run(creatureAI)
   end
@@ -105,13 +106,13 @@ end
 --         false if all iterations fail
 --------------------------------------------------------------------------------
 bt.Repeater_Succeed = Class({init = function(self, action, count)
-  self.name = "repeater_succeed"
+  self.nodeType = "repeater_succeed"
   self.action = action
   self.count = count
 end})
 
 function bt.Repeater_Succeed:run(creatureAI)
-  debugMessage(self.name .. " update")
+  debugMessage(self.nodeType .. " update")
   for i = 1, self.count do
     if self.action:run(creatureAI) then
       return true
@@ -126,12 +127,12 @@ end
 --         false if every child fails
 --------------------------------------------------------------------------------
 bt.Selector = Class({init = function(self, children)
-  self.name = "selector"
+  self.nodeType = "selector"
   self.children = children
 end})
 
 function bt.Selector:run(creatureAI)
-  debugMessage(self.name .. " update")
+  debugMessage(self.nodeType .. " update")
   for i,v in ipairs(self.children) do
     status = v:run(creatureAI)
     if status then
@@ -147,12 +148,12 @@ end
 --         false if any child fails
 --------------------------------------------------------------------------------
 bt.Sequence = Class({init = function(self, children)
-  self.name = "sequence"
+  self.nodeType = "sequence"
   self.children = children
 end})
 
 function bt.Sequence:run(creatureAI)
-  debugMessage(self.name .. " update")
+  debugMessage(self.nodeType .. " update")
   for i,v in ipairs(self.children) do
     success = v:run(creatureAI)
     if not success then
@@ -169,12 +170,12 @@ end
 -- Note: if no children are present then the return value is 50% true, 50% false
 --------------------------------------------------------------------------------
 bt.Randomizer = Class({init = function(self, children)
-  self.name = "randomizer"
+  self.nodeType = "randomizer"
   self.children = children
 end})
 
 function bt.Randomizer:run(creatureAI)
-  debugMessage(self.name .. " update")
+  debugMessage(self.nodeType .. " update")
   if (#self.children == 0) then
     return math.random(2) == 2
   end
@@ -184,7 +185,7 @@ end
 
 
 local function _treeToString(tree, indent)
-  local strTree = string.rep(" ", indent) .. tree.name .. "\n"
+  local strTree = string.rep(" ", indent) .. tree.nodeType .. "\n"
   for i,c in ipairs(tree.children) do
     strTree = strTree .. _treeToString(c, indent+1)
   end
