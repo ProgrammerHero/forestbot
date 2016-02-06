@@ -201,42 +201,41 @@ COND_FALSE = bt.Action(function() return false end)
 -- Example
 --------------------------------------------------------------------------------
 --[[
-
 function exampleLoop()
 
   -- testing subtree 1
-  local fightAndEatGuards = Sequence {
-    Randomizer {
-      Action(function() print("fighting and eating guards") return true end),
-      Action(function() print("getting killed by guards") return false end)
+  local fightAndEatGuards = bt.Sequence {
+    bt.Randomizer {
+      bt.Action(function() print("fighting and eating guards") return true end),
+      bt.Action(function() print("getting killed by guards") return false end)
     }
   }
   -- testing subtree 2
-  local packStuffAndGoHome = Selector {
-    Sequence {
-      Action(function() print("still strong enough? yes") return true end),
-      Action(function() print("picking up gold") return true end),
+  local packStuffAndGoHome = bt.Selector {
+    bt.Sequence {
+      bt.Action(function() print("still strong enough? yes") return true end),
+      bt.Action(function() print("picking up gold") return true end),
     },
-    Sequence {
-      Action(function() print("flying home") return true end),
-      Action(function() print("putting treasure away") return true end),
+    bt.Sequence {
+      bt.Action(function() print("flying home") return true end),
+      bt.Action(function() print("putting treasure away") return true end),
     }
   }
 
   -- main tree
-  local simpleBehaviour = Selector {
-    Sequence {
-      Action(function() print("is thief near treasure? no") return false end),
-      Action(function() print("making the thief flee") return false end),
+  local simpleBehaviour = bt.Selector {
+    bt.Sequence {
+      bt.Action(function() print("is thief near treasure? no") return false end),
+      bt.Action(function() print("making the thief flee") return false end),
     },
-    Sequence {
-      Action(function() print("choosing Castle") return true end),
-      Action(function() print("fly to Castle") return true end),
+    bt.Sequence {
+      bt.Action(function() print("choosing Castle") return true end),
+      bt.Action(function() print("fly to Castle") return true end),
       fightAndEatGuards,
       packStuffAndGoHome
     },
-    Sequence {
-      Action(function() print("posting pics on facebook") return true end)
+    bt.Sequence {
+      bt.Action(function() print("posting pics on facebook") return true end)
     }
   }
 

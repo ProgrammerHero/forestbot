@@ -1,13 +1,13 @@
 {
     "title": "A Behavior Tree",
     "description": "",
-    "root": "35e0c1ce-9d0c-478a-814d-014607d9a98a",
+    "root": "105e6cfd-42d3-4b7c-8966-487a770886bb",
     "display": {
-        "camera_x": 343.5,
-        "camera_y": 298,
-        "camera_z": 1,
-        "x": 0,
-        "y": 0
+        "camera_x": 628.5,
+        "camera_y": 483,
+        "camera_z": 0.75,
+        "x": -192,
+        "y": -32
     },
     "properties": {},
     "nodes": {
@@ -17,7 +17,7 @@
             "title": "Is hungry",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": -486.4
             },
             "parameters": {},
@@ -29,8 +29,8 @@
             "title": "Eat food",
             "description": "",
             "display": {
-                "x": 416,
-                "y": -358.4
+                "x": 432,
+                "y": -352
             },
             "parameters": {},
             "properties": {}
@@ -41,7 +41,7 @@
             "title": "Sequence",
             "description": "Food",
             "display": {
-                "x": 208,
+                "x": 224,
                 "y": -422.4
             },
             "parameters": {},
@@ -52,32 +52,13 @@
                 "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad"
             ]
         },
-        "35e0c1ce-9d0c-478a-814d-014607d9a98a": {
-            "id": "35e0c1ce-9d0c-478a-814d-014607d9a98a",
-            "name": "Sequence",
-            "title": "Sequence",
-            "description": "",
-            "display": {
-                "x": 0,
-                "y": -32
-            },
-            "parameters": {},
-            "properties": {},
-            "children": [
-                "a23e48fa-47b8-4d06-b9c5-773340668547",
-                "3d19d3e6-4b43-4b44-86ad-3039660912d2",
-                "8a0a0b2c-291d-4c3e-80ad-25acb0cc8f80",
-                "bf211aeb-5b72-40e3-8144-7e0c7fb2aa28",
-                "785714c2-45c1-4db5-a320-746bd16c86af"
-            ]
-        },
         "3d19d3e6-4b43-4b44-86ad-3039660912d2": {
             "id": "3d19d3e6-4b43-4b44-86ad-3039660912d2",
             "name": "Sequence",
             "title": "Sequence",
             "description": "Drink",
             "display": {
-                "x": 208,
+                "x": 224,
                 "y": -230.39999999999998
             },
             "parameters": {},
@@ -94,7 +75,7 @@
             "title": "Is thirsty",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": -294.4
             },
             "parameters": {},
@@ -106,7 +87,7 @@
             "title": "Drink",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": -166.39999999999998
             },
             "parameters": {},
@@ -118,7 +99,7 @@
             "title": "Has item",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": -422.4
             },
             "parameters": {
@@ -132,7 +113,7 @@
             "title": "Has item",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": -230.39999999999998
             },
             "parameters": {
@@ -146,7 +127,7 @@
             "title": "Sequence",
             "description": "Combat",
             "display": {
-                "x": 208,
+                "x": 224,
                 "y": 185.60000000000002
             },
             "parameters": {},
@@ -163,7 +144,7 @@
             "title": "Enemy present",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": 89.60000000000002
             },
             "parameters": {},
@@ -175,7 +156,7 @@
             "title": "Should Fight",
             "description": "",
             "display": {
-                "x": 624,
+                "x": 640,
                 "y": 153.60000000000002
             },
             "parameters": {},
@@ -187,7 +168,7 @@
             "title": "Attack",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": 281.6
             },
             "parameters": {},
@@ -199,7 +180,7 @@
             "title": "Sequence",
             "description": "Wander",
             "display": {
-                "x": 208,
+                "x": 224,
                 "y": 345.6
             },
             "parameters": {},
@@ -214,7 +195,7 @@
             "title": "Escape",
             "description": "specialized movement",
             "display": {
-                "x": 832,
+                "x": 848,
                 "y": 217.60000000000002
             },
             "parameters": {},
@@ -226,7 +207,7 @@
             "title": "Priority",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": 185.60000000000002
             },
             "parameters": {},
@@ -242,7 +223,7 @@
             "title": "Inverter",
             "description": "",
             "display": {
-                "x": 624,
+                "x": 640,
                 "y": 217.60000000000002
             },
             "parameters": {},
@@ -255,7 +236,7 @@
             "title": "Move to",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": 345.6
             },
             "parameters": {},
@@ -267,7 +248,7 @@
             "title": "Sequence",
             "description": "Sleep",
             "display": {
-                "x": 208,
+                "x": 224,
                 "y": -38.39999999999998
             },
             "parameters": {},
@@ -284,7 +265,7 @@
             "title": "Is tired",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": -102.39999999999998
             },
             "parameters": {},
@@ -296,7 +277,7 @@
             "title": "Sleep",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": 25.600000000000023
             },
             "parameters": {},
@@ -308,7 +289,7 @@
             "title": "Enemy present",
             "description": "",
             "display": {
-                "x": 624,
+                "x": 640,
                 "y": -38.39999999999998
             },
             "parameters": {},
@@ -320,12 +301,31 @@
             "title": "Inverter",
             "description": "",
             "display": {
-                "x": 416,
+                "x": 432,
                 "y": -38.39999999999998
             },
             "parameters": {},
             "properties": {},
             "child": "bb38743e-beb7-4ced-81a7-b619938ca84e"
+        },
+        "105e6cfd-42d3-4b7c-8966-487a770886bb": {
+            "id": "105e6cfd-42d3-4b7c-8966-487a770886bb",
+            "name": "Priority",
+            "title": "Priority",
+            "description": "",
+            "display": {
+                "x": 0,
+                "y": -32
+            },
+            "parameters": {},
+            "properties": {},
+            "children": [
+                "a23e48fa-47b8-4d06-b9c5-773340668547",
+                "3d19d3e6-4b43-4b44-86ad-3039660912d2",
+                "8a0a0b2c-291d-4c3e-80ad-25acb0cc8f80",
+                "bf211aeb-5b72-40e3-8144-7e0c7fb2aa28",
+                "785714c2-45c1-4db5-a320-746bd16c86af"
+            ]
         }
     },
     "custom_nodes": [

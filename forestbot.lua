@@ -22,6 +22,7 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 bot = {}
 bot.status = {}
 local modules = {
+--                  "behaviourtree.behaviourtree",
                   "botbtree",
                   "handlerModules.handlerUtils",
                   "handlerModules.needs",
@@ -42,7 +43,7 @@ local modules = {
 local reloadModule
 local initModule
 local getModuleFromName
-local reset
+local resetModule
 
 --------------------------------------------------------------------------------
 -- Initializer function.  Will be executed when this script file is loaded.
@@ -63,7 +64,7 @@ function bot.reset()
   debugMessage("bot.reset()")
 
   for i, moduleName in ipairs(modules) do
-    resetModule(moduleName)
+    resetModule(bot, moduleName)
   end
 end
 
@@ -101,7 +102,7 @@ end
 --------------------------------------------------------------------------------
 -- Call the reset() function of a module, given its period-delimited name.
 --------------------------------------------------------------------------------
-function reset(moduleName)
+function resetModule(rootNamespace, moduleName)
   debugMessage("Resetting module " .. moduleName)
   local module = getModuleFromName(rootNamespace, moduleName)
 
@@ -132,6 +133,7 @@ end
 --------------------------------------------------------------------------------
 function bot.think()
   debugMessage("Thinking...")
+  bot.botbtree.think()
 end
 
 ---- reset behaviours

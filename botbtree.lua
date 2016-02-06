@@ -7,42 +7,93 @@
 -- http://behavior3js.guineashots.com/editor/#
 -- Disclaimer: This format is a piece of trash. - ProgrammerHero
 --------------------------------------------------------------------------------
+local debugMode = true
+local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 
 local botbtree = {}
+local btree
 local json = require("json")
 local bt = require("behaviourtree.behaviourtree")
+
+function botbtree.init(worldStatus)
+  botbtree.reset()
+end
+
+function botbtree.reset()
+  btree = botbtree.loadJSON("behaviour.json")
+end
+
 
 ---------------------------------------
 -- Add custom behaviour tree nodes here
 ---------------------------------------
-local function enemyPresent(bot)
+local function enemyPresent()
+  debugMessage("Enemy present!")
+  return true
   -- check for a bot in the current room
   --bot.map[]
 end
 
-local function isHungry(bot)
-  return bot.needs.hunger > 0
+local function shouldFight()
+  debugMessage("I'm an aggressive little bot!")
+  return true
 end
-local function eatFood(bot)
+
+local function escape()
+  debugMessage("He's got me trapped!")
+  return false
+end
+
+local function attack()
+  debugMessage("He's too scary.. not attacking.")
+  return false
+end
+
+local function moveTo()
+  debugMessage("Tried moving to.., unsuccessfully.")
+  return false
+end
+
+local function isHungry()
+  debugMessage("Checking if the bot is hungry.")
+  return bot.status.needs.hunger > 0
+end
+
+local function eatFood()
+  debugMessage("Eating food")
   -- should be smarter and try to find specific food
   send("eat food")
+  return true
   -- 
 end
 
-local function isThirsty(bot)
-  return bot.needs.thirst > 0
-end
-local function drink(bot)
-  -- should be smarter and try to find a specific drink
-  -- also need to make sure we have a drink equipped
-  send("drink") -- this command is probably wrong
+local function isThirsty()
+  debugMessage("Checking if the bot is thirsty.")
+  return bot.status.needs.thirst > 0
 end
 
-local function isTired(bot)
-  return bot.needs.tired
+local function drink()
+  debugMessage("Drinking")
+  -- should be smarter and try to find a specific drink
+  -- also need to make sure we have a drink equipped
+  send("drink bronze.cup") -- this command is probably wrong
+  return true
 end
-local function sleep(bot)
+
+local function hasItem()
+  debugMessage("I have some!")
+  return true
+end
+
+local function isTired()
+  debugMessage("Checking if the bot is tired.")
+  return bot.status.health.moves < 20
+end
+
+local function sleep()
+  debugMessage("Sleeping")
   send("sleep")
+  return true
 end
 
 -----------------------
@@ -63,7 +114,7 @@ local function buildBTree(tree, rootID)
     children[1] = buildBTree(tree, node["child"])
   else
     --echo("no children") -- probably an action node
-    children[1] = COND_TRUE
+    children[1] = bt.COND_TRUE
   end
 
   local maxLoop = 0
@@ -108,6 +159,7 @@ local function buildBTree(tree, rootID)
   elseif (name == "IsThirsty") then
     node = bt.Action(isThirsty)
   elseif (name == "HasItem") then
+    node = bt.Action(hasItem)
   elseif (name == "EatFood") then
     node = bt.Action(eatFood)
   elseif (name == "Drink") then
@@ -115,8 +167,13 @@ local function buildBTree(tree, rootID)
   elseif (name == "EnemyPresent") then
     node = bt.Action(enemyPresent)
   elseif (name == "ShouldFight") then
+    node = bt.Action(shouldFight)
   elseif (name == "Attack") then
+    node = bt.Action(attack)
+  elseif (name == "Escape") then
+    node = bt.Action(escape)
   elseif (name == "MoveTo") then
+    node = bt.Action(moveTo)
   elseif (name == "IsTired") then
     node = bt.Action(isTired)
   elseif (name == "Sleep") then
@@ -143,6 +200,10 @@ function botbtree.loadJSON(file)
   local root = tree["root"]
   --echo(tree["nodes"][root]["name"])
   return buildBTree(tree["nodes"], root)
+end
+
+function botbtree.think()
+  btree:run()
 end
 
 return botbtree

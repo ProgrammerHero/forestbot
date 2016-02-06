@@ -958,7 +958,7 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
         </Trigger>
     </TriggerPackage>
     <TimerPackage>
-        <Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
+        <Timer isActive="no" isFolder="no" isTempTimer="no" isOffsetTimer="no">
             <name>KeepAlive</name>
             <script>send(&quot;\n&quot;)</script>
             <command></command>
