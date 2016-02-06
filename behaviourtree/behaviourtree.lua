@@ -9,11 +9,12 @@
 -- http://gamedev.stackexchange.com/questions/51693/decision-tree-vs-behavior-tree
 -- http://aigamedev.com/open/article/behavior-trees-part1/
 -- https://docs.unrealengine.com/latest/INT/Engine/AI/BehaviorTrees/NodeReference/index.html
+local debugMode = true
+local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 
 local bt = {}
 
 local Class = require 'behaviourtree.class'
-debugOutput = true
 
 --------------------------------------------------------------------------------
 -- ACTION: Perform a single task and return the result.
@@ -24,7 +25,7 @@ bt.Action = Class({init = function(self, task)
 end})
 
 function bt.Action:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   if self.task then
     return self.task(creatureAI)
   end
@@ -40,7 +41,7 @@ bt.Inverter = Class({init = function(self, action)
 end})
 
 function bt.Inverter:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update\n")
   return not self.action:run(creatureAI)
 end
 
@@ -54,7 +55,7 @@ bt.Succeeder = Class({init = function(self, action)
 end})
 
 function bt.Succeeder:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   self.action:run(creatureAI)
   return true
 end
@@ -72,7 +73,7 @@ bt.XOR = Class({init = function(self, children)
 end})
 
 function bt.XOR:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   if #self.children == 2 then
     return (self.children[1]:run(creatureAI) == not self.children[2]:run(creatureAI))
   end
@@ -90,7 +91,7 @@ bt.Repeater = Class({init = function(self, action, count)
 end})
 
 function bt.Repeater:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   for i = 1, self.count do
     self.action:run(creatureAI)
   end
@@ -110,7 +111,7 @@ bt.Repeater_Succeed = Class({init = function(self, action, count)
 end})
 
 function bt.Repeater_Succeed:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   for i = 1, self.count do
     if self.action:run(creatureAI) then
       return true
@@ -130,7 +131,7 @@ bt.Selector = Class({init = function(self, children)
 end})
 
 function bt.Selector:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   for i,v in ipairs(self.children) do
     status = v:run(creatureAI)
     if status then
@@ -151,7 +152,7 @@ bt.Sequence = Class({init = function(self, children)
 end})
 
 function bt.Sequence:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   for i,v in ipairs(self.children) do
     success = v:run(creatureAI)
     if not success then
@@ -173,7 +174,7 @@ bt.Randomizer = Class({init = function(self, children)
 end})
 
 function bt.Randomizer:run(creatureAI)
-  if (debugOutput) then echo(self.name .. " update\n") end
+  debugMessage(self.name .. " update")
   if (#self.children == 0) then
     return math.random(2) == 2
   end
