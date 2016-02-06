@@ -21,7 +21,7 @@
 
 local debugMode = true
 local debugMessage = require("debugUtils").getDebugMessage(debugMode)
-local handlerUtils = require("handlers.handlerUtils")
+local handlerUtils = require("handlerModules.handlerUtils")
 
 local score = {}
 local status = {}
