@@ -13,7 +13,7 @@
     "nodes": {
         "4b6cbdfe-4513-4689-8c12-a221c4c5ed91": {
             "id": "4b6cbdfe-4513-4689-8c12-a221c4c5ed91",
-            "name": "IsHungry",
+            "name": "isHungry",
             "title": "Is hungry",
             "description": "",
             "display": {
@@ -25,7 +25,7 @@
         },
         "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad": {
             "id": "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad",
-            "name": "EatFood",
+            "name": "eatFood",
             "title": "Eat food",
             "description": "",
             "display": {
@@ -71,7 +71,7 @@
         },
         "8dad92de-95c1-4a03-853f-33e67ed428a9": {
             "id": "8dad92de-95c1-4a03-853f-33e67ed428a9",
-            "name": "IsThirsty",
+            "name": "isThirsty",
             "title": "Is thirsty",
             "description": "",
             "display": {
@@ -83,7 +83,7 @@
         },
         "cc7cd240-b053-42a2-8de3-b6c2abb879ee": {
             "id": "cc7cd240-b053-42a2-8de3-b6c2abb879ee",
-            "name": "Drink",
+            "name": "drinkWater",
             "title": "Drink",
             "description": "",
             "display": {
@@ -95,7 +95,7 @@
         },
         "1e373794-ae21-4a3c-8ad6-dc235f3718d0": {
             "id": "1e373794-ae21-4a3c-8ad6-dc235f3718d0",
-            "name": "HasItem",
+            "name": "hasItem",
             "title": "Has item",
             "description": "",
             "display": {
@@ -109,7 +109,7 @@
         },
         "e5be7f01-8c38-4dc6-844a-aa247de70beb": {
             "id": "e5be7f01-8c38-4dc6-844a-aa247de70beb",
-            "name": "HasItem",
+            "name": "hasItem",
             "title": "Has item",
             "description": "",
             "display": {
@@ -140,7 +140,7 @@
         },
         "d9303cb9-2f71-4cab-b929-6d377fc5d40d": {
             "id": "d9303cb9-2f71-4cab-b929-6d377fc5d40d",
-            "name": "EnemyPresent",
+            "name": "enemyPresent",
             "title": "Enemy present",
             "description": "",
             "display": {
@@ -152,7 +152,7 @@
         },
         "ab94581f-5d74-44b2-8c9f-dd90233dc206": {
             "id": "ab94581f-5d74-44b2-8c9f-dd90233dc206",
-            "name": "ShouldFight",
+            "name": "shouldFight",
             "title": "Should Fight",
             "description": "",
             "display": {
@@ -164,7 +164,7 @@
         },
         "99f436a5-c97a-41f2-8253-67dd1b58bce0": {
             "id": "99f436a5-c97a-41f2-8253-67dd1b58bce0",
-            "name": "Attack",
+            "name": "attack",
             "title": "Attack",
             "description": "",
             "display": {
@@ -191,7 +191,7 @@
         },
         "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe": {
             "id": "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe",
-            "name": "MoveTo",
+            "name": "moveTo",
             "title": "Escape",
             "description": "specialized movement",
             "display": {
@@ -208,7 +208,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": 185.60000000000002
+                "y": 176
             },
             "parameters": {},
             "properties": {},
@@ -232,7 +232,7 @@
         },
         "9ead1301-77f1-47b7-89b9-e76242d2a268": {
             "id": "9ead1301-77f1-47b7-89b9-e76242d2a268",
-            "name": "MoveTo",
+            "name": "moveTo",
             "title": "Move to",
             "description": "",
             "display": {
@@ -261,7 +261,7 @@
         },
         "2334ef19-60a4-43ce-8f89-1a6fdd5cc03c": {
             "id": "2334ef19-60a4-43ce-8f89-1a6fdd5cc03c",
-            "name": "IsTired",
+            "name": "isTired",
             "title": "Is tired",
             "description": "",
             "display": {
@@ -273,7 +273,7 @@
         },
         "3826c074-66f5-4c7f-b007-a56d51171b4e": {
             "id": "3826c074-66f5-4c7f-b007-a56d51171b4e",
-            "name": "Sleep",
+            "name": "sleep",
             "title": "Sleep",
             "description": "",
             "display": {
@@ -285,7 +285,7 @@
         },
         "bb38743e-beb7-4ced-81a7-b619938ca84e": {
             "id": "bb38743e-beb7-4ced-81a7-b619938ca84e",
-            "name": "EnemyPresent",
+            "name": "enemyPresent",
             "title": "Enemy present",
             "description": "",
             "display": {
@@ -330,59 +330,60 @@
     },
     "custom_nodes": [
         {
-            "name": "IsHungry",
+            "name": "isHungry",
             "title": "Is hungry",
             "category": "condition"
         },
         {
-            "name": "EatFood",
-            "title": "Eat food",
-            "category": "action"
-        },
-        {
-            "name": "IsThirsty",
+            "name": "isThirsty",
             "title": "Is thirsty",
             "category": "condition"
         },
         {
-            "name": "Drink",
-            "title": "Drink",
-            "category": "action"
-        },
-        {
-            "name": "HasItem",
+            "name": "hasItem",
             "title": "Has item",
             "category": "condition"
         },
         {
-            "name": "EnemyPresent",
+            "name": "enemyPresent",
             "title": "Enemy present",
             "category": "condition"
         },
         {
-            "name": "Attack",
-            "title": "Attack",
-            "category": "action"
-        },
-        {
-            "name": "ShouldFight",
+            "name": "shouldFight",
             "title": "Should Fight",
             "category": "condition"
         },
         {
-            "name": "MoveTo",
-            "title": "Move to",
-            "category": "action"
-        },
-        {
-            "name": "IsTired",
+            "name": "isTired",
             "title": "Is tired",
             "category": "condition"
         },
         {
-            "name": "Sleep",
+            "name": "eatFood",
+            "title": "Eat food",
+            "category": "action"
+        },
+        {
+            "name": "drinkWater",
+            "title": "Drink",
+            "category": "action"
+        },
+        {
+            "name": "attack",
+            "title": "Attack",
+            "category": "action"
+        },
+        {
+            "name": "moveTo",
+            "title": "Move to",
+            "category": "action"
+        },
+        {
+            "name": "sleep",
             "title": "Sleep",
             "category": "action"
         }
     ]
 }
+

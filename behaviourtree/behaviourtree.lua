@@ -36,9 +36,9 @@ end
 --------------------------------------------------------------------------------
 -- Inverter: Perform a single task and return the negative of the result.
 --------------------------------------------------------------------------------
-bt.Inverter = Class({init = function(self, action)
+bt.Inverter = Class({init = function(self, children)
   self.nodeType = "inverter"
-  self.action = action
+  self.action = children[1]
 end})
 
 function bt.Inverter:run(creatureAI)
@@ -50,9 +50,9 @@ end
 -- Succeeder: Perform a single task and return true.
 -- Return: true, always
 --------------------------------------------------------------------------------
-bt.Succeeder = Class({init = function(self, action)
+bt.Succeeder = Class({init = function(self, children)
   self.nodeType = "succeeder"
-  self.action = action
+  self.action = children[1]
 end})
 
 function bt.Succeeder:run(creatureAI)
@@ -85,9 +85,9 @@ end
 -- REPEATER: Repeat a single task multiple times.
 -- Return: true, always
 --------------------------------------------------------------------------------
-bt.Repeater = Class({init = function(self, action, count)
+bt.Repeater = Class({init = function(self, children, count)
   self.nodeType = "repeater"
-  self.action = action
+  self.action = children[1]
   self.count = count
 end})
 
@@ -105,9 +105,9 @@ end
 -- Return: true if any iteration succeeds (with early return)
 --         false if all iterations fail
 --------------------------------------------------------------------------------
-bt.Repeater_Succeed = Class({init = function(self, action, count)
+bt.Repeater_Succeed = Class({init = function(self, children, count)
   self.nodeType = "repeater_succeed"
-  self.action = action
+  self.action = children[1]
   self.count = count
 end})
 

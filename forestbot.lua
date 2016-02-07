@@ -20,10 +20,8 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 -- Central bot namespace
 --------------------------------------------------------------------------------
 bot = {}
-bot.status = {}
 local modules = {
 --                  "behaviourtree.behaviourtree",
-                  "botbtree",
                   "handlerModules.handlerUtils",
                   "handlerModules.needs",
                   "handlerModules.combat",
@@ -36,6 +34,7 @@ local modules = {
                   "handlerModules.movement",
 --                  "handlerModules.effects",
 --                  "handlerModules.stance",
+                  "botbtree",
                 }
 
 -- Forward declarations to allow these functions to be private and defined
@@ -50,10 +49,13 @@ local resetModule
 --------------------------------------------------------------------------------
 function bot.init()
   debugMessage("bot.init()")
+  bot.status = {}
+  bot.handlers = {}
+  bot.tasks = {}
 
   for i, moduleName in ipairs(modules) do
     reloadModule(bot, moduleName)
-    initModule(bot, moduleName, bot.status)
+    initModule(bot, moduleName, bot.status, bot.tasks)
   end
 end
 
@@ -90,12 +92,12 @@ end
 --------------------------------------------------------------------------------
 -- Call the init() function of a module, given its period-delimited name.
 --------------------------------------------------------------------------------
-function initModule(rootNamespace, moduleName, worldStatus)
+function initModule(rootNamespace, moduleName, worldStatus, worldTasks)
   debugMessage("  Initializing module " .. moduleName)
   local module = getModuleFromName(rootNamespace, moduleName)
 
   if module and module.init then
-    module.init(worldStatus)
+    module.init(worldStatus, worldTasks)
   end
 end
 
