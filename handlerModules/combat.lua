@@ -12,13 +12,18 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("handlerModules.handlerUtils")
 
 local combat = {}
-local status = {}
+local status
+local tasks
 
 local addHandlers
+local installTasks
 
-function combat.init(worldStatus)
+function combat.init(worldStatus, worldTasks)
+  status = worldStatus
+  tasks = worldTasks
+
   addHandlers()
-  worldStatus.combat = status
+  installTasks()
 
   combat.reset()
 end
@@ -27,6 +32,10 @@ function combat.reset()
   status.targets = {}
 end
 
+--------------------------------------------------------------------------------
+-- Handlers update the bot's knowledge of the world. The events they handle
+-- are raised by triggers on input from the mud.
+--------------------------------------------------------------------------------
 function addHandlers()
   handlerUtils.addHandler("leapsToAttack", "leapsToAttackYou",
   function(event, attacker, target)
@@ -118,8 +127,31 @@ function combat.listTargets()
   return "Targets = {" ..table.concat(status.targets, ", ") .. "}"
 end
 
-function combat.inCombat()
-  return #status.targets == 0
+--------------------------------------------------------------------------------
+-- Store all tasks in the bot.tasks dictionary, indexed by name. This is a
+-- function so that it will happen only on module init and not on file load.
+--------------------------------------------------------------------------------
+function installTasks()
+
+  -- Conditions -----------------------------------------------------------------
+
+  function tasks.inCombat()
+    if #status.targets == 0 then
+      debugMessage("In combat? No.")
+      return true
+    else
+      debugMessage("In combat? Yes.")
+      return false
+    end
+  end
+
+
+  -- Actions --------------------------------------------------------------------
+
+  function tasks.attack(target)
+    debugMessage("Attacking " .. target)
+    return true
+  end
 end
 
 return combat

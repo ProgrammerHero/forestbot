@@ -21,7 +21,8 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 --------------------------------------------------------------------------------
 bot = {}
 local modules = {
---                  "behaviourtree.behaviourtree",
+                  "behaviourtree.behaviourtree", -- not used in this module
+                                                 -- only to force-reload it
                   "handlerModules.handlerUtils",
                   "handlerModules.needs",
                   "handlerModules.combat",
@@ -34,7 +35,7 @@ local modules = {
                   "handlerModules.movement",
 --                  "handlerModules.effects",
 --                  "handlerModules.stance",
-                  "botbtree",
+                  "botbtree",  -- Load last so other modules populate tasks
                 }
 
 -- Forward declarations to allow these functions to be private and defined

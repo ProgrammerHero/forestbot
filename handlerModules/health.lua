@@ -50,7 +50,7 @@ end
 --------------------------------------------------------------------------------
 function installTasks()
 
--- Conditions ------------------------------------------------------------------
+  -- Conditions ----------------------------------------------------------------
 
   function tasks.isTired()
     if (status.moves < 20) then
@@ -62,7 +62,19 @@ function installTasks()
     end
   end
 
--- Actions ---------------------------------------------------------------------
+  function tasks.shouldFight()
+    debugMessage("((STUB))I'm an aggressive little bot!")
+    return true
+  end
+
+  -- Actions -------------------------------------------------------------------
+
+  function tasks.sleep()
+    debugMessage("Sleeping")
+    send("sleep")
+    return true
+  end
+
 end
 
 return health

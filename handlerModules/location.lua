@@ -6,13 +6,18 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("handlerModules.handlerUtils")
 
 local location = {}
-local status = {}
+local status
+local tasks
 
 local addHandlers
+local installTasks
 
-function location.init(worldStatus)
+function location.init(worldStatus, worldTasks)
+  status = worldStatus
+  tasks = worldTasks
+
   addHandlers()
-  worldStatus.location = status
+  installTasks()
 
   location.reset()
 end
@@ -22,6 +27,10 @@ function location.reset()
   status.exits = ""
 end
 
+--------------------------------------------------------------------------------
+-- Handlers update the bot's knowledge of the world. The events they handle
+-- are raised by triggers on input from the mud.
+--------------------------------------------------------------------------------
 function addHandlers()
   handlerUtils.addHandler("newRoom", "updateRoomNumber",
   function(event, roomNo)
@@ -29,6 +38,18 @@ function addHandlers()
     debugMessage("Currently in room #".. status.roomNo)
   end
   )
+end
+
+--------------------------------------------------------------------------------
+-- Store all tasks in the bot.tasks dictionary, indexed by name. This is a
+-- function so that it will happen only on module init and not on file load.
+--------------------------------------------------------------------------------
+function installTasks()
+
+  -- Conditions ----------------------------------------------------------------
+
+  -- Actions -------------------------------------------------------------------
+
 end
 
 return location

@@ -9,6 +9,24 @@
 -- http://gamedev.stackexchange.com/questions/51693/decision-tree-vs-behavior-tree
 -- http://aigamedev.com/open/article/behavior-trees-part1/
 -- https://docs.unrealengine.com/latest/INT/Engine/AI/BehaviorTrees/NodeReference/index.html
+--
+--  List of b3js node types (* = implemented in this file)
+--   *Sequence
+--   *Priority
+--    MemSequence
+--    MemPriority
+--   *Repeater
+--   *RepeatUntilFailure
+--   *RepeatUntilSuccess
+--    MaxTime
+--   *Inverter
+--    Limiter
+--   *Failer
+--   *Succeeder
+--    Runner
+--    Error
+--    Wait
+
 local debugMode = true
 local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 
@@ -62,6 +80,12 @@ function bt.Succeeder:run(creatureAI)
 end
 
 --------------------------------------------------------------------------------
+-- Failer: Perform a single task and return true.
+-- Return: false, always
+--------------------------------------------------------------------------------
+bt.Failer = function(children) return bt.Inverter(bt.Succeeder(children)) end
+
+--------------------------------------------------------------------------------
 -- XOR: Perform a pair of task and return the xor of the results.
 -- Return: true if exactly one task succeeded
 --         false if both tasks succeeded or both tasks failed
@@ -100,18 +124,18 @@ function bt.Repeater:run(creatureAI)
 end
 
 --------------------------------------------------------------------------------
--- REPEATER_SUCCEED: Repeat a single task multiple times or until it succeeds.
+-- RepeatUntilSuccess: Repeat a single task multiple times or until it succeeds.
 -- Note: you can create a REPEATER_FAIL by inverting my child task.
 -- Return: true if any iteration succeeds (with early return)
 --         false if all iterations fail
 --------------------------------------------------------------------------------
-bt.Repeater_Succeed = Class({init = function(self, children, count)
+bt.RepeatUntilSuccess = Class({init = function(self, children, count)
   self.nodeType = "repeater_succeed"
   self.action = children[1]
   self.count = count
 end})
 
-function bt.Repeater_Succeed:run(creatureAI)
+function bt.RepeatUntilSuccess:run(creatureAI)
   debugMessage(self.nodeType .. " update")
   for i = 1, self.count do
     if self.action:run(creatureAI) then
@@ -120,6 +144,16 @@ function bt.Repeater_Succeed:run(creatureAI)
   end
   return false
 end
+
+--------------------------------------------------------------------------------
+-- RepeatUntilFailure: Repeat a single task multiple times or until it fails.
+-- Return: true if any iteration fails (with early return)
+--         false if all iterations fail
+--------------------------------------------------------------------------------
+bt.RepeatUntilFailure = function(children)
+                          return bt.RepeatUntilSuccess(bt.Inverter(children,
+                                                                   maxLoop))
+                        end
 
 --------------------------------------------------------------------------------
 -- SELECTOR: Execute my children in order and stop executing if one succeeds.
@@ -141,6 +175,8 @@ function bt.Selector:run(creatureAI)
   end
   return false
 end
+
+bt.Priority = bt.Selector -- Selector is known as 'Priority' in b3js
 
 --------------------------------------------------------------------------------
 -- SEQUENCE: Execute my children in order and stop executing if one fails.

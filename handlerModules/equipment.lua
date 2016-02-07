@@ -6,13 +6,18 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("handlerModules.handlerUtils")
 
 local equipment = {}
-local status = {}
+local status
+local tasks
 
 local addHandlers
+local installTasks
 
-function equipment.init(worldStatus)
+function equipment.init(worldStatus, worldTasks)
+  status = worldStatus
+  tasks = worldTasks
+
   addHandlers()
-  worldStatus.equipment = status
+  installTasks()
 
   equipment.reset()
 end
@@ -20,6 +25,10 @@ end
 function equipment.reset()
 end
 
+--------------------------------------------------------------------------------
+-- Handlers update the bot's knowledge of the world. The events they handle
+-- are raised by triggers on input from the mud.
+--------------------------------------------------------------------------------
 function addHandlers()
   handlerUtils.addHandler("equipmentUpdated", "equipmentUpdated",
   function()
@@ -29,14 +38,23 @@ function addHandlers()
 end
 
 --------------------------------------------------------------------------------
--- Equipment actions
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
 -- Enable equipment parsing triggers and request equipment from the mud.
 --------------------------------------------------------------------------------
 function equipment.updateEquipment()
   enableTrigger("refresh equipment")
   send("equipment")
+end
+
+--------------------------------------------------------------------------------
+-- Store all tasks in the bot.tasks dictionary, indexed by name. This is a
+-- function so that it will happen only on module init and not on file load.
+--------------------------------------------------------------------------------
+function installTasks()
+
+  -- Conditions ----------------------------------------------------------------
+
+  -- Actions -------------------------------------------------------------------
+
 end
 
 return equipment

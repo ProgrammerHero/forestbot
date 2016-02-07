@@ -8,13 +8,18 @@ local handlerUtils = require("handlerModules.handlerUtils")
 local numbers = require("util.numbers")
 
 local scan = {}
-local status = {}
+local status
+local tasks
 
 local addHandlers
+local installTasks
 
-function scan.init(worldStatus)
+function scan.init(worldStatus, worldTasks)
+  status = worldStatus
+  tasks = worldTasks
+
   addHandlers()
-  worldStatus.scan = status
+  installTasks()
 
   scan.reset()
 end
@@ -23,6 +28,10 @@ function scan.reset()
   status.mobs = {}
 end
 
+--------------------------------------------------------------------------------
+-- Handlers update the bot's knowledge of the world. The events they handle
+-- are raised by triggers on input from the mud.
+--------------------------------------------------------------------------------
 function addHandlers()
   handlerUtils.addHandler("moved", "clearScanOnMove",
   function(event, direction)
@@ -99,5 +108,21 @@ function scan.parseMobString(rawMobString)
   return mobTable
 end
 
-return scan
+--------------------------------------------------------------------------------
+-- Store all tasks in the bot.tasks dictionary, indexed by name. This is a
+-- function so that it will happen only on module init and not on file load.
+--------------------------------------------------------------------------------
+function installTasks()
 
+  -- Conditions ----------------------------------------------------------------
+
+  function tasks.enemyPresent(enemy)
+    debugMessage("((STUB)) Yup, he's here.")
+    return true
+  end
+
+  -- Actions -------------------------------------------------------------------
+
+end
+
+return scan

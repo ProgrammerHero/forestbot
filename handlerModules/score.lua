@@ -24,13 +24,18 @@ local debugMessage = require("debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("handlerModules.handlerUtils")
 
 local score = {}
-local status = {}
+local status
+local tasks
 
 local addHandlers
+local installTasks
 
-function score.init(worldStatus)
+function score.init(worldStatus, worldTasks)
+  status = worldStatus
+  tasks = worldTasks
+
   addHandlers()
-  worldStatus.score = status
+  installTasks()
 
   score.reset()
 end
@@ -39,6 +44,10 @@ function score.reset()
   status.level = 0
 end
 
+--------------------------------------------------------------------------------
+-- Handlers update the bot's knowledge of the world. The events they handle
+-- are raised by triggers on input from the mud.
+--------------------------------------------------------------------------------
 function addHandlers()
   handlerUtils.addHandler("scoreUpdated", "scoreUpdated",
   function()
@@ -49,11 +58,20 @@ function addHandlers()
 end
 
 --------------------------------------------------------------------------------
--- Score Action
+-- Store all tasks in the bot.tasks dictionary, indexed by name. This is a
+-- function so that it will happen only on module init and not on file load.
 --------------------------------------------------------------------------------
-function score.updateScore()
-  enableTrigger("score")
-  send("score")
+function installTasks()
+
+  -- Conditions ----------------------------------------------------------------
+
+  -- Actions -------------------------------------------------------------------
+
+  function tasks.updateScore()
+    enableTrigger("score")
+    send("score")
+  end
+
 end
 
 return score
