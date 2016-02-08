@@ -49,16 +49,30 @@ function addHandlers()
   end
   )
 
-  handlerUtils.addHandler("ateSomething", "notEating",
-  function(eventName, thirstLevel)
+  handlerUtils.addHandler("ateSomething", "ateSomething",
+  function(eventName)
     debugMessage("No longer eating.")
     status.needs.eating = false
   end
   )
 
-  handlerUtils.addHandler("drankSomething", "notDrinking",
-  function(eventName, thirstLevel)
-    debugMessage("Setting needs.thirst to " .. thirstLevel)
+  handlerUtils.addHandler("drankSomething", "drankSomething",
+  function(eventName)
+    debugMessage("No longer drinking.")
+    status.needs.drinking = false
+  end
+  )
+
+  handlerUtils.addHandler("noFood", "notEating",
+  function()
+    debugMessage("Nothing to eat! No longer eating.")
+    status.needs.eating = false
+  end
+  )
+
+  handlerUtils.addHandler("noWater", "notDrinking",
+  function()
+    debugMessage("Nothing to drink! No longer drinking.")
     status.needs.drinking = false
   end
   )

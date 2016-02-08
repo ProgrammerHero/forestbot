@@ -3,8 +3,8 @@
     "description": "",
     "root": "105e6cfd-42d3-4b7c-8966-487a770886bb",
     "display": {
-        "camera_x": 628.5,
-        "camera_y": 483,
+        "camera_x": 761.5,
+        "camera_y": 547,
         "camera_z": 0.75,
         "x": -192,
         "y": -32
@@ -18,7 +18,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": -528
+                "y": -588.8
             },
             "parameters": {},
             "properties": {}
@@ -30,7 +30,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": -352
+                "y": -396.79999999999995
             },
             "parameters": {},
             "properties": {}
@@ -42,13 +42,14 @@
             "description": "Food",
             "display": {
                 "x": 224,
-                "y": -422.4
+                "y": -492.79999999999995
             },
             "parameters": {},
             "properties": {},
             "children": [
                 "4b6cbdfe-4513-4689-8c12-a221c4c5ed91",
-                "1e373794-ae21-4a3c-8ad6-dc235f3718d0",
+                "6f379641-3c13-4733-8ea2-d6b54cbfe348",
+                "b233631c-32be-4d65-8f2a-abce49993880",
                 "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad"
             ]
         },
@@ -59,13 +60,14 @@
             "description": "Drink",
             "display": {
                 "x": 224,
-                "y": -230.39999999999998
+                "y": -236.79999999999995
             },
             "parameters": {},
             "properties": {},
             "children": [
                 "8dad92de-95c1-4a03-853f-33e67ed428a9",
-                "e5be7f01-8c38-4dc6-844a-aa247de70beb",
+                "1cd3e855-ede7-44e0-8fcc-26aad28066cb",
+                "409175a7-e7a7-45f7-8602-06260881fff0",
                 "cc7cd240-b053-42a2-8de3-b6c2abb879ee"
             ]
         },
@@ -76,7 +78,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": -294.4
+                "y": -332.79999999999995
             },
             "parameters": {},
             "properties": {}
@@ -88,37 +90,9 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": -166.39999999999998
+                "y": -140.79999999999995
             },
             "parameters": {},
-            "properties": {}
-        },
-        "1e373794-ae21-4a3c-8ad6-dc235f3718d0": {
-            "id": "1e373794-ae21-4a3c-8ad6-dc235f3718d0",
-            "name": "hasItem?",
-            "title": "hasItem?",
-            "description": "",
-            "display": {
-                "x": 432,
-                "y": -422.4
-            },
-            "parameters": {
-                "anyItem": "food"
-            },
-            "properties": {}
-        },
-        "e5be7f01-8c38-4dc6-844a-aa247de70beb": {
-            "id": "e5be7f01-8c38-4dc6-844a-aa247de70beb",
-            "name": "hasItem?",
-            "title": "hasItem?",
-            "description": "",
-            "display": {
-                "x": 432,
-                "y": -230.39999999999998
-            },
-            "parameters": {
-                "anyItem": "drink"
-            },
             "properties": {}
         },
         "bf211aeb-5b72-40e3-8144-7e0c7fb2aa28": {
@@ -128,7 +102,7 @@
             "description": "Combat",
             "display": {
                 "x": 224,
-                "y": 185.60000000000002
+                "y": 211.20000000000005
             },
             "parameters": {},
             "properties": {},
@@ -145,7 +119,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": 89.60000000000002
+                "y": 115.20000000000005
             },
             "parameters": {},
             "properties": {}
@@ -157,7 +131,7 @@
             "description": "",
             "display": {
                 "x": 640,
-                "y": 153.60000000000002
+                "y": 179.20000000000005
             },
             "parameters": {},
             "properties": {}
@@ -169,7 +143,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": 281.6
+                "y": 307.20000000000005
             },
             "parameters": {},
             "properties": {}
@@ -181,7 +155,7 @@
             "description": "Wander",
             "display": {
                 "x": 224,
-                "y": 345.6
+                "y": 371.20000000000005
             },
             "parameters": {},
             "properties": {},
@@ -196,7 +170,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": 176
+                "y": 211.20000000000005
             },
             "parameters": {},
             "properties": {},
@@ -212,7 +186,7 @@
             "description": "",
             "display": {
                 "x": 640,
-                "y": 217.60000000000002
+                "y": 243.20000000000005
             },
             "parameters": {},
             "properties": {},
@@ -225,7 +199,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": 345.6
+                "y": 371.20000000000005
             },
             "parameters": {},
             "properties": {}
@@ -237,7 +211,7 @@
             "description": "Sleep",
             "display": {
                 "x": 224,
-                "y": -38.39999999999998
+                "y": -12.799999999999955
             },
             "parameters": {},
             "properties": {},
@@ -254,7 +228,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": -102.39999999999998
+                "y": -76.79999999999995
             },
             "parameters": {},
             "properties": {}
@@ -266,7 +240,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": 25.600000000000023
+                "y": 51.200000000000045
             },
             "parameters": {},
             "properties": {}
@@ -278,7 +252,7 @@
             "description": "",
             "display": {
                 "x": 640,
-                "y": -38.39999999999998
+                "y": -12.799999999999955
             },
             "parameters": {},
             "properties": {}
@@ -290,7 +264,7 @@
             "description": "",
             "display": {
                 "x": 432,
-                "y": -38.39999999999998
+                "y": -12.799999999999955
             },
             "parameters": {},
             "properties": {},
@@ -302,7 +276,7 @@
             "title": "Priority",
             "description": "",
             "display": {
-                "x": 0,
+                "x": 16,
                 "y": -32
             },
             "parameters": {},
@@ -322,10 +296,84 @@
             "description": "",
             "display": {
                 "x": 848,
-                "y": 224
+                "y": 243.20000000000005
             },
             "parameters": {},
             "properties": {}
+        },
+        "2c6181e3-d07d-4375-9ad8-ecebd1ae1f8b": {
+            "id": "2c6181e3-d07d-4375-9ad8-ecebd1ae1f8b",
+            "name": "isEating?",
+            "title": "isEating?",
+            "description": "",
+            "display": {
+                "x": 640,
+                "y": -524.8
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "02af4dae-0f3f-4997-8f78-95ebcaf6e5f3": {
+            "id": "02af4dae-0f3f-4997-8f78-95ebcaf6e5f3",
+            "name": "isDrinking?",
+            "title": "isDrinking?",
+            "description": "",
+            "display": {
+                "x": 640,
+                "y": -268.79999999999995
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "b233631c-32be-4d65-8f2a-abce49993880": {
+            "id": "b233631c-32be-4d65-8f2a-abce49993880",
+            "name": "hasFood?",
+            "title": "hasFood?",
+            "description": "",
+            "display": {
+                "x": 432,
+                "y": -460.79999999999995
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "409175a7-e7a7-45f7-8602-06260881fff0": {
+            "id": "409175a7-e7a7-45f7-8602-06260881fff0",
+            "name": "hasWater?",
+            "title": "hasWater?",
+            "description": "",
+            "display": {
+                "x": 432,
+                "y": -204.79999999999995
+            },
+            "parameters": {},
+            "properties": {}
+        },
+        "6f379641-3c13-4733-8ea2-d6b54cbfe348": {
+            "id": "6f379641-3c13-4733-8ea2-d6b54cbfe348",
+            "name": "Inverter",
+            "title": "Inverter",
+            "description": "",
+            "display": {
+                "x": 432,
+                "y": -524.8
+            },
+            "parameters": {},
+            "properties": {},
+            "child": "2c6181e3-d07d-4375-9ad8-ecebd1ae1f8b"
+        },
+        "1cd3e855-ede7-44e0-8fcc-26aad28066cb": {
+            "id": "1cd3e855-ede7-44e0-8fcc-26aad28066cb",
+            "name": "Inverter",
+            "title": "Inverter",
+            "description": "",
+            "display": {
+                "x": 432,
+                "y": -268.79999999999995
+            },
+            "parameters": {},
+            "properties": {},
+            "child": "02af4dae-0f3f-4997-8f78-95ebcaf6e5f3"
         }
     },
     "custom_nodes": [
@@ -393,6 +441,21 @@
             "name": "escape",
             "title": "",
             "category": "action"
+        },
+        {
+            "name": "isDrinking?",
+            "title": "",
+            "category": "condition"
+        },
+        {
+            "name": "hasFood?",
+            "title": "",
+            "category": "condition"
+        },
+        {
+            "name": "hasWater?",
+            "title": "",
+            "category": "condition"
         }
     ]
 }

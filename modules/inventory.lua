@@ -47,14 +47,14 @@ function addHandlers()
   handlerUtils.addHandler("noFood", "noFood",
   function()
     debugMessage("Setting inventory.hasFood = false")
-    bot.items.hasFood = false
+    status.inventory.hasFood = false
   end
   )
 
   handlerUtils.addHandler("noWater", "noWater",
   function()
     debugMessage("Setting inventory.hasWater = false")
-    bot.items.hasWater = false
+    status.inventory.hasWater = false
   end
   )
 end
@@ -74,6 +74,14 @@ end
 function installTasks()
 
   -- Conditions -----------------------------------------------------------------
+
+  function tasks.hasFood()
+    return status.inventory.hasFood
+  end
+
+  function tasks.hasWater()
+    return status.inventory.hasWater
+  end
 
   function tasks.hasItem(blackboard)
     debugMessage("((STUB))")

@@ -136,6 +136,26 @@
                         <integer>1</integer>
                     </regexCodePropertyList>
                 </Trigger>
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <name>ateSomething</name>
+                    <script>raiseEvent(&quot;ateSomething&quot;)</script>
+                    <triggerType>0</triggerType>
+                    <conditonLineDelta>0</conditonLineDelta>
+                    <mStayOpen>0</mStayOpen>
+                    <mCommand></mCommand>
+                    <packageName></packageName>
+                    <mFgColor>#ff0000</mFgColor>
+                    <mBgColor>#ffff00</mBgColor>
+                    <mSoundFile></mSoundFile>
+                    <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                    <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                    <regexCodeList>
+                        <string>You eat (.+)$</string>
+                    </regexCodeList>
+                    <regexCodePropertyList>
+                        <integer>1</integer>
+                    </regexCodePropertyList>
+                </Trigger>
             </TriggerGroup>
             <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>thirst</name>
@@ -256,7 +276,49 @@
                         <integer>1</integer>
                     </regexCodePropertyList>
                 </Trigger>
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <name>drankSomething</name>
+                    <script>raiseEvent(&quot;drankSomething&quot;)</script>
+                    <triggerType>0</triggerType>
+                    <conditonLineDelta>0</conditonLineDelta>
+                    <mStayOpen>0</mStayOpen>
+                    <mCommand></mCommand>
+                    <packageName></packageName>
+                    <mFgColor>#ff0000</mFgColor>
+                    <mBgColor>#ffff00</mBgColor>
+                    <mSoundFile></mSoundFile>
+                    <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                    <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                    <regexCodeList>
+                        <string>You drink (.+)$</string>
+                    </regexCodeList>
+                    <regexCodePropertyList>
+                        <integer>1</integer>
+                    </regexCodePropertyList>
+                </Trigger>
             </TriggerGroup>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>noLight</name>
+                <script>raiseEvent(&quot;noLight&quot;)</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>DARKNESS</string>
+                    <string>(.+) you are holding extinguishes.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>3</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
         </TriggerGroup>
         <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>inventory</name>
@@ -473,11 +535,34 @@ raiseEvent(&quot;inventoryUpdated&quot;)</script>
                 <regexCodeList>
                     <string>Nothing found matching &quot;water&quot;.$</string>
                     <string>^You drink the last drops of water from a (.*) you are carrying.$</string>
-                    <string>A \w* waterskin you are carrying is already empty.$</string>
+                    <string>(.+) you are carrying is already empty.$</string>
                 </regexCodeList>
                 <regexCodePropertyList>
                     <integer>1</integer>
                     <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>notInInventory</name>
+                <script>-- The mud will replace the '.'s between words in the command we sent
+-- with ' '. Change them back so we can tell if we couldn't find the
+-- item we asked for.
+raiseEvent(&quot;notInInventory&quot;, string.gsub(matches[2], &quot; &quot;, &quot;%.&quot;))</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>You aren't carrying any items matching &quot;(.+)&quot;\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
                     <integer>1</integer>
                 </regexCodePropertyList>
             </Trigger>
@@ -565,6 +650,7 @@ bot.status.health.moves = tonumber(matches[6])
 bot.status.health.maxMoves = tonumber(matches[7])
 bot.status.score.xp = tonumber(matches[8])
 bot.status.location.exits=string.lower(matches[11])
+raiseEvent(&quot;prompt&quot;)
 
 -- prompt ?p'-- MORE -- '&lt;%f?f|%h/%Hhp %e/%Ee ?m'[%m/%Mmv]'!m'%v/%Vmv' %xxp ?b'%c'!b'%d'&gt;</script>
             <triggerType>0</triggerType>
@@ -578,7 +664,7 @@ bot.status.location.exits=string.lower(matches[11])
             <colorTriggerFgColor>#000000</colorTriggerFgColor>
             <colorTriggerBgColor>#000000</colorTriggerBgColor>
             <regexCodeList>
-                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? ([-0-9]+)xp(?: (\d*)\/(\d*)hp)? (\w+)&gt;</string>
+                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? ([-0-9]+)xp(?: (\d*)\/(\d*)hp)? (-Dark-|[nNeEsSwWuUdD]+)&gt;</string>
             </regexCodeList>
             <regexCodePropertyList>
                 <integer>1</integer>
@@ -857,7 +943,7 @@ raiseEvent(&quot;someoneIsDEAD&quot;, string.lower(string.trim(matches[2])))</sc
                 </Trigger>
                 <Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>equipment line</name>
-                    <script>if not (matches[2] == &quot;---- --------&quot;) then
+                    <script>if not (matches[1] == &quot;---- --------&quot;) then
   if #matches == 5 then
     bot.status.equipment.currentEqLayer = matches[2]
     bot.status.equipment.items[#bot.status.equipment.items + 1] = {matches[2],
@@ -914,6 +1000,28 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
                     </regexCodePropertyList>
                 </Trigger>
             </TriggerGroup>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>itemEquipped</name>
+                <script>raiseEvent(&quot;itemEquipped&quot;, matches[2])</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>You hold (.+) in your \w+ hand\.$</string>
+                    <string>You wear (.+)\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
         </TriggerGroup>
         <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>scanLine</name>
@@ -1030,12 +1138,124 @@ end</script>
     </ScriptPackage>
     <KeyPackage>
         <Key isActive="no" isFolder="no">
-            <name>Blank</name>
+            <name>kp0</name>
             <packageName></packageName>
             <script></script>
             <command></command>
-            <keyCode>-1</keyCode>
-            <keyModifier>-1</keyModifier>
+            <keyCode>48</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="no" isFolder="no">
+            <name>kp1</name>
+            <packageName></packageName>
+            <script></script>
+            <command></command>
+            <keyCode>49</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="yes" isFolder="no">
+            <name>kp2</name>
+            <packageName></packageName>
+            <script></script>
+            <command>s</command>
+            <keyCode>50</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="no" isFolder="no">
+            <name>kp3</name>
+            <packageName></packageName>
+            <script></script>
+            <command></command>
+            <keyCode>51</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="yes" isFolder="no">
+            <name>kp4</name>
+            <packageName></packageName>
+            <script></script>
+            <command>w</command>
+            <keyCode>52</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="yes" isFolder="no">
+            <name>kp5</name>
+            <packageName></packageName>
+            <script></script>
+            <command>map &amp; scan</command>
+            <keyCode>53</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="yes" isFolder="no">
+            <name>kp6</name>
+            <packageName></packageName>
+            <script></script>
+            <command>e</command>
+            <keyCode>54</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="no" isFolder="no">
+            <name>kp7</name>
+            <packageName></packageName>
+            <script></script>
+            <command></command>
+            <keyCode>55</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="yes" isFolder="no">
+            <name>kp8</name>
+            <packageName></packageName>
+            <script></script>
+            <command>n</command>
+            <keyCode>56</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="no" isFolder="no">
+            <name>kp9</name>
+            <packageName></packageName>
+            <script></script>
+            <command></command>
+            <keyCode>57</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="no" isFolder="no">
+            <name>kp/</name>
+            <packageName></packageName>
+            <script></script>
+            <command></command>
+            <keyCode>47</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="no" isFolder="no">
+            <name>kp*</name>
+            <packageName></packageName>
+            <script></script>
+            <command></command>
+            <keyCode>42</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="yes" isFolder="no">
+            <name>kp-</name>
+            <packageName></packageName>
+            <script></script>
+            <command>d</command>
+            <keyCode>45</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="yes" isFolder="no">
+            <name>kp+</name>
+            <packageName></packageName>
+            <script></script>
+            <command>u</command>
+            <keyCode>43</keyCode>
+            <keyModifier>536870912</keyModifier>
+        </Key>
+        <Key isActive="no" isFolder="no">
+            <name>kpEnter</name>
+            <packageName></packageName>
+            <script></script>
+            <command></command>
+            <keyCode>16777221</keyCode>
+            <keyModifier>536870912</keyModifier>
         </Key>
     </KeyPackage>
     <HelpPackage>
