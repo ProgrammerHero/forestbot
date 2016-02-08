@@ -21,8 +21,8 @@ local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 --------------------------------------------------------------------------------
 bot = {}
 local modules = {
-                  "behaviourtree.behaviourtree", -- not used in this module
-                                                 -- only to force-reload it
+                  "modules.behaviourtree", -- not used in this module
+                                           -- only to force-reload it
                   "modules.handlerUtils",
                   "modules.needs",
                   "modules.combat",
