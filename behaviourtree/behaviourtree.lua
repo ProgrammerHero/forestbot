@@ -28,7 +28,7 @@
 --    Wait
 
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 
 local bt = {}
 

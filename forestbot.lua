@@ -14,7 +14,7 @@ if not savedPackagePath then
 end
 
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 
 --------------------------------------------------------------------------------
 -- Central bot namespace

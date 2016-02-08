@@ -20,7 +20,7 @@
              [Also try the command identity for more information.]--]]
 
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("modules.handlerUtils")
 
 local score = {}

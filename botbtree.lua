@@ -8,7 +8,7 @@
 -- Disclaimer: This format is a piece of trash. - ProgrammerHero
 --------------------------------------------------------------------------------
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 
 local botbtree = {}
 local btree

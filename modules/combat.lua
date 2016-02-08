@@ -8,7 +8,7 @@
 -- bot knows it is in combat if its target list is not empty.
 --------------------------------------------------------------------------------
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("modules.handlerUtils")
 
 local combat = {}

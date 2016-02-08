@@ -1,7 +1,7 @@
 local handlerUtils = {}
 
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 
 --TODO: See if there's a nicer way to choose where handlers should be stored,
 --rather than hard-coding their location to bot.handlers.

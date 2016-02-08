@@ -3,7 +3,7 @@
 -- For now, the mobs array is populated directly by a trigger (with no event).
 --------------------------------------------------------------------------------
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("modules.handlerUtils")
 local numbers = require("util.numbers")
 

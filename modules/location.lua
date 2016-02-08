@@ -2,7 +2,7 @@
 -- Location Functions
 --------------------------------------------------------------------------------
 local debugMode = true
-local debugMessage = require("debugUtils").getDebugMessage(debugMode)
+local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 local handlerUtils = require("modules.handlerUtils")
 
 local location = {}
