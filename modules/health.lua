@@ -1,29 +1,37 @@
 --------------------------------------------------------------------------------
--- Equipment Functions
+-- Health Functions
 --------------------------------------------------------------------------------
 local debugMode = true
 local debugMessage = require("debugUtils").getDebugMessage(debugMode)
-local handlerUtils = require("handlerModules.handlerUtils")
+local handlerUtils = require("modules.handlerUtils")
 
-local equipment = {}
+local health = {}
 local status
 local tasks
 
 local addHandlers
 local installTasks
 
-function equipment.init(worldStatus, worldTasks)
+function health.init(worldStatus, worldTasks)
   status = worldStatus
   tasks = worldTasks
 
   addHandlers()
   installTasks()
 
-  equipment.reset()
+  health.reset()
 end
 
-function equipment.reset()
-  status.equipment = {}
+function health.reset()
+  status.health = {}
+  status.health.hits = 0
+  status.health.maxHits = 0
+
+  status.health.energy = 0
+  status.health.maxEnergy = 0
+
+  status.health.moves = 0
+  status.health.maxMoves = 0
 end
 
 --------------------------------------------------------------------------------
@@ -31,19 +39,10 @@ end
 -- are raised by triggers on input from the mud.
 --------------------------------------------------------------------------------
 function addHandlers()
-  handlerUtils.addHandler("equipmentUpdated", "equipmentUpdated",
+  handlerUtils.addHandler("prompt", "prompt",
   function()
-    debugMessage("Equipment updated.")
   end
   )
-end
-
---------------------------------------------------------------------------------
--- Enable equipment parsing triggers and request equipment from the mud.
---------------------------------------------------------------------------------
-function equipment.updateEquipment()
-  enableTrigger("refresh equipment")
-  send("equipment")
 end
 
 --------------------------------------------------------------------------------
@@ -54,8 +53,29 @@ function installTasks()
 
   -- Conditions ----------------------------------------------------------------
 
+  function tasks.isTired()
+    if (status.health.moves < 20) then
+      debugMessage("Checking if the bot is tired... yes.")
+      return true
+    else
+      debugMessage("Checking if the bot is tired... no.")
+      return false
+    end
+  end
+
+  function tasks.shouldFight()
+    debugMessage("((STUB))I'm an aggressive little bot!")
+    return true
+  end
+
   -- Actions -------------------------------------------------------------------
+
+  function tasks.sleep()
+    debugMessage("Sleeping")
+    send("sleep")
+    return true
+  end
 
 end
 
-return equipment
+return health

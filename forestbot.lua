@@ -23,18 +23,18 @@ bot = {}
 local modules = {
                   "behaviourtree.behaviourtree", -- not used in this module
                                                  -- only to force-reload it
-                  "handlerModules.handlerUtils",
-                  "handlerModules.needs",
-                  "handlerModules.combat",
-                  "handlerModules.inventory",
-                  "handlerModules.score",
-                  "handlerModules.location",
-                  "handlerModules.equipment",
-                  "handlerModules.health",
-                  "handlerModules.scan",
-                  "handlerModules.movement",
---                  "handlerModules.effects",
---                  "handlerModules.stance",
+                  "modules.handlerUtils",
+                  "modules.needs",
+                  "modules.combat",
+                  "modules.inventory",
+                  "modules.score",
+                  "modules.location",
+                  "modules.equipment",
+                  "modules.health",
+                  "modules.scan",
+                  "modules.movement",
+--                  "modules.effects",
+--                  "modules.stance",
                   "botbtree",  -- Load last so other modules populate tasks
                 }
 

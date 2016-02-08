@@ -4,7 +4,7 @@
 --------------------------------------------------------------------------------
 local debugMode = true
 local debugMessage = require("debugUtils").getDebugMessage(debugMode)
-local handlerUtils = require("handlerModules.handlerUtils")
+local handlerUtils = require("modules.handlerUtils")
 local numbers = require("util.numbers")
 
 local scan = {}

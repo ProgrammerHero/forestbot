@@ -917,7 +917,7 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
         </TriggerGroup>
         <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>scanLine</name>
-            <script>bot.handlerModules.scan.parseScanLine(matches[2], matches[3])
+            <script>bot.modules.scan.parseScanLine(matches[2], matches[3])
 --raiseEvent(&quot;scanLine&quot;, string.trim(matches[2]), matches[3])</script>
             <triggerType>0</triggerType>
             <conditonLineDelta>0</conditonLineDelta>
@@ -983,28 +983,28 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test inventory</name>
-            <script>bot.handlerModules.inventory.updateInventory()</script>
+            <script>bot.modules.inventory.updateInventory()</script>
             <command></command>
             <packageName></packageName>
             <regex>testInv</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test score</name>
-            <script>bot.handlerModules.score.updateScore()</script>
+            <script>bot.modules.score.updateScore()</script>
             <command></command>
             <packageName></packageName>
             <regex>testScore</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test ident</name>
-            <script>bot.handlerModules.identity.updateIdentity()</script>
+            <script>bot.modules.identity.updateIdentity()</script>
             <command></command>
             <packageName></packageName>
             <regex>testIdent</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test equipment</name>
-            <script>bot.handlerModules.equipment.updateEquipment()</script>
+            <script>bot.modules.equipment.updateEquipment()</script>
             <command></command>
             <packageName></packageName>
             <regex>^testEq</regex>
