@@ -12,7 +12,7 @@ local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 
 local botbtree = {}
 local btree
-local json = require("json")
+local json = require("modules.json")
 local bt = require("behaviourtree.behaviourtree")
 local tasks
 
