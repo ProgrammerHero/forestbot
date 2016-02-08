@@ -25,7 +25,9 @@ end
 function needs.reset()
   status.needs = {}
   status.needs.hunger = 0
+  status.needs.eating = false
   status.needs.thirst = 0
+  status.needs.drinking = false
 end
 
 --------------------------------------------------------------------------------
@@ -46,6 +48,20 @@ function addHandlers()
     status.needs.thirst = thirstLevel
   end
   )
+
+  handlerUtils.addHandler("ateSomething", "notEating",
+  function(eventName, thirstLevel)
+    debugMessage("No longer eating.")
+    status.needs.eating = false
+  end
+  )
+
+  handlerUtils.addHandler("drankSomething", "notDrinking",
+  function(eventName, thirstLevel)
+    debugMessage("Setting needs.thirst to " .. thirstLevel)
+    status.needs.drinking = false
+  end
+  )
 end
 
 --------------------------------------------------------------------------------
@@ -60,8 +76,16 @@ function installTasks()
     return status.needs.hunger > 0
   end
 
+  function tasks.isEating()
+    return status.needs.eating
+  end
+
   function tasks.isThirsty()
     return status.needs.thirst > 0
+  end
+
+  function tasks.isDrinking()
+    return status.needs.drinking
   end
 
   -- Actions -------------------------------------------------------------------
@@ -69,6 +93,7 @@ function installTasks()
   function tasks.eatFood()
     -- should be smarter and try to find specific food
     send("eat food")
+    status.needs.eating = true
     return true
     -- 
   end
@@ -77,6 +102,7 @@ function installTasks()
     -- should be smarter and try to find a specific drink
     -- also need to make sure we have a drink equipped
     send("drink bronze.cup")
+    status.needs.drinking = true
     return true
   end
 
