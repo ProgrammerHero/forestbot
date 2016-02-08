@@ -117,9 +117,9 @@ function installTasks()
 
   -- Conditions ----------------------------------------------------------------
 
-  function tasks.enemyPresent(enemy)
-    debugMessage("((STUB)) Yup, he's here.")
-    return true
+  function tasks.enemyPresent()
+    debugMessage("((STUB))")
+    return false
   end
 
   -- Actions -------------------------------------------------------------------

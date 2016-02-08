@@ -75,9 +75,9 @@ function installTasks()
 
   -- Conditions -----------------------------------------------------------------
 
-  function tasks.hasItem(item)
-    debugMessage("((STUB))I have some!")
-    return true
+  function tasks.hasItem(blackboard)
+    debugMessage("((STUB))")
+    return false
   end
 
   -- Actions --------------------------------------------------------------------

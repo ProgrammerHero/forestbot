@@ -55,12 +55,12 @@ function installTasks()
   -- Actions -------------------------------------------------------------------
 
   function tasks.moveTo(location)
-    debugMessage("((STUB))Tried moving to.., unsuccessfully.")
+    debugMessage("((STUB))")
     return false
   end
 
   function tasks.escape()
-    debugMessage("((STUB))He's got me trapped!")
+    debugMessage("((STUB))")
     return false
   end
 

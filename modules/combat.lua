@@ -140,11 +140,11 @@ function installTasks()
     return #status.combat.targets > 0
   end
 
-
   -- Actions --------------------------------------------------------------------
 
   function tasks.attack(target)
-    return true
+    debugMessage("((STUB))")
+    return false
   end
 
 end
