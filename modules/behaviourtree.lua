@@ -61,7 +61,7 @@ bt.Inverter = Class({init = function(self, children)
 end})
 
 function bt.Inverter:run(creatureAI)
-  debugMessage(self.nodeType .. " update\n")
+  debugMessage(self.nodeType .. " update")
   return not self.action:run(creatureAI)
 end
 

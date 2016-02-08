@@ -16,6 +16,8 @@ local json = require("modules.json")
 local bt = require("modules.behaviourtree")
 local tasks
 
+local blackboard = {}
+
 function botbtree.init(worldStatus, worldTasks)
   tasks = worldTasks
   botbtree.reset()
@@ -91,7 +93,7 @@ function botbtree.loadJSON(file)
 end
 
 function botbtree.think()
-  btree:run()
+  btree:run(blackboard)
 end
 
 return botbtree
