@@ -23,14 +23,14 @@ function inventory.init(worldStatus, worldTasks)
 end
 
 function inventory.reset()
-  status = {}
-  status.coins = 0
-  status.weight = 0
-  status.wornWeight = 0
-  status.encumbrance = ""
-  status.hasFood = true
-  status.hasWater = true
-  status.items = {}
+  status.inventory = {}
+  status.inventory.coins = 0
+  status.inventory.weight = 0
+  status.inventory.wornWeight = 0
+  status.inventory.encumbrance = ""
+  status.inventory.hasFood = true
+  status.inventory.hasWater = true
+  status.inventory.items = {}
 end
 
 --------------------------------------------------------------------------------

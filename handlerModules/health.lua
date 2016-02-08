@@ -23,14 +23,15 @@ function health.init(worldStatus, worldTasks)
 end
 
 function health.reset()
-  status.hits = 0
-  status.maxHits = 0
+  status.health = {}
+  status.health.hits = 0
+  status.health.maxHits = 0
 
-  status.energy = 0
-  status.maxEnergy = 0
+  status.health.energy = 0
+  status.health.maxEnergy = 0
 
-  status.moves = 0
-  status.maxMoves = 0
+  status.health.moves = 0
+  status.health.maxMoves = 0
 end
 
 --------------------------------------------------------------------------------
@@ -53,7 +54,7 @@ function installTasks()
   -- Conditions ----------------------------------------------------------------
 
   function tasks.isTired()
-    if (status.moves < 20) then
+    if (status.health.moves < 20) then
       debugMessage("Checking if the bot is tired... yes.")
       return true
     else

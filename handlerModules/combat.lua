@@ -29,7 +29,8 @@ function combat.init(worldStatus, worldTasks)
 end
 
 function combat.reset()
-  status.targets = {}
+  status.combat = {}
+  status.combat.targets = {}
 end
 
 --------------------------------------------------------------------------------
@@ -96,16 +97,16 @@ end
 -- Combat functions
 --------------------------------------------------------------------------------
 function combat.addTarget(target)
-  status.targets[#status.targets + 1] = target
+  status.combat.targets[#status.combat.targets + 1] = target
   debugMessage(combat.listTargets())
 end
 
 function combat.removeTarget(target)
-  local index = table.index_of(status.targets, target)
+  local index = table.index_of(status.combat.targets, target)
   local success = false
 
   if index then
-    table.remove(status.targets, index)
+    table.remove(status.combat.targets, index)
     success = true
   end
 
@@ -115,16 +116,16 @@ function combat.removeTarget(target)
 end
 
 function combat.removeAllTargets()
-  status.targets = {}
+  status.combat.targets = {}
   debugMessage(combat.listTargets())
 end
 
 function combat.isTarget(target)
-  return table.contains(status.targets, target)
+  return table.contains(status.combat.targets, target)
 end
 
 function combat.listTargets()
-  return "Targets = {" ..table.concat(status.targets, ", ") .. "}"
+  return "Targets = {" ..table.concat(status.combat.targets, ", ") .. "}"
 end
 
 --------------------------------------------------------------------------------
@@ -136,7 +137,7 @@ function installTasks()
   -- Conditions -----------------------------------------------------------------
 
   function tasks.inCombat()
-    if #status.targets == 0 then
+    if #status.combat.targets == 0 then
       debugMessage("In combat? No.")
       return true
     else

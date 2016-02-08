@@ -23,8 +23,9 @@ function needs.init(worldStatus, worldTasks)
 end
 
 function needs.reset()
-  status.hunger = 0
-  status.thirst = 0
+  status.needs = {}
+  status.needs.hunger = 0
+  status.needs.thirst = 0
 end
 
 --------------------------------------------------------------------------------
@@ -35,14 +36,14 @@ function addHandlers()
   handlerUtils.addHandler("hungerEvent", "hunger",
   function(eventName, hungerLevel)
     debugMessage("Setting needs.hunger to " .. hungerLevel)
-    status.hunger = hungerLevel
+    status.needs.hunger = hungerLevel
   end
   )
 
   handlerUtils.addHandler("thirstEvent", "thirst",
   function(eventName, thirstLevel)
     debugMessage("Setting needs.thirst to " .. thirstLevel)
-    status.thirst = thirstLevel
+    status.needs.thirst = thirstLevel
   end
   )
 end
@@ -55,7 +56,7 @@ function installTasks()
 
   -- Conditions -----------------------------------------------------------------
   function tasks.isHungry()
-    if status.hunger > 0 then
+    if status.needs.hunger > 0 then
       debugMessage("Checking if the bot is hungry... yes.")
       return true
     else
@@ -65,7 +66,7 @@ function installTasks()
   end
 
   function tasks.isThirsty()
-    if status.thirst > 0 then
+    if status.needs.thirst > 0 then
       debugMessage("Checking if the bot is thirsty... yes.")
       return true
     else

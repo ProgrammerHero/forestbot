@@ -23,6 +23,7 @@ function equipment.init(worldStatus, worldTasks)
 end
 
 function equipment.reset()
+  status.equipment = {}
 end
 
 --------------------------------------------------------------------------------

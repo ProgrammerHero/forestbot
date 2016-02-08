@@ -25,7 +25,8 @@ function movement.init(worldStatus, worldTasks)
 end
 
 function movement.reset()
-  status.history = {}
+  status.movement = {}
+  status.movement.history = {}
 end
 
 --------------------------------------------------------------------------------
@@ -35,10 +36,10 @@ end
 function addHandlers()
   handlerUtils.addHandler("moved", "moveHistory",
   function(event, direction)
-    if (#status.history == MAX_HISTORY_LENGTH) then
-      table.remove(status.history, 1)
+    if (#status.movement.history == MAX_HISTORY_LENGTH) then
+      table.remove(status.movement.history, 1)
     end
-    status.history[#status.history + 1] = direction
+    status.movement.history[#status.movement.history + 1] = direction
   end
   )
 end

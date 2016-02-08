@@ -25,7 +25,8 @@ function scan.init(worldStatus, worldTasks)
 end
 
 function scan.reset()
-  status.mobs = {}
+  status.scan = {}
+  status.scan.mobs = {}
 end
 
 --------------------------------------------------------------------------------
@@ -36,14 +37,14 @@ function addHandlers()
   handlerUtils.addHandler("moved", "clearScanOnMove",
   function(event, direction)
     debugMessage("Move detected => clearing scan table.")
-    status.mobs = {}
+    status.scan.mobs = {}
   end
   )
 
   handlerUtils.addHandler("botFled", "clearScanOnFlee",
   function(event, direction)
     debugMessage("Flee detected => clearing scan table.")
-    status.mobs = {}
+    status.scan.mobs = {}
   end
   )
 end
@@ -52,7 +53,7 @@ function scan.parseScanLine(rawDirection, rawMobString)
   local direction = scan.parseDirection(rawDirection)
   local mobTable = scan.parseMobString(rawMobString)
 
-  status.mobs[direction] = mobTable
+  status.scan.mobs[direction] = mobTable
 end
 
 function scan.parseDirection(rawDirection)

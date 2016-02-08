@@ -23,8 +23,9 @@ function location.init(worldStatus, worldTasks)
 end
 
 function location.reset()
-  status.roomNo = 0
-  status.exits = ""
+  status.location = {}
+  status.location.roomNo = 0
+  status.location.exits = ""
 end
 
 --------------------------------------------------------------------------------
@@ -34,8 +35,8 @@ end
 function addHandlers()
   handlerUtils.addHandler("newRoom", "updateRoomNumber",
   function(event, roomNo)
-    status.roomNo = roomNo
-    debugMessage("Currently in room #".. status.roomNo)
+    status.location.roomNo = roomNo
+    debugMessage("Currently in room #".. status.location.roomNo)
   end
   )
 end

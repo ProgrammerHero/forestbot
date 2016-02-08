@@ -41,7 +41,8 @@ function score.init(worldStatus, worldTasks)
 end
 
 function score.reset()
-  status.level = 0
+  status.score = {}
+  status.score.level = 0
 end
 
 --------------------------------------------------------------------------------
