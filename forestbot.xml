@@ -290,8 +290,8 @@
                 <regexCodePropertyList/>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>coins</name>
-                    <script>bot.items.coins = tonumber(matches[2])
-bot.items.coinsWeight = tonumber(matches[3])
+                    <script>bot.status.inventory.coins = tonumber(matches[2])
+bot.status.inventory.coinsWeight = tonumber(matches[3])
 </script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
@@ -331,7 +331,7 @@ bot.items.coinsWeight = tonumber(matches[3])
                     </regexCodePropertyList>
                     <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                         <name>one-item line</name>
-                        <script>bot.items.inventory[#bot.items.inventory + 1] = {matches[2], tonumber(matches[3]), tonumber(matches[4])}
+                        <script>bot.status.inventory.items[#bot.status.inventory.items + 1] = {matches[2], tonumber(matches[3]), tonumber(matches[4])}
 </script>
                         <triggerType>0</triggerType>
                         <conditonLineDelta>0</conditonLineDelta>
@@ -352,8 +352,8 @@ bot.items.coinsWeight = tonumber(matches[3])
                     </Trigger>
                     <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                         <name>two-item line</name>
-                        <script>bot.items.inventory[#bot.items.inventory + 1] = {matches[2], tonumber(matches[3]), tonumber(matches[4])}
-bot.items.inventory[#bot.items.inventory + 1] = {matches[5], tonumber(matches[6]), tonumber(matches[7])}</script>
+                        <script>bot.status.inventory.items[#bot.status.inventory.items + 1] = {matches[2], tonumber(matches[3]), tonumber(matches[4])}
+bot.status.inventory.items[#bot.status.inventory.items + 1] = {matches[5], tonumber(matches[6]), tonumber(matches[7])}</script>
                         <triggerType>0</triggerType>
                         <conditonLineDelta>0</conditonLineDelta>
                         <mStayOpen>0</mStayOpen>
@@ -374,8 +374,8 @@ bot.items.inventory[#bot.items.inventory + 1] = {matches[5], tonumber(matches[6]
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>weight</name>
-                    <script>bot.items.weight = tonumber(matches[2])
-bot.items.encumbrance = matches[3]</script>
+                    <script>bot.status.inventory.weight = tonumber(matches[2])
+bot.status.inventory.encumbrance = matches[3]</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -395,7 +395,7 @@ bot.items.encumbrance = matches[3]</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>worn weight</name>
-                    <script>bot.items.wornWeight = tonumber(matches[2])</script>
+                    <script>bot.status.inventory.wornWeight = tonumber(matches[2])</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -415,8 +415,8 @@ bot.items.encumbrance = matches[3]</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>number</name>
-                    <script>bot.items.numItems = tonumber(matches[2])
-bot.items.maxItems = tonumber(matches[3])
+                    <script>bot.status.inventory.numItems = tonumber(matches[2])
+bot.status.inventory.maxItems = tonumber(matches[3])
 disableTrigger(&quot;refresh inventory&quot;)
 raiseEvent(&quot;inventoryUpdated&quot;)</script>
                     <triggerType>0</triggerType>
@@ -499,7 +499,7 @@ raiseEvent(&quot;inventoryUpdated&quot;)</script>
             <regexCodePropertyList/>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>level</name>
-                <script>bot.status.level = tonumber(matches[2])</script>
+                <script>bot.status.score.level = tonumber(matches[2])</script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -557,13 +557,14 @@ raiseEvent(&quot;scoreUpdated&quot;)</script>
         </TriggerGroup>
         <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
             <name>Prompt</name>
-            <script>bot.status.hits = tonumber(matches[2])
-bot.status.maxHits = tonumber(matches[3])
-bot.status.energy = tonumber(matches[4])
-bot.status.maxEnergy = tonumber(matches[5])
-bot.status.moves = tonumber(matches[6])
-bot.status.maxMoves = tonumber(matches[7])
-bot.status.xp = tonumber(matches[8])
+            <script>bot.status.health.hits = tonumber(matches[2])
+bot.status.health.maxHits = tonumber(matches[3])
+bot.status.health.energy = tonumber(matches[4])
+bot.status.health.maxEnergy = tonumber(matches[5])
+bot.status.health.moves = tonumber(matches[6])
+bot.status.health.maxMoves = tonumber(matches[7])
+bot.status.score.xp = tonumber(matches[8])
+bot.status.location.exits=string.lower(matches[11])
 
 -- prompt ?p'-- MORE -- '&lt;%f?f|%h/%Hhp %e/%Ee ?m'[%m/%Mmv]'!m'%v/%Vmv' %xxp ?b'%c'!b'%d'&gt;</script>
             <triggerType>0</triggerType>
@@ -577,7 +578,7 @@ bot.status.xp = tonumber(matches[8])
             <colorTriggerFgColor>#000000</colorTriggerFgColor>
             <colorTriggerBgColor>#000000</colorTriggerBgColor>
             <regexCodeList>
-                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? ([-0-9]+)xp(?: (\d*)\/(\d*)hp)?.*&gt;</string>
+                <string>^(?:-- MORE -- )?&lt;[A-Za-z]*\|?(\d*)\/(\d*)hp (\d*)\/(\d*)e \[?(\d*)/(\d*)mv\]? ([-0-9]+)xp(?: (\d*)\/(\d*)hp)? (\w+)&gt;</string>
             </regexCodeList>
             <regexCodePropertyList>
                 <integer>1</integer>
@@ -623,9 +624,7 @@ echo(&quot;postinit&quot;)</script>
             <regexCodePropertyList/>
             <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                 <name>leapsToAttack</name>
-                <script>raiseEvent(&quot;leapsToAttack&quot;,
-           string.lower(string.trim(matches[2])),
-           string.lower(string.trim(matches[3])))</script>
+                <script></script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
@@ -860,16 +859,16 @@ raiseEvent(&quot;someoneIsDEAD&quot;, string.lower(string.trim(matches[2])))</sc
                     <name>equipment line</name>
                     <script>if not (matches[2] == &quot;---- --------&quot;) then
   if #matches == 5 then
-    bot.items.currentEqLayer = matches[2]
-    bot.items.equipment[#bot.items.equipment + 1] = {matches[2],
-                                                     matches[3],
-                                                     matches[4],
-                                                     matches[5]}
+    bot.status.equipment.currentEqLayer = matches[2]
+    bot.status.equipment.items[#bot.status.equipment.items + 1] = {matches[2],
+                                                                   matches[3],
+                                                                   matches[4],
+                                                                   matches[5]}
   elseif #matches == 4 then
-    bot.items.equipment[#bot.items.equipment + 1] = {bot.items.currentEqLayer,
-                                                     matches[2],
-                                                     matches[3],
-                                                     matches[4]}
+    bot.status.equipment.items[#bot.status.equipment.items + 1] = {bot.items.currentEqLayer,
+                                                                   matches[2],
+                                                                   matches[3],
+                                                                   matches[4]}
   end
 end</script>
                     <triggerType>0</triggerType>
@@ -893,7 +892,7 @@ end</script>
                 </Trigger>
                 <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
                     <name>disable equipment</name>
-                    <script>bot.items.wornWeight = tonumber(matches[2])
+                    <script>bot.status.inventory.wornWeight = tonumber(matches[2])
 disableTrigger(&quot;equipment line&quot;)
 disableTrigger(&quot;refresh equipment&quot;)
 raiseEvent(&quot;equipmentUpdated&quot;)</script>
@@ -916,6 +915,47 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
                 </Trigger>
             </TriggerGroup>
         </TriggerGroup>
+        <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>scanLine</name>
+            <script>bot.handlerModules.scan.parseScanLine(matches[2], matches[3])
+--raiseEvent(&quot;scanLine&quot;, string.trim(matches[2]), matches[3])</script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList>
+                <string>^      (\[Here\]| north|  east| south|  west|    up|  down) : (.+)$</string>
+            </regexCodeList>
+            <regexCodePropertyList>
+                <integer>1</integer>
+            </regexCodePropertyList>
+        </Trigger>
+        <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>moved</name>
+            <script>raiseEvent(&quot;moved&quot;, matches[2])</script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList>
+                <string>You leave (\w+).$</string>
+            </regexCodeList>
+            <regexCodePropertyList>
+                <integer>1</integer>
+            </regexCodePropertyList>
+        </Trigger>
     </TriggerPackage>
     <TimerPackage>
         <Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
@@ -943,28 +983,28 @@ raiseEvent(&quot;equipmentUpdated&quot;)</script>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test inventory</name>
-            <script>bot.functions.updateInventory()</script>
+            <script>bot.handlerModules.inventory.updateInventory()</script>
             <command></command>
             <packageName></packageName>
             <regex>testInv</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test score</name>
-            <script>bot.functions.updateScore()</script>
+            <script>bot.handlerModules.score.updateScore()</script>
             <command></command>
             <packageName></packageName>
             <regex>testScore</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test ident</name>
-            <script>bot.functions.updateIdentity()</script>
+            <script>bot.handlerModules.identity.updateIdentity()</script>
             <command></command>
             <packageName></packageName>
             <regex>testIdent</regex>
         </Alias>
         <Alias isActive="yes" isFolder="no">
             <name>test equipment</name>
-            <script>bot.functions.updateEquipment()</script>
+            <script>bot.handlerModules.equipment.updateEquipment()</script>
             <command></command>
             <packageName></packageName>
             <regex>^testEq</regex>
