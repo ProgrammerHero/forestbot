@@ -32,7 +32,7 @@ local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 
 local bt = {}
 
-local Class = require 'behaviourtree.class'
+local Class = require 'modules.class'
 
 --------------------------------------------------------------------------------
 -- ACTION: Perform a single task and return the result.
@@ -44,11 +44,12 @@ bt.Action = Class({init = function(self, name, task)
 end})
 
 function bt.Action:run(creatureAI)
-  debugMessage(self.name .. " update")
+  local result = false
   if self.task then
-    return self.task(creatureAI)
+    result = self.task(creatureAI)
   end
-  return false
+  debugMessage(self.name .. " " .. tostring(result))
+  return result
 end
 
 --------------------------------------------------------------------------------

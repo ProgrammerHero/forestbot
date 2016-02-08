@@ -13,12 +13,12 @@
     "nodes": {
         "4b6cbdfe-4513-4689-8c12-a221c4c5ed91": {
             "id": "4b6cbdfe-4513-4689-8c12-a221c4c5ed91",
-            "name": "isHungry",
-            "title": "Is hungry",
+            "name": "isHungry?",
+            "title": "isHungry?",
             "description": "",
             "display": {
                 "x": 432,
-                "y": -486.4
+                "y": -528
             },
             "parameters": {},
             "properties": {}
@@ -26,7 +26,7 @@
         "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad": {
             "id": "a4364ca2-61f3-4bfb-89b7-acf8fe7083ad",
             "name": "eatFood",
-            "title": "Eat food",
+            "title": "eatFood",
             "description": "",
             "display": {
                 "x": 432,
@@ -71,8 +71,8 @@
         },
         "8dad92de-95c1-4a03-853f-33e67ed428a9": {
             "id": "8dad92de-95c1-4a03-853f-33e67ed428a9",
-            "name": "isThirsty",
-            "title": "Is thirsty",
+            "name": "isThirsty?",
+            "title": "isThirsty?",
             "description": "",
             "display": {
                 "x": 432,
@@ -84,7 +84,7 @@
         "cc7cd240-b053-42a2-8de3-b6c2abb879ee": {
             "id": "cc7cd240-b053-42a2-8de3-b6c2abb879ee",
             "name": "drinkWater",
-            "title": "Drink",
+            "title": "drinkWater",
             "description": "",
             "display": {
                 "x": 432,
@@ -95,8 +95,8 @@
         },
         "1e373794-ae21-4a3c-8ad6-dc235f3718d0": {
             "id": "1e373794-ae21-4a3c-8ad6-dc235f3718d0",
-            "name": "hasItem",
-            "title": "Has item",
+            "name": "hasItem?",
+            "title": "hasItem?",
             "description": "",
             "display": {
                 "x": 432,
@@ -109,8 +109,8 @@
         },
         "e5be7f01-8c38-4dc6-844a-aa247de70beb": {
             "id": "e5be7f01-8c38-4dc6-844a-aa247de70beb",
-            "name": "hasItem",
-            "title": "Has item",
+            "name": "hasItem?",
+            "title": "hasItem?",
             "description": "",
             "display": {
                 "x": 432,
@@ -140,8 +140,8 @@
         },
         "d9303cb9-2f71-4cab-b929-6d377fc5d40d": {
             "id": "d9303cb9-2f71-4cab-b929-6d377fc5d40d",
-            "name": "enemyPresent",
-            "title": "Enemy present",
+            "name": "enemyPresent?",
+            "title": "enemyPresent?",
             "description": "",
             "display": {
                 "x": 432,
@@ -152,8 +152,8 @@
         },
         "ab94581f-5d74-44b2-8c9f-dd90233dc206": {
             "id": "ab94581f-5d74-44b2-8c9f-dd90233dc206",
-            "name": "shouldFight",
-            "title": "Should Fight",
+            "name": "shouldFight?",
+            "title": "shouldFight?",
             "description": "",
             "display": {
                 "x": 640,
@@ -165,7 +165,7 @@
         "99f436a5-c97a-41f2-8253-67dd1b58bce0": {
             "id": "99f436a5-c97a-41f2-8253-67dd1b58bce0",
             "name": "attack",
-            "title": "Attack",
+            "title": "attack",
             "description": "",
             "display": {
                 "x": 432,
@@ -188,18 +188,6 @@
             "children": [
                 "9ead1301-77f1-47b7-89b9-e76242d2a268"
             ]
-        },
-        "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe": {
-            "id": "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe",
-            "name": "moveTo",
-            "title": "Escape",
-            "description": "specialized movement",
-            "display": {
-                "x": 848,
-                "y": 217.60000000000002
-            },
-            "parameters": {},
-            "properties": {}
         },
         "85defb61-6d5c-41f9-a02b-3c050011f4fa": {
             "id": "85defb61-6d5c-41f9-a02b-3c050011f4fa",
@@ -228,12 +216,12 @@
             },
             "parameters": {},
             "properties": {},
-            "child": "e2a2aa85-8687-4821-aa3d-30ff6a12ddbe"
+            "child": "156d1de5-d227-4d2b-8e09-9066fa370356"
         },
         "9ead1301-77f1-47b7-89b9-e76242d2a268": {
             "id": "9ead1301-77f1-47b7-89b9-e76242d2a268",
             "name": "moveTo",
-            "title": "Move to",
+            "title": "moveTo",
             "description": "",
             "display": {
                 "x": 432,
@@ -261,8 +249,8 @@
         },
         "2334ef19-60a4-43ce-8f89-1a6fdd5cc03c": {
             "id": "2334ef19-60a4-43ce-8f89-1a6fdd5cc03c",
-            "name": "isTired",
-            "title": "Is tired",
+            "name": "isTired?",
+            "title": "isTired?",
             "description": "",
             "display": {
                 "x": 432,
@@ -274,7 +262,7 @@
         "3826c074-66f5-4c7f-b007-a56d51171b4e": {
             "id": "3826c074-66f5-4c7f-b007-a56d51171b4e",
             "name": "sleep",
-            "title": "Sleep",
+            "title": "sleep",
             "description": "",
             "display": {
                 "x": 432,
@@ -285,8 +273,8 @@
         },
         "bb38743e-beb7-4ced-81a7-b619938ca84e": {
             "id": "bb38743e-beb7-4ced-81a7-b619938ca84e",
-            "name": "enemyPresent",
-            "title": "Enemy present",
+            "name": "enemyPresent?",
+            "title": "enemyPresent?",
             "description": "",
             "display": {
                 "x": 640,
@@ -326,64 +314,85 @@
                 "bf211aeb-5b72-40e3-8144-7e0c7fb2aa28",
                 "785714c2-45c1-4db5-a320-746bd16c86af"
             ]
+        },
+        "156d1de5-d227-4d2b-8e09-9066fa370356": {
+            "id": "156d1de5-d227-4d2b-8e09-9066fa370356",
+            "name": "escape",
+            "title": "escape",
+            "description": "",
+            "display": {
+                "x": 848,
+                "y": 224
+            },
+            "parameters": {},
+            "properties": {}
         }
     },
     "custom_nodes": [
         {
-            "name": "isHungry",
-            "title": "Is hungry",
+            "name": "isEating?",
+            "title": "",
             "category": "condition"
         },
         {
-            "name": "isThirsty",
-            "title": "Is thirsty",
+            "name": "isHungry?",
+            "title": "",
             "category": "condition"
         },
         {
-            "name": "hasItem",
-            "title": "Has item",
+            "name": "isThirsty?",
+            "title": "",
             "category": "condition"
         },
         {
-            "name": "enemyPresent",
-            "title": "Enemy present",
+            "name": "hasItem?",
+            "title": "",
             "category": "condition"
         },
         {
-            "name": "shouldFight",
-            "title": "Should Fight",
+            "name": "enemyPresent?",
+            "title": "",
             "category": "condition"
         },
         {
-            "name": "isTired",
-            "title": "Is tired",
+            "name": "shouldFight?",
+            "title": "",
+            "category": "condition"
+        },
+        {
+            "name": "isTired?",
+            "title": "",
             "category": "condition"
         },
         {
             "name": "eatFood",
-            "title": "Eat food",
+            "title": "",
             "category": "action"
         },
         {
             "name": "drinkWater",
-            "title": "Drink",
+            "title": "",
             "category": "action"
         },
         {
             "name": "attack",
-            "title": "Attack",
+            "title": "",
             "category": "action"
         },
         {
             "name": "moveTo",
-            "title": "Move to",
+            "title": "",
             "category": "action"
         },
         {
             "name": "sleep",
-            "title": "Sleep",
+            "title": "",
+            "category": "action"
+        },
+        {
+            "name": "escape",
+            "title": "",
             "category": "action"
         }
     ]
 }
-

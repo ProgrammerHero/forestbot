@@ -52,17 +52,20 @@ local function buildBTree(tree, rootID)
   end
 
   -- now figure out what this node is
-  --------------------------
-  -- Behaviour3JS core nodes
-  --------------------------
   local name = tree[rootID]["name"]
 
+  local taskKey
+  if string.sub(name, #name) == "?" then
+    -- conditions end with '?'
+    taskKey = string.sub(name, 1, #name - 1)
+  else
+    taskKey = name
+  end
+
   if bt[name] then
-    debugMessage("Building " .. name)
     node = bt[name](children, maxLoop)
-  elseif tasks and tasks[name] then
-    debugMessage("Building " .. name)
-    node = bt.Action(name, tasks[name])
+  elseif tasks and tasks[taskKey] then
+    node = bt.Action(name, tasks[taskKey])
   else
     debugMessage("Unrecognized btree element '" .. name .. "'")
     node = nil
