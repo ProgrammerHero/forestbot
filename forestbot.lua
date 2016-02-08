@@ -21,8 +21,10 @@ local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 --------------------------------------------------------------------------------
 bot = {}
 local modules = {
-                  "modules.behaviourtree", -- not used in this module
-                                           -- only to force-reload it
+                  -- These modules only included so they get force-reloaded
+                  "modules.behaviourtree",
+
+                  -- Bot modules
                   "modules.handlerUtils",
                   "modules.needs",
                   "modules.combat",
@@ -35,7 +37,9 @@ local modules = {
                   "modules.movement",
 --                  "modules.effects",
 --                  "modules.stance",
-                  "modules.botbtree",  -- Load last so other modules populate tasks
+
+                  -- Load botbtree last so other modules have populated tasks
+                  "modules.botbtree",
                 }
 
 -- Forward declarations to allow these functions to be private and defined
@@ -51,6 +55,7 @@ local resetModule
 function bot.init()
   debugMessage("bot.init()")
   bot.status = {}
+  bot.events = {}
   bot.handlers = {}
   bot.tasks = {}
 
@@ -58,6 +63,8 @@ function bot.init()
     reloadModule(bot, moduleName)
     initModule(bot, moduleName, bot.status, bot.tasks)
   end
+
+  bot.modules.handlerUtils.setupThinking(bot.events)
 end
 
 --------------------------------------------------------------------------------

@@ -8,14 +8,10 @@ local debugMessage = require("modules.debugUtils").getDebugMessage(debugMode)
 -- This may be tough, because I think Mudlet needs the handlers to be accessible
 -- through the global namespace so that it can call them by name.
 
-function handlerUtils.init()
-  bot.handlers = {}
-end
-
 --------------------------------------------------------------------------------
 -- Function to register an event handler with Mudlet's event system
 -- Stores registered handlers in the bot.handlers namespace.
--- All events include bot.thinkAfterTriggers as a handler.
+-- Stores all events seen in the bot.events, treated as a set (no repeated events)
 -- We guarantee that only one event will be fired per line from the mud.
 --------------------------------------------------------------------------------
 function handlerUtils.addHandler(eventName, handlerName, handlerFunc)
@@ -23,7 +19,7 @@ function handlerUtils.addHandler(eventName, handlerName, handlerFunc)
   " to handle \"" .. eventName .. "\" event.")
   bot.handlers[handlerName] = handlerFunc
   registerAnonymousEventHandler(eventName, "bot.handlers." .. handlerName)
-  registerAnonymousEventHandler(eventName, "bot.think")
+  bot.events[eventName] = true
 end
 
 --------------------------------------------------------------------------------
@@ -33,6 +29,21 @@ end
 --------------------------------------------------------------------------------
 function handlerUtils.removeHandler(eventName, handlerName)
   bot.handlers[handlerName] = function() end
+end
+
+--------------------------------------------------------------------------------
+-- The bot thinks after any event is received, but only as the final handler
+-- for the event. This guarantees that other event handlers properly update
+-- the world status before the bot thinks.
+-- An unfortunate side-effect of not being able to remove event handlers in
+-- Mudlet is that, when you add a handler, you must restart Mudlet. If you do
+-- not, bot.think() will no longer happen as the final action for a given line
+-- from the mud.
+--------------------------------------------------------------------------------
+function handlerUtils.setupThinking(events)
+  for eventName, _ in pairs(events) do
+    registerAnonymousEventHandler(eventName, "bot.think")
+  end
 end
 
 return handlerUtils
