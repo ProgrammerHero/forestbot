@@ -55,30 +55,18 @@ end
 function installTasks()
 
   -- Conditions -----------------------------------------------------------------
+
   function tasks.isHungry()
-    if status.needs.hunger > 0 then
-      debugMessage("Checking if the bot is hungry... yes.")
-      return true
-    else
-      debugMessage("Checking if the bot is hungry... no.")
-      return false
-    end
+    return status.needs.hunger > 0
   end
 
   function tasks.isThirsty()
-    if status.needs.thirst > 0 then
-      debugMessage("Checking if the bot is thirsty... yes.")
-      return true
-    else
-      debugMessage("Checking if the bot is thirsty... no.")
-      return false
-    end
+    return status.needs.thirst > 0
   end
 
   -- Actions -------------------------------------------------------------------
 
   function tasks.eatFood()
-    debugMessage("Eating food")
     -- should be smarter and try to find specific food
     send("eat food")
     return true
@@ -86,7 +74,6 @@ function installTasks()
   end
 
   function tasks.drinkWater()
-    debugMessage("Drinking")
     -- should be smarter and try to find a specific drink
     -- also need to make sure we have a drink equipped
     send("drink bronze.cup")

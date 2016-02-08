@@ -137,22 +137,16 @@ function installTasks()
   -- Conditions -----------------------------------------------------------------
 
   function tasks.inCombat()
-    if #status.combat.targets == 0 then
-      debugMessage("In combat? No.")
-      return true
-    else
-      debugMessage("In combat? Yes.")
-      return false
-    end
+    return #status.combat.targets > 0
   end
 
 
   -- Actions --------------------------------------------------------------------
 
   function tasks.attack(target)
-    debugMessage("Attacking " .. target)
     return true
   end
+
 end
 
 return combat

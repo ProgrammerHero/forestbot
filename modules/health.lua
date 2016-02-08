@@ -54,13 +54,7 @@ function installTasks()
   -- Conditions ----------------------------------------------------------------
 
   function tasks.isTired()
-    if (status.health.moves < 20) then
-      debugMessage("Checking if the bot is tired... yes.")
-      return true
-    else
-      debugMessage("Checking if the bot is tired... no.")
-      return false
-    end
+    return status.health.moves < 20
   end
 
   function tasks.shouldFight()
