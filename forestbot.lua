@@ -35,7 +35,7 @@ local modules = {
                   "modules.movement",
 --                  "modules.effects",
 --                  "modules.stance",
-                  "botbtree",  -- Load last so other modules populate tasks
+                  "modules.botbtree",  -- Load last so other modules populate tasks
                 }
 
 -- Forward declarations to allow these functions to be private and defined
@@ -136,15 +136,8 @@ end
 --------------------------------------------------------------------------------
 function bot.think()
   debugMessage("Thinking...")
-  bot.botbtree.think()
+  bot.modules.botbtree.think()
 end
-
----- reset behaviours
---bot.btree = bot.botbtree.loadJSON("behaviour.json")
---
---  bot.btree:run(bot)
---
---end
 
 --------------------------------------------------------------------------------
 -- Script start.
